@@ -1,0 +1,4 @@
+- source: project
+  quarto-pub:
+    - id: 92d893d8-1e9b-4d2c-a631-6ed8b26a8f24
+      url: 'https://invictus.quarto.pub/blog'
