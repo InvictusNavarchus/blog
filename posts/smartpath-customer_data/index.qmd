@@ -1,0 +1,112 @@
+---
+title: "SmartPath - Customer Data"
+description: "Exploring the fictional dataset Customer Data, provided during SmartPath Data Analyst Bootcamp"
+author: "invictus"
+date: "7/4/2024"
+draft: false
+toc: true
+toc-depth: 6
+---
+
+## Setup
+
+We'll be using the `tidyverse` library, as well as some useful packages for a quick data inspection such as `summarytools` and `DataExplorer`
+
+### Libraries
+
+```{r}
+library(tidyverse)
+library(DataExplorer)
+library(summarytools)
+```
+
+### Options
+
+I'm not good with scientific notation. It's hard to read. So let's turn it off by setting the threshold to a high value. While we're at it, we can also set the amuont of significance digits. 
+
+```{r}
+options(scipen = 999, digits = 2)
+```
+
+### Variables
+
+```{r}
+df <- read.csv('customer_data.csv') |> 
+  as_tibble()
+```
+
+### Inspect Dataset
+
+All set, let's check out the dataset (no pun intended). 
+
+```{r}
+df
+```
+
+```{r}
+glimpse(df)
+```
+
+At a glance, we can spot several problems with this dataset:
+
+1.  `Dt_Customer` should've been a date format. from the first few rows, the date seems to be complete, so let's try parsing it.
+
+```{r}
+df$Dt_Customer |> 
+  mdy() |> 
+  head()
+```
+There is no error, fortunately, so we can apply it right away.
+
+```{r}
+df$Dt_Customer <- df$Dt_Customer |> 
+  mdy()
+```
+
+
+2.  `Year_Birth` is a bit tricky. It's actually an incomplete date, but we can't convert it to date format either because we need the month and days too. We can set everything as January the 1st, but that would be misleading. Integers would also be inaccurate because it's not really a number, we aren't supposed to perform arithmetic operations on it. However, I believe it's the most ideal type. So we can leave it as it is. 
+
+Now let's further explore the variables. We'll start with the categorical since there is only one.
+
+### Explore Categorical Variables
+
+```{r}
+freq(df)
+```
+I honestly didn't expect the 3 numerical variables to show up. After I think about it, it kinda makes sense, because they're integers, so they aren't continuous, they discrete. It may be useful to inspect their frequency to spot outliers, but for now we'll focus on `Education`.
+
+```{r}
+df$Education |> freq()
+```
+
+```{r}
+df$Education |> plot_bar()
+```
+No serious problems spotted. No missing values, no weird values. The distribution also seems 'normal'. The frequency increases as the education goes up, except for the PhD. We could guess that the customers are mostly from well-educated backgrounds. 
+
+Now let's explore the numerical variables.
+
+### Explore Numerical Variables
+
+```{r}
+descr(df, stats=c('n.valid', 'pct.valid', 'mean', 'min', 'q1', 'q3', 'max'))
+```
+```{r}
+df |> plot_histogram()
+```
+
+Nearly no missing values, perfect. The only missing values are within Income, which are only about 2%. We could drop the rows, but we don't need to for now. The valid data in the other columns can still provide aid to other analysis.
+
+I'm interested to why they are missing, though. We have 2 data that we could analyze it with: `Year_Birth` and `Education`. Maybe older people tend to be sensitive about their income, so they leave it empty. Or maybe it's the younger people that do! (who knows?). 
+
+Unfortunately, I think 2% is too small of a sample to get reliable result. So let's just leave it as it is.
+
+#### Explore Relationships
+
+With all these numeric variables, there's various relationships we could investigate. As starters, let's draw up a correlation matrix to see a broad overview. We'll remove ID since it's irrelevant. 
+
+```{r}
+df_numeric <- df |> 
+  select(!ID)
+plot_correlation(df_numeric, type = 'continuous', maxcat = 0, cor_args =  list("use" = "pairwise.complete.obs"))
+```
