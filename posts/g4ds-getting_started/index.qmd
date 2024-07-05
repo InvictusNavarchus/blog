@@ -1,0 +1,138 @@
+---
+title: "Working through G4DS - Getting Started"
+description: "This is the first post on this series. I will go over the book and give genuine commentary as I follow the tutorial."
+author: "invictus"
+date: "7/5/2024"
+draft: true
+toc: true
+toc-depth: 6
+---
+
+## Preface
+
+Previously, I've been using Python in Jupyter Notebooks along with its tools such as Pandas, Seaborn, Plotly. I'm not an expert yet. I'm barely familiar with the toolset. Then, I found out about R. I heard many interesting things about: it's simplicity, it's advantages over Python, it's power over Statistic and Data Analysis. Then, I found ggplot2. I instantly fell in love with its grammar of graphics.
+
+Then, I tried R myself. It's amazing. I decided, well, I guess I'll dump Python right there and there. I'm not saying Python is bad at all. It's amazing. I've been using it for years for scripting. I just feel that R is well more suited for data analysis. It's as if it's designed for it.
+
+I've learned a bit about ggplot on [R4DS](https://r4ds.hadley.nz/). Then I stopped midway and asked myself: "Why don't I just dive deep into it before continuing?" I already know there's an amazing book [ggplot2: Elegant Graphics for Data Analysis (3e)](https://ggplot2-book.org/), available for free online.
+
+At first, I was just exploring blindly, trying many functions while skimming through the books. It's fun and all, but I realized that I could make my learning much more effective if I document it. Especially if I use narrative: explaining the steps I take, and my thought process in-between.
+
+And, here I am. It's barely a month since I started exploring the world of Data Analysis, and I already fell in love with it. That's why I decided to be serious about it.
+
+Alright, that's enough of my story, let's get started. Feel free to follow along with the [book](https://ggplot2-book.org/). As the title suggests, we'll be working on each chapter with each post. Therefore, this post will be dedicated to document my journey on chapter [Getting Started]((https://ggplot2-book.org/getting-started))
+
+## 2.1 Introduction
+
+> The goal of this chapter is to teach you how to produce useful graphics with ggplot2 as quickly as possible. You’ll learn the basics of ggplot() along with some useful “recipes” to make the most important plots.
+
+Looks like the book will follow a similiar pattern to [R4DS](https://r4ds.hadley.nz/) and [Python4DS](https://aeturrell.github.io/python4DS/welcome.html). The first chapter will be a rapid overview. No problem.
+
+> Here we’ll skip the theory and focus on the practice, and in later chapters you’ll learn how to use the full expressive power of the grammar.
+
+Since there is no theory, I'm guessing there will be a lot of experiments and figuring things out. Sounds fun.
+
+> In this chapter you’ll learn:
+>
+> -   About the `mpg` dataset included with ggplot2, [Section 2.2](https://ggplot2-book.org/getting-started#sec-fuel-economy-data).
+>
+> -   The three key components of every plot: data, aesthetics and geoms, [Section 2.3](https://ggplot2-book.org/getting-started#sec-basic-use).
+>
+> -   How to add additional variables to a plot with aesthetics, [Section 2.4](https://ggplot2-book.org/getting-started#sec-aesthetics).
+>
+> -   How to display additional categorical variables in a plot using small multiples created by faceting, [Section 2.5](https://ggplot2-book.org/getting-started#sec-qplot-faceting).
+>
+> -   A variety of different geoms that you can use to create different types of plots, [Section 2.6](https://ggplot2-book.org/getting-started#sec-plot-geoms).
+>
+> -   How to modify the axes, [Section 2.7](https://ggplot2-book.org/getting-started#sec-axes).
+>
+> -   Things you can do with a plot object other than display it, like save it to disk, [Section 2.8](https://ggplot2-book.org/getting-started#sec-output).
+
+That seems a lot for an introduction. Oh right, it's a rapid overview. That makes sense. I wonder what `mpg` dataset is.
+
+## 2.2 Fuel Economy Data
+
+> In this chapter, we’ll mostly use one data set that’s bundled with ggplot2: `mpg`. It includes information about the fuel economy of popular car models in 1999 and 2008, collected by the US Environmental Protection Agency, [http://fueleconomy.gov](http://fueleconomy.gov/).
+
+Ahh, car models. Too bad I'm not familiar with cars. Let's see if I can follow along.
+
+```{r}
+library(ggplot2)
+mpg
+```
+
+> The variables are mostly self-explanatory:
+>
+> -   `cty` and `hwy` record miles per gallon (mpg) for city and highway driving.
+>
+> -   `displ` is the engine displacement in litres.
+>
+> -   `drv` is the drivetrain: front wheel (f), rear wheel (r) or four wheel (4).
+>
+> -   `model` is the model of car. There are 38 models, selected because they had a new edition every year between 1999 and 2008.
+>
+> -   `class` is a categorical variable describing the “type” of car: two seater, SUV, compact, etc.
+
+Okay, understandable.
+
+> This dataset suggests many interesting questions. How are engine size and fuel economy related? Do certain manufacturers care more about fuel economy than others? Has fuel economy improved in the last ten years?
+
+Now I want to pull up `ggplot` right away and draw a scatter plot.
+
+> We will try to answer some of these questions, and in the process learn how to create some basic plots with ggplot2.
+
+But let's follow the intended workflow for now. There's plenty of time and other datasets to freely explore.
+
+### 2.2.1 Exercises
+
+> 1.  List five functions that you could use to get more information about the `mpg` dataset.
+>
+> 2.  How can you find out what other datasets are included with ggplot2?
+>
+> 3.  Apart from the US, most countries use fuel consumption (fuel consumed over fixed distance) rather than fuel economy (distance travelled with fixed amount of fuel). How could you convert `cty` and `hwy` into the European standard of l/100km?
+>
+> 4.  Which manufacturer has the most models in this dataset? Which model has the most variations? Does your answer change if you remove the redundant specification of drive train (e.g. "pathfinder 4wd", "a4 quattro") from the model name?
+
+Interesting questions. Let's try unpacking them one by one.
+
+> 1.  List five functions that you could use to get more information about the `mpg` dataset.
+
+I'm not sure exactly what 'functions' the text are referring to? Any functions? I can list several functions from `dplyr` packages, but I'm not sure that's what intended because this is book on `ggplot`. But at the same time, we're just starting out, so we aren't supposed to know many `ggplot` functions, yet.
+
+Tricky. I guess I'll lean toward 'any'.
+
+1.  `select()`
+2.  `filter()`
+3.  `mutate()`
+4.  `arrange()`
+5.  `distinct()`
+
+Yeah, whatever, haha. If you know what the answer should've been, let me know in the comments.
+
+> 1.  How can you find out what other datasets are included with ggplot2?
+
+Usually, I just do `ggplot::` and browse through the suggested auto-completion. The dataset will have a special icon on it.
+
+![](./images/1_screenshot_dataset.png)
+
+In RStudio, you can do similar thing by browsing the Environment tab.
+
+![](./images/2_screenshot_dataset.png)
+
+I don't know how to take HD screenshots. The compression quality doesn't change anything. So please let me know if you know.
+
+> 3.  Apart from the US, most countries use fuel consumption (fuel consumed over fixed distance) rather than fuel economy (distance travelled with fixed amount of fuel). How could you convert `cty` and `hwy` into the European standard of l/100km?
+
+Wait, what. I'm not familiar all of these terms. Let me look it up...
+
+> *By Nemotron-4 AI:*
+>
+> The text highlights the difference between two ways of measuring fuel efficiency: fuel consumption and fuel economy.
+>
+> Fuel consumption is the amount of fuel used over a fixed distance, typically measured in liters per 100 kilometers (L/100km) or gallons per 100 miles (gal/100mi). This metric directly indicates how much fuel a vehicle consumes to cover a specific distance.
+>
+> On the other hand, fuel economy is the distance traveled with a fixed amount of fuel, often expressed in kilometers per liter (km/L) or miles per gallon (mpg). This measure represents the efficiency of a vehicle in terms of how far it can go on a given quantity of fuel.
+
+I'm starting to understand a little bit. These terms are very new to me. So basically you just swap the dividend and operand? Ughhh, this feels more like Math homework rather than programming.
+
+> 4.  Which manufacturer has the most models in this dataset? Which model has the most variations? Does your answer change if you remove the redundant specification of drive train (e.g. "pathfinder 4wd", "a4 quattro") from the model name?
