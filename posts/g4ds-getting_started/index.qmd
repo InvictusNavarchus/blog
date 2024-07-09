@@ -1,9 +1,9 @@
 ---
-title: "Working through G4DS - Getting Started"
+title: "Working through G4DS: Getting Started - Part 1"
 description: "This is the first post on this series. I will go over the book and give genuine commentary as I follow the tutorial."
 author: "invictus"
-date: "7/5/2024"
-draft: true
+date: "7/9/2024"
+draft: false
 toc: true
 toc-depth: 6
 ---
@@ -125,14 +125,85 @@ I don't know how to take HD screenshots. The compression quality doesn't change 
 
 Wait, what. I'm not familiar all of these terms. Let me look it up...
 
-> *By Nemotron-4 AI:*
->
 > The text highlights the difference between two ways of measuring fuel efficiency: fuel consumption and fuel economy.
 >
 > Fuel consumption is the amount of fuel used over a fixed distance, typically measured in liters per 100 kilometers (L/100km) or gallons per 100 miles (gal/100mi). This metric directly indicates how much fuel a vehicle consumes to cover a specific distance.
 >
 > On the other hand, fuel economy is the distance traveled with a fixed amount of fuel, often expressed in kilometers per liter (km/L) or miles per gallon (mpg). This measure represents the efficiency of a vehicle in terms of how far it can go on a given quantity of fuel.
 
-I'm starting to understand a little bit. These terms are very new to me. So basically you just swap the dividend and operand? Ughhh, this feels more like Math homework rather than programming.
+Okay, I'm starting to get the hang of it. However, I believe that researching the difference between the two is beyond the scope of this chapter, let alone this book. So, let's skip over this. (Read: I'm too lazy to deal with Math, lol)
 
 > 4.  Which manufacturer has the most models in this dataset? Which model has the most variations? Does your answer change if you remove the redundant specification of drive train (e.g. "pathfinder 4wd", "a4 quattro") from the model name?
+
+What does 'most models' supposed to mean here? I'm guessing it means 'most amounts of models', regardless of how many cars are there with those models.
+
+At first, the `group by` function from `dplyr` cames to mind, but the book is about ggplot, not `dplyr`, so I doubt we should be using that here.
+
+My guess is, ggplot should be able to help us see which manufacturer has the most models through visualization.
+
+As starters, let's create a scatterplot with manufacturer as the x and model as the y
+
+```{r}
+mpg
+```
+
+```{r}
+mpg |> 
+  ggplot(aes(x=manufacturer, y=model, color=manufacturer)) + 
+  geom_point()
+```
+
+Nope, it doesn't help much. I could manually count the dot for each manufacturer, but that's inefficient. Is there a way to collapse all the points and just make a bar to show many models each manufacturer has? Ahh, we can, if we make manipulation first using `dplyr`. We're back to square one.
+
+Alright, I guess we still have to transform the data
+
+```{r}
+library(dplyr)
+```
+
+I forgot what the data looks like, let's see...
+
+```{r}
+mpg
+```
+
+Ahh, alright. Let's select the unique values from the `manufacturer` and `model`.
+
+```{r}
+mpg |> 
+  distinct(manufacturer, model)
+```
+
+Now it's much clearer, but it doesn't immediately show us which manufacturer has the most models. That's where `group by` comes in
+
+```{r}
+models_count <- mpg |> 
+  distinct(manufacturer, model) |> 
+  group_by(manufacturer) |> 
+  count(name='total_model') |> 
+  arrange(desc(total_model))
+
+models_count
+```
+
+Now we can make a bar plot from this.
+
+```{r}
+models_count |> 
+  ggplot(aes(y=manufacturer, x=total_model)) +
+  geom_col()
+```
+
+I'm not sure why it's defaulting to alphabetical sorting, but we can see that Toyota has the most models: 6. Well, we can see that from the table anyway.
+
+> Does your answer change if you remove the redundant specification of drive train (e.g. "pathfinder 4wd", "a4 quattro") from the model name?
+
+I'm not familiar with cars, so it depends on whether these 2 specification are different. It says 'redundant', so I'm guessing they're the same model. If that's the case, then yes it would change the answer, because both models will be counted as 1 model.
+
+## Closing
+
+Alright, the post become much longer than expected. And we're still halfway through the chapter. We'll continue the second part on a new post.
+
+Also, I heavily underestimated the amount of content the book has. So, unless, there's something very interesting, we'll just jump straight to the Exercises.
+
+Thanks for riding along!
