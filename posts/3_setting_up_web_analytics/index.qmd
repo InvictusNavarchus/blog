@@ -1,0 +1,53 @@
+---
+title: "Setting Up Web Analytics"
+description: "Setting up Google Analytics and Statscounter on this site"
+author: "invictus"
+date: "7/14/2024"
+draft: true
+toc: true
+toc-depth: 6
+---
+
+As a blogger about data analysis, it would be strange to not setup web analytics, as it'll be a valuable data source for analysis.
+
+## Setup
+
+Fortunately, with Quarto, the setup is simple. Here is an excerpt taken from the [docs](https://quarto.org/docs/websites/website-tools.html#google-analytics):
+
+> You can add [Google Analytics](https://analytics.google.com/) to your website by adding adding a `google-analytics` key to your `_quarto.yml` file. In its simplest form, you can just pass your Google Analytics tracking Id (e.g. `UA-xxxxxxx`) or Google Tag measurement Id (e.g. `G-xxxxxxx`) like:
+>
+> ``` yaml
+> website: 
+>   google-analytics: "UA-XXXXXXXX"
+> ```
+
+However, there is another analytics I want to use alongside with Google Analytics: Statscounter. It's only free for 500 visitors, but the report is much cleaner and easier to understand than Google Analytics's.
+
+Unfortunately, Quarto doesn't natively support it, so we have to go by the usual installation method: code insertion, precisely before
+
+<body>
+
+on every page.
+
+I tried to look about it on the [website-tools](https://quarto.org/docs/websites/website-tools.html) page of the [docs](https://quarto.org/docs/guide/), but I couldn't find it. Maybe someone else made it as an [extension](https://quarto.org/docs/extensions/)? Nope, not there either.
+
+So, I Googled it and found someone [asked a similar question](https://github.com/quarto-dev/quarto-cli/discussions/4179). There, I found the answer. It turned out Quarto natively supports text/file insertion, which i could use for code insertion. It's on the [html-basics](https://quarto.org/docs/output-formats/html-basics.html) page of the docs, right on the [#includes](https://quarto.org/docs/output-formats/html-basics.html#includes) section. It's located at the very bottom of the page, that's probably why I missed it.
+
+Now, the `_publish.yaml` looks something like this:
+
+``` yaml
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    css: styles.css
+    toc: true
+    include-in-header: 
+      - text: |
+            <!-- Default Statcounter code for Invictus Quarto https://invictus.quarto.pub -->
+            <script type="text/javascript">
+            // actual script goes here
+            </script>
+            <!-- End of Statcounter Code -->
+```
