@@ -2,8 +2,8 @@
 title: "Setting Up Web Analytics"
 description: "Setting up Google Analytics and Statscounter on this site"
 author: "invictus"
-date: "7/14/2024"
-draft: true
+date: "7/15/2024"
+draft: false
 toc: true
 toc-depth: 6
 ---
@@ -51,3 +51,34 @@ format:
             </script>
             <!-- End of Statcounter Code -->
 ```
+
+We're almost done here. There is only one thing left: Cookie Consent.
+
+Yup, we don't want to collect user's data without their permission. Fortunately, Quarto also natively supports this. We just to toggle it on.
+
+``` yaml
+website:
+  cookie-consent: true
+```
+
+## Testing 
+
+Now let's fire up the server and make sure if the scripts are loaded.
+
+![](images/Screenshot_20240715_162845.png)
+
+Now, let's see what happens when we turn off tracking cookie preference.
+
+![](images/Screenshot_20240715_163234.png)
+
+![](images/Screenshot_20240715_163415.png)
+
+Now the script becomes `text/plain`, effectively disabling it. That's neat.
+
+## Closing
+
+With that, our web analytics setup is done. Ideally, we should setup Privacy Policy as well. We'll do that some other time. For now, the cookie banner notice is enough
+
+![](images/Screenshot_20240715_163823.png)
+
+If there's anything else you'd like to add, feel free to leave a comment down below. See you!
