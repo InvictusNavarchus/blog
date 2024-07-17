@@ -1,0 +1,160 @@
+---
+title: "Working through G4DS: Getting Started - Part 2"
+description: "Follow along while I go through this book for the first time"
+author: "invictus"
+date: "7/16/2024"
+draft: false
+toc: true
+toc-depth: 6
+---
+
+## Introduction
+
+Continuing from [part one](https://invictus.quarto.pub/posts/g4ds-getting_started/), we'll tackle the exercises from the book [ggplot2: Elegant Graphics for Data Analysis (3e)](https://ggplot2-book.org/getting-started), or as I call it, G4DS. A name inspired from the book [R4DS](https://r4ds.hadley.nz/)
+
+Previously we read and comment on the lessons written on the book. But it turned out it made the post so much longer. This time, we'll focus on the Exercises, and only briefly mention interesting points from the lessons.
+
+## G4DS
+
+Let's load the 2 most useful libraries we might have to use for the exercises.
+
+```{r}
+library(dplyr)
+library(ggplot2)
+```
+
+If then we need other libraries, we'll add that later.
+
+### Key Components
+
+This part covers the most crucial part of `ggplot2` syntax:
+
+> Every ggplot2 plot has three key components:
+>
+> 1.  **data**,
+>
+> 2.  A set of **aesthetic mappings** between variables in the data and visual properties, and
+>
+> 3.  At least one layer which describes how to render each observation. Layers are usually created with a **geom** function.
+
+Pretty useful to keep that in mind.
+
+#### Exercises
+
+##### 1. Relationships between `cty` and `hwy`
+
+> How would you describe the relationship between `cty` and `hwy`? Do you have any concerns about drawing conclusions from that plot?
+
+First, let's inspect the dataset again
+
+```{r}
+mpg 
+```
+
+```{r}
+str(mpg)
+```
+
+Alright, looks great. Let's move on to the task. We'll begin with a scatter plot. I find that very useful for visualizing relationship.
+
+```{r}
+mpg |> 
+  ggplot(aes(cty, hwy)) +
+  geom_point()
+```
+
+Quite a strong relationships. If we were to compute the Pearson's `r`, it'll be at least 0.8.
+
+```{r}
+mpg |> 
+  select(cty, hwy) |> 
+  cor()
+```
+
+Ohh, nevermind. It's even close to 1. It makes sense to be so strong since the two variables are very similar, measuring the same metrics (miles per gallon). The difference is the place (city vs highway). We can also see that the `cty` variable is generally lower than `hwy`, because there are much more obstacles in a city than in a highway, reducing fuel efficiency.
+
+> Do you have any concerns about drawing conclusions from that plot?
+
+I don't have any. But since it's been brought up, I guess there must be something. Let me know in the comments if you know what it is.
+
+##### 2. Review a scatter plot of model vs manufacturer
+
+> 2.  What does `ggplot(mpg, aes(model, manufacturer)) + geom_point()` show? Is it useful? How could you modify the data to make it more informative?
+
+Both variables are categorical, which aren't usually visualized with a scatter plot. Since they're discrete and have limited range of values, the plot will look like lines.
+
+Let's see
+
+```{r}
+mpg |> 
+  ggplot(aes(model, manufacturer)) + 
+  geom_point()
+```
+
+Oh, my bad. It's lines. I guess lines only appear when the other variable is numerical. Anyway, it's true that scatter plot is bad for measuring relationships between two categorical variables. We can't even see the labels on the x-axis.
+
+The first improvement would be to flip the `x` and `y`-axis since the `x`-axis is much wider than the `y.`
+
+```{r}
+mpg |> 
+  ggplot(aes(manufacturer, model)) + 
+  geom_point()
+```
+
+Great, at least we can make sense some of the letters now, haha. Okay, i'm stuck here. Another way we could simplify this is to just take the top 5 manufacturers who produces the most amount of models, instead of visualizing all of them at once.
+
+```{r}
+mpg |> 
+  distinct(manufacturer, model) |> 
+  group_by(manufacturer) |> 
+  count() |> 
+  arrange(desc(n))
+```
+
+So, the top five are toyota, chevrolet, dodge, ford, and volkswagen. Let's put that into the filter:
+
+```{r}
+mpg |> 
+  filter(manufacturer %in% c('toyota', 'chevrolet', 'dodge', 'ford', 'volkswagen')) |> 
+  ggplot(aes(manufacturer, model)) +
+  geom_point()
+```
+
+Now it's much more readable. Since there are overlapping points, `geom_count()` would be better.
+
+```{r}
+mpg |> 
+  filter(manufacturer %in% c('toyota', 'chevrolet', 'dodge', 'ford', 'volkswagen')) |> 
+  ggplot(aes(manufacturer, model)) +
+  geom_count()
+```
+
+However, something feels off. It feels like the visual barely gives you useful information compared to the table we've made with `dplyr.`
+
+Let's move on the last question.
+
+##### 3. Guess and Describe ggplot plots
+
+> 3.  Describe the data, aesthetic mappings and layers used for each of the following plots. You'll need to guess a little because you haven't seen all the datasets and functions yet, but use your common sense! See if you can predict what the plot will look like before running the code.
+>
+>     1.  `ggplot(mpg, aes(cty, hwy)) + geom_point()`
+>     2.  `ggplot(diamonds, aes(carat, price)) + geom_point()`
+>     3.  `ggplot(economics, aes(date, unemploy)) + geom_line()`
+>     4.  `ggplot(mpg, aes(cty)) + geom_histogram()`
+
+This one is relatively easy compared to what we just did.
+
+1.  `geom_point()` will produce a scatter plot. We've created the exact plot on exercise #1.
+2.  Same plot, with different data.
+3.  `geom_line()` is basically like scatter plots, except the dots are connected
+4.  `geom_histogram()` will produce a histogram of a single variable, which is why the `aes()` function only takes one variable.
+
+## Closing
+
+Alright, that concludes part 2, key component. There's still few key concepts left, we'll continue that later sometimes in the future. I'd like to do some projects for now.
+
+Leave a comment down below if you have any feedback. Thanks!
+
+#### Disclaimer
+
+*After writing this part, I looked up scatter plot and discovered that they're not always bad for categorical variables. There are even dedicated scatter plot for it, such as strip plot, jitter plot, etc. Read more on* [Categorical Scatter Plots](https://www.datylon.com/resources/chart-library/categorical-scatter-plot)
