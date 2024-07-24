@@ -2,7 +2,7 @@
 title: "Case Study: RevoU DAMC Certification (July 22)"
 description: "See how I tackle RevoU DAMC's Certification Case Study using R"
 author: "invictus"
-date: "7/24/2024"
+date: "2024-07-24T16:05:00"
 draft: false
 toc: true
 toc-depth: 6
@@ -61,13 +61,13 @@ library(tidyverse)
 Just to be safe, let's take look at the first few lines of the csv.
 
 ```{r}
-read_lines('./DAMC_sales_data.csv', n_max = 5)
+read_lines('./revou_damc_case_study.csv', n_max = 5)
 ```
 
 Looks good enough. Now let's load the file and take a closer look
 
 ```{r}
-df <- read_csv('./DAMC_sales_data.csv')
+df <- read_csv('./revou_damc_case_study.csv')
 ```
 
 ```{r}
