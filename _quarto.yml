@@ -36,3 +36,6 @@ format:
             <!-- End of Statcounter Code -->
 editor: visual
 
+execute: 
+  freeze: true
+
