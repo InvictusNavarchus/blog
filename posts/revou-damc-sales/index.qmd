@@ -1,0 +1,33 @@
+---
+title: "Case Study: RevoU DAMC Certification"
+description: "See how I tackle RevoU DAMC's Certification Case Study using R"
+author: "invictus"
+date: "7/18/2024"
+draft: true
+toc: true
+toc-depth: 6
+---
+
+For the last 2 weeks, I've been learning data analysis from RevoU, on their Data Analysis Mini Course (DAMC) program. I'm not sponsored or anything, I just want to share my discovery.
+
+First, let's load the necessary libraries. I'll use `dplyr` for data manipulation, `readr` to import the dataset, and `ggplot2.` for data visualizations.
+
+```{r}
+library(dplyr)
+library(readr)
+library(ggplot2)
+```
+
+Now, let's import the data.
+
+```{r}
+df <- read_csv('./revou_damc_case_study.csv')
+```
+
+```{r}
+df
+```
+
+```{r}
+str(df)
+```
