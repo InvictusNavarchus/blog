@@ -1,0 +1,75 @@
+---
+title: "Case Study: Deep Rock Galactic Missions Data"
+description: "Analyzing Deep Rock Galactic Daily Missions Data Over July 2024"
+author: "invictus"
+date: "2024-07-26T16:05:00"
+draft: true
+toc: true
+toc-depth: 6
+---
+
+> Rocks and stones may break my bones, but beer will never hurt me. ***gee***, ***I'm feeling poetic today***!
+
+## introduction
+
+Anyone who plays Deep Rock Galactic (DRG) must've heard of that phrase once. It's my personal favorite.
+
+If you're not familiar with the game, DRG is an FPS Sandbox Generated type of game, where you'll play as a miner that lives on space. You'll be diving 1000km to the underground to accomplish a given mission. These missions are randomly generated (or is it?) every 30 minutes.
+
+\<mission screenshot here\>
+
+Interestingly, these missions are the same for all players around the world, as long as you play on the same season.
+
+For every mission, there's a small chance that it'll come with a mutator that changes that nature of the gameplay. One that most sought after is the 'Double XP' mutator, as you can guess, will double the amount of XP you'll obtain.
+
+XP is very important during the early games, because your level will determine what weapons you can unlock and what upgrades you can purchase.
+
+Therefore, one of the reasons that inspired me to conduct this study is to discover the pattern of 'Double XP' mutator. I want to know whether it's completely random or whether I can find out at which hours it usually appear.
+
+I'm a beginner myself in the game, only have about 40 hours gameplay. So, the result of this study will benefit me very much.
+
+### Acknowledgement
+
+This work could've not been done without the massive effort by [rolfosian](https://github.com/rolfosian/), who has written a script to extract the missions data stored on the game. Additionally, he has a site that displays the current active missions updated in real-time, <https://doublexp.net/>. Feel free to check the source code his [github repo](https://github.com/rolfosian/drgmissions).
+
+### Objective
+
+I haven't run it myself on my PC. Fortunately, I discovered that he stores many of the collected missions in json format on the site. Not long after, I wrote simple [python scripts](https://github.com/invictus1032/drg-mission-parser) to download, parse, and convert them to csv.
+
+It was a lot of fun. Now, I want to rewrite the script in R and then finally analyze the data. The objective is to get a full daily missions data over July 2024. And then hopefully to find pattern on 'Double XP'. Additionally, I'll peek on other insights as well, because, why not?
+
+## Collecting Data
+
+Let's fire up our swiss-army knife, `tidyverse`.
+
+```{r}
+library(tidyverse)
+```
+
+From the rolfosian's project source code, I discovered that the json files are stored on `https://doublexp.net/static/json/bulkmissions/{yyyy-mm-dd}.json.` So let's set that up as the `base_url`
+
+```{r}
+json_base_url <- 'https://doublexp.net/static/json/bulkmissions/'
+```
+
+The base URL will be used to generate all the download links for each json file. Since the file names are formatted by ISO dates, it's easy to generate using `lubridate`
+
+```{r}
+library(lubridate)
+start_date <- ymd('2024-07-01')
+end_date <- ymd('2024-07-31')
+date_list <- seq(start_date, end_date, by = 'day')
+```
+
+As simple as that. Now we have a list of date from July 1 to July 31
+
+```{r}
+date_list
+```
+
+To convert them into complete download links, we can use `paste0()` to combine them with the base URL.
+
+```{r}
+json_urls <- paste0(json_base_url, date_list, '.json')
+json_urls |> head(5)
+```
