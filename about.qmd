@@ -1,9 +1,18 @@
 ---
 title: "About"
+about:
+  template: jolla
+  image: images/invictus_avatar.jpeg
+  links:
+    - icon: github
+      text: Github
+      href: https://github.com/invictus1032
 ---
 
-About this site
+Hey, wassup? Want to hear a fun fact? I discovered the world of Data Science in May 2024. It wasn't that long, yet I already fell in love with its nature. 
 
-```{r}
-1 + 1
-```
+I've always been a curious person; seeking the truth, exploring the unknown, and shining light on mysteries. That's why Data Science suits me perfectly. There's always mystery to explore and pattern to discover. Even a simple dataset can hide a valuable insight if you look deep enough.
+
+That's when I decided that this is the path I'll be walking towards. Not just as a career, but as a passion. 
+
+The path I'm walking on is vast and endless. That's why I created this blog. To document the journey that awaits me. I hope my blog can also help fellow learners who are also just starting to walk the same path.
