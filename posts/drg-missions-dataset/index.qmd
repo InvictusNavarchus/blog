@@ -67,9 +67,43 @@ As simple as that. Now we have a list of date from July 1 to July 31
 date_list
 ```
 
-To convert them into complete download links, we can use `paste0()` to combine them with the base URL.
+We can simply use `paste0` to put `.json` on them for the extension.
 
 ```{r}
-json_urls <- paste0(json_base_url, date_list, '.json')
-json_urls |> head(5)
+filename_list <- paste0(date_list, '.json')
+filename_list
 ```
+
+We can also use `paste0()` to combine them with the base URL to get the download links
+
+```{r}
+json_urls <- paste0(json_base_url, filename_list)
+```
+
+Now we can use this list to download all the json files from [doublexp.net](https://doublexp.net). Let's put a time recorder on it too, because why not 😆.
+
+```{r}
+dir.create('json')
+library(tictoc)
+```
+
+```{r eval=FALSE}
+tic('Download all missions json for July 2024')
+mapply(download.file, json_urls, paste0('json/', filename_list))
+toc()
+```
+
+```         
+trying URL 'https://doublexp.net/static/json/bulkmissions/2024-07-01.json'
+Content type 'application/json' length 261344 bytes (255 KB)
+==================================================
+downloaded 255 KB
+...
+https://doublexp.net/static/json/bulkmissions/2024-07-01.json https://doublexp.net/static/json/bulkmissions/2024-07-01.json 
+...
+Download all missions json for July 2024: 64.759 sec elapsed
+```
+
+64 seconds. Not bad. Now let's parse it into a data frame. But first, we need to understand the structure of the JSON.
+
+## Processing Data
