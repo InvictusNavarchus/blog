@@ -462,7 +462,13 @@ Since we have the complete data with complete timestamp for the entire month, th
 Let's start from daily, since it's the simplest. All we need to do is to summarize the data from each day and plot them on a graph. We'd also need a separate column for the date.
 
 ```{r}
-missions_df_combined_cleaned |> 
-  mutate(date = days_in_month(Timestamp),
-         .after = Timestamp)
+double_xp_trend <- missions_df_combined_cleaned |> 
+  mutate(date = date(Timestamp),
+         .after = Timestamp) |> 
+  filter(MissionMutator == 'Double XP') |> 
+  count(date)
+
+double_xp_trend |> 
+  ggplot(aes(date, n)) +
+  geom_line()
 ```
