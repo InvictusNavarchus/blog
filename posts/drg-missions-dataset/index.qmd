@@ -107,3 +107,255 @@ Download all missions json for July 2024: 64.759 sec elapsed
 64 seconds. Not bad. Now let's parse it into a data frame. But first, we need to understand the structure of the JSON.
 
 ## Processing Data
+
+#### Parsing one JSON
+
+Due to its unstructured nature, JSON can be messy and hard to parse. Fortunately, the JSON we have here is not too complex. The good thing is, all the JSON are structured the same way. So, we only need to figure out a way to parse one JSON, parse all of them.
+
+```{r}
+library(jsonlite)
+```
+
+```{r}
+json_data <- read_json('./json/2024-07-01.json')
+```
+
+```{r}
+json_data |> length()
+```
+
+```{r}
+json_data[c(1:3)] |> glimpse()
+```
+
+So, the JSON has 4 levels:
+
+1.  Timestamps
+2.  Biomes
+3.  The biomes themselves
+4.  Mission for each biome (note that the fields under Biomes are also lists)
+
+I've explored the JSON with `View()`, so I got a pretty rough idea of the general structure. I found there's 2 fields with different structure at the end of the lists.
+
+```{r}
+json_data[c(49:50)] |> glimpse()
+```
+
+The `ver` field is probably just an internal variable for [doublexp.net](doublexp.net). So it's safe to remove it. `dailyDeal` however, is a useful data we can use to analyze the daily deal of the game. But we need to process it differently so it doesn't interfere with the missions parsing.
+
+Let's store in a separate variable, `dailyDeal`
+
+```{r}
+dailyDeal <- json_data$dailyDeal
+```
+
+Now, we can remove them from the `json_data`. I'm not comfortable mutating our JSON directly, so let's assign it to a new variable.
+
+```{r}
+drg_missions <- json_data
+drg_missions$dailyDeal <- NULL
+drg_missions$ver <- NULL
+```
+
+We're good to go. It's time to unravel this JSON to a beautiful data frame.
+
+```{r}
+drg_missions <- tibble(drg_missions)
+```
+
+Unfortunately, this comes the hard part, unnesting the JSON. `tidyr` provides a powerful set of tools to unnest a data. Yet, I barely able to wrap my head around it.
+
+Basically, there's two main functions we'll use:
+
+1.  `unnest_wider()`: To unpack a list into columns
+2.  `unnest_longer():` To unpack a list into rows
+
+First, we'll do `unnest_wider()` to make the timestamps as a new column.
+
+```{r}
+drg_missions |>
+  unnest_wider(drg_missions)
+```
+
+Then, we'll `unnest_longer()` twice to unwrap the Biomes, and the biomes themselves (level 2 and 3).
+
+```{r}
+drg_missions |> 
+  unnest_wider(drg_missions) |> 
+  unnest_longer(Biomes) |> 
+  unnest_longer(Biomes)
+```
+
+Finally, we'll do `unnests_wider()` to unpack the mission details from each biome (level 4).
+
+```{r}
+drg_missions_unnested <- drg_missions |> 
+  unnest_wider(drg_missions) |> 
+  unnest_longer(Biomes) |> 
+  unnest_longer(Biomes) |> 
+  unnest_wider(Biomes)
+
+drg_missions_unnested
+```
+
+At this point, the data frame is almost done. It looks exactly like how we want it to be. Except, 2 columns are still lists: `MissionWarnings` and `Included_in`. We could do `unnest_longer()` on them, but it'll make duplicate rows, since the only thing different is them. So, the alternative is to use `paste` to join them as one string, separated by comma.
+
+```{r}
+drg_missions_unnested |> 
+  select(included_in) |> 
+  slice(c(1:4))
+```
+
+```{r}
+drg_missions_unnested <- drg_missions_unnested |> 
+  mutate(included_in = map_chr(included_in, ~ paste(.x, collapse = ", ")))
+
+drg_missions_unnested
+```
+
+Perfect! Later on, we'll use the `included_in` to filter the missions available to us based on the season.
+
+The lasts thing to convert is the `MissionWarnings`. We could combine them with `paste()` as well, but it's valuable data we can use to analyse the mission, we it'd best to treat them as variables and separate it into two columns with `unnest_wider()`.
+
+```{r}
+drg_missions_unnested |> 
+  unnest_wider(MissionWarnings, names_sep = '_')
+```
+
+Perfect! Now, we know how to parse 1 JSON. Let's apply it to all the JSON we have and combine them into one giant tibble.
+
+#### Parsing multiple JSON
+
+To automate the algorithm above, we'd need to condense it to a function in which we can map it to all the JSON files.
+
+```{r}
+parse_json_drg_mission <- function(json_path) {
+  json_data <- read_json(json_path)
+  json_data$dailyDeal <- NULL
+  json_data$ver <- NULL
+  
+  drg_missions <- tibble(drg_missions = json_data)
+  drg_missions <-  drg_missions |> 
+    unnest_wider(drg_missions) |> 
+    unnest_longer(Biomes) |> 
+    unnest_longer(Biomes) |> 
+    unnest_wider(Biomes)
+  
+  drg_missions <-  drg_missions |> 
+    unnest_wider(MissionWarnings, names_sep = '_') |> 
+    mutate(included_in = map_chr(included_in, ~ paste(.x, collapse = ", ")))
+  
+  return(drg_missions)
+}
+```
+
+```{r}
+parse_json_drg_dailydeal <- function(json_path) {
+  json_data <- read_json(json_path)
+  dailyDeal <- json_data$dailyDeal
+  dailyDeal <- tibble(list(dailyDeal))
+  dailyDeal <- dailyDeal |> 
+    unnest_wider(everything())
+  return(dailyDeal)
+}
+```
+
+You probably noticed why I reassign `dailyDeal` multiple times instead of just chaining the pipe operator. Please don't ask why. I spent more than 30 minutes debugging why the pipe operator messes up the code. In a nutshell, reassigning it preserves the 'dailyDeal' name inside the column, while pipe operator do the opposite.
+
+Previously, it was supposed to be one function, returning a list of 2 tibbles. But that caused a lot of unexpected headache related to one I just mentioned. So I decided to just make separate functions to parse `dailyDeal` and `missions`.
+
+Anyway, here's the output of the functions
+
+```{r}
+parse_json_drg_mission('./json/2024-07-01.json')
+```
+
+```{r}
+parse_json_drg_dailydeal('./json/2024-07-01.json')
+```
+
+Working perfectly, finally. Now, we just need to apply these functions to the list of JSON file paths and combine each of them with `bindrows()`.
+
+```{r}
+
+```
+
+```{r}
+filepath_list <- paste0('json/',filename_list)
+```
+
+```{r}
+dailyDeal_df_list <- map(filepath_list, parse_json_drg_dailydeal)
+missions_df_list <- map(filepath_list, parse_json_drg_mission)
+```
+
+```{r}
+dailyDeal_df_combined <- dailyDeal_df_list |>
+  bind_rows()
+missions_df_combined <- missions_df_list |> 
+  bind_rows()
+```
+
+```{r}
+dailyDeal_df_combined
+```
+
+```{r}
+missions_df_combined
+```
+
+Nice. Now we have tidy data frames we can work with. The last step before it's 100% ready to be analyzed is to clean it.
+
+#### Cleaning Data
+
+##### Irrelevant Data
+
+Previously, I mentioned that we'd only analyze missions data that is usually availabe to most people. Which is the unseasoned ones. In this data, it's the `s0` from `included_in`. So we can filter only the rows with `s0`.
+
+```{r}
+missions_df_combined_cleaned <- missions_df_combined |> 
+  filter(included_in |> str_detect('s0'))
+```
+
+```{r}
+missions_df_combined_cleaned
+```
+
+##### Duplicate Data
+
+We also need to scan for duplicates. Assuming the extractor script is robust, there shouldn't be any. But Just in case, we should still check.
+
+First, we can check the frequency count of each id, since it's supposed to be the unique indentifier.
+
+```{r}
+missions_df_combined_cleaned |> 
+  count(id, sort = TRUE)
+```
+
+There's no duplicate id, great. The next column we could check is the `codeName`
+
+```{r}
+missions_df_combined_cleaned |> 
+  count(CodeName, sort = TRUE)
+```
+
+There's quite several repetitions. However, as long as they're in different time, it's safe. So that's our third comparison: `timestamp`
+
+```{r}
+missions_df_combined_cleaned |> 
+  count(CodeName, timestamp, sort = TRUE)
+```
+
+Yup, all unique. We could also pick one codename and see its time pattern:
+
+```{r}
+missions_df_combined_cleaned |> 
+  count(CodeName, timestamp, sort = TRUE) |> 
+  filter(CodeName == 'Corrupt Trail')
+```
+
+No particular pattern visible, but we can see they're on different days. Only one on the same day, but with 3 hours difference.
+
+Alright, all set. We're good to go.
+
+## Analyzing Data
