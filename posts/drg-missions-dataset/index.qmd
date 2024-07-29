@@ -308,6 +308,44 @@ Nice. Now we have tidy data frames we can work with. The last step before it's 1
 
 #### Cleaning Data
 
+```{r}
+missions_df_combined_cleaned <- missions_df_combined
+```
+
+##### Non-tidy Data
+
+In his book [*R for Data Science*](https://r4ds.hadley.nz/)*,* Hadley introduces a concept of Tidy Data, which makes data analysis much easier:
+
+> 1.  Each column is a variable.
+>
+> 2.  Each row is an observation.
+>
+> 3.  Each cell is a single value.
+
+Fortunately, it looks like we've passed 3 rules, so our data is already tidy.
+
+##### Improper Column Names
+
+It's good enough as it is, but we can make it even better.
+
+1.  **Inconsistencies:** most of the column names are in PascalCase, but `included_in` is in snake_case, and `timestamp` is just all lowercase.
+2.  **Grammatically Wrong:** `MissionWarnings_1`, `MissionWarnings_2,` and `Biomes_id` only contain one value in each row, so they should be singular
+3.  **Misc:** `Biomes_id` just sounds weird. "id" shouldn't be there.
+
+```{r}
+missions_df_combined_cleaned <- missions_df_combined_cleaned |> 
+  rename(Timestamp = timestamp,
+         IncludedIn = included_in,
+         Biome = Biomes_id,
+         MissionWarning1 = MissionWarnings_1,
+         MissionWarning2 = MissionWarnings_2)
+```
+
+```{r}
+missions_df_combined_cleaned |> 
+  names()
+```
+
 ##### Irrelevant Data
 
 Previously, I mentioned that we'd only analyze missions data that is usually availabe to most people. Which is the unseasoned ones. In this data, it's the `s0` from `included_in`. So we can filter only the rows with `s0`.
@@ -319,6 +357,31 @@ missions_df_combined_cleaned <- missions_df_combined |>
 
 ```{r}
 missions_df_combined_cleaned
+```
+
+##### Incorrect Data Types
+
+Since we manually extracted and parsed the data from the JSON files, R didn't assume any data type and just render everything as `chr`. Which mean, a lot of them needs to be changed.
+
+1.  **Factors**\
+    `Biomes`, `PrimaryObjective`, `SecondaryObjective`, `MissionMutator`, `MissionWarning1`, and `MissionWarning2` should be factors, since they're categorical variables with limited set of values. `Complexity` and `Length` are a bit tricky since they're ordinal variables, which can be treated as either qualitative or quantitative. Claude Sonnet 3.5, however, argues that since we don't know the exact interval between 1 to 2, or 2 to 3, they should be treated as categorical. Sonnet 3.5 has helped me a lot, so I'll trust her 🤣.
+
+    > Based on the information provided, your 'Complexity Level' variable is an ordinal categorical variable. Even though it's represented by numbers (1, 2, 3), it's not truly numeric in nature, as the intervals between levels may not be equal.
+
+2.  **Characters\
+    **CodeName can stay as `chr` since they don't really hold any values other than being randomly generated names. `included_in` should probably be factors, but the structure isn't standardized yet, and we don't need to deal with them anyway.
+
+3.  **Integers\
+    `id`** should be integers. Oh wait, it's already is! I didn't know that.
+
+4.  **Date\
+    **This one is obvious. The `Timestamp` column should be in date object format. Otherwise, we can't do any date computation with it.
+
+```{r}
+missions_df_combined_cleaned |> 
+  mutate(across(c(Biome, PrimaryObjective, SecondaryObjective, MissionMutator, MissionWarning1, MissionWarning2, Complexity, Length),
+         as_factor)) |> 
+  mutate(Timestamp = ymd_hms(Timestamp))
 ```
 
 ##### Duplicate Data
@@ -359,3 +422,19 @@ No particular pattern visible, but we can see they're on different days. Only on
 Alright, all set. We're good to go.
 
 ## Analyzing Data
+
+### Mission Pattern
+
+Since we have the complete data with complete timestamp for the entire month, there's various ways we can visualize the pattern.
+
+1.  Hourly
+2.  Daily
+3.  Weekly
+
+Let's start from daily, since it's the simplest. All we need to do is to summarize the data from each day and plot them on a graph. We'd also need a separate column for the date.
+
+```{r}
+missions_df_combined_cleaned |> 
+  mutate(date = days_in_month(timestamp),
+         .after = timestamp)
+```
