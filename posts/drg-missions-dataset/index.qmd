@@ -319,7 +319,7 @@ Now we can read from these csv files instead.
 
 ```{r}
 dailyDeal_df_combined <- read_csv('csv/drg_dailydeal_july_2024.csv')
-missions_df_combined <- read_csv('csv/drg_missions_july_2024.csv')
+missions_df_combined <- read_csv('csv/drg_missions_july_2024.csv', col_types = 'c')
 ```
 
 ```{r}
