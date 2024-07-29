@@ -8,15 +8,15 @@ toc: true
 toc-depth: 6
 ---
 
-> Rocks and stones may break my bones, but beer will never hurt me. ***gee***, ***I'm feeling poetic today***!
+## Introduction
 
-## introduction
+> Rocks and stones may break my bones, but beer will never hurt me. ***gee***, ***I'm feeling poetic today***!
 
 Anyone who plays Deep Rock Galactic (DRG) must've heard of that phrase once. It's my personal favorite.
 
 If you're not familiar with the game, DRG is an FPS Sandbox Generated type of game, where you'll play as a miner that lives on space. You'll be diving 1000km to the underground to accomplish a given mission. These missions are randomly generated (or is it?) every 30 minutes.
 
-\<mission screenshot here\>
+![](images/548430_20240721100857_1.png)
 
 Interestingly, these missions are the same for all players around the world, as long as you play on the same season.
 
