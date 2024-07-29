@@ -351,8 +351,8 @@ missions_df_combined_cleaned |>
 Previously, I mentioned that we'd only analyze missions data that is usually availabe to most people. Which is the unseasoned ones. In this data, it's the `s0` from `included_in`. So we can filter only the rows with `s0`.
 
 ```{r}
-missions_df_combined_cleaned <- missions_df_combined |> 
-  filter(included_in |> str_detect('s0'))
+missions_df_combined_cleaned <- missions_df_combined_cleaned |> 
+  filter(IncludedIn |> str_detect('s0'))
 ```
 
 ```{r}
@@ -378,10 +378,12 @@ Since we manually extracted and parsed the data from the JSON files, R didn't as
     **This one is obvious. The `Timestamp` column should be in date object format. Otherwise, we can't do any date computation with it.
 
 ```{r}
-missions_df_combined_cleaned |> 
+missions_df_combined_cleaned <- missions_df_combined_cleaned |> 
   mutate(across(c(Biome, PrimaryObjective, SecondaryObjective, MissionMutator, MissionWarning1, MissionWarning2, Complexity, Length),
          as_factor)) |> 
   mutate(Timestamp = ymd_hms(Timestamp))
+
+missions_df_combined_cleaned
 ```
 
 ##### Duplicate Data
@@ -406,14 +408,14 @@ There's quite several repetitions. However, as long as they're in different time
 
 ```{r}
 missions_df_combined_cleaned |> 
-  count(CodeName, timestamp, sort = TRUE)
+  count(CodeName, Timestamp, sort = TRUE)
 ```
 
 Yup, all unique. We could also pick one codename and see its time pattern:
 
 ```{r}
 missions_df_combined_cleaned |> 
-  count(CodeName, timestamp, sort = TRUE) |> 
+  count(CodeName, Timestamp, sort = TRUE) |> 
   filter(CodeName == 'Corrupt Trail')
 ```
 
@@ -435,6 +437,6 @@ Let's start from daily, since it's the simplest. All we need to do is to summari
 
 ```{r}
 missions_df_combined_cleaned |> 
-  mutate(date = days_in_month(timestamp),
-         .after = timestamp)
+  mutate(date = days_in_month(Timestamp),
+         .after = Timestamp)
 ```
