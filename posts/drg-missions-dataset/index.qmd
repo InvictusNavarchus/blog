@@ -284,16 +284,42 @@ Working perfectly, finally. Now, we just need to apply these functions to the li
 filepath_list <- paste0('json/',filename_list)
 ```
 
-```{r}
+```{r eval=FALSE}
+tic('combining dailyDeal')
 dailyDeal_df_list <- map(filepath_list, parse_json_drg_dailydeal)
+toc()
+
+tic('combining missions')
 missions_df_list <- map(filepath_list, parse_json_drg_mission)
+toc()
 ```
 
-```{r}
+```         
+combining dailyDeal: 1.266 sec elapsed
+combining missions: 7.144 sec elapsed
+```
+
+Wow, that's quite a significant processing time. Let's cache them to csv files so I don't need to convert them again from scratch if I need to debug.
+
+But first, we need to combine them into one data frames
+
+```{r eval=FALSE}
 dailyDeal_df_combined <- dailyDeal_df_list |>
   bind_rows()
 missions_df_combined <- missions_df_list |> 
   bind_rows()
+```
+
+```{r eval=FALSE}
+dailyDeal_df_combined |> write_csv('csv/drg_dailydeal_july_2024.csv')
+missions_df_combined |> write_csv('csv/drg_missions_july_2024.csv')
+```
+
+Now we can read from these csv files instead.
+
+```{r}
+dailyDeal_df_combined <- read_csv('csv/drg_dailydeal_july_2024.csv')
+missions_df_combined <- read_csv('csv/drg_missions_july_2024.csv')
 ```
 
 ```{r}
