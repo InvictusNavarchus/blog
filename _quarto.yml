@@ -8,6 +8,7 @@ website:
       - about.qmd
   cookie-consent: true
   google-analytics: G-46H31NF5Y2
+  open-graph: true
 
 format:
   html:
