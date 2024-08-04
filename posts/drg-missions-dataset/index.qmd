@@ -111,7 +111,9 @@ Download all missions json for July 2024: 64.759 sec elapsed
 
 #### Parsing one JSON
 
-Due to its unstructured nature, JSON can be messy and hard to parse. Fortunately, the JSON we have here is not too complex. The good thing is, all the JSON are structured the same way. So, we only need to figure out a way to parse one JSON, parse all of them.
+Due to its unstructured nature, JSON can be messy and hard to parse. Fortunately, the JSON we have here is not too complex. The good thing is, all the JSON are structured the same way. So, we only need to figure out a way to parse one JSON, to parse all of them.
+
+Let's take a look at the JSON file.
 
 ```{r}
 library(jsonlite)
@@ -136,7 +138,7 @@ So, the JSON has 4 levels:
 3.  The biomes themselves
 4.  Mission for each biome (note that the fields under Biomes are also lists)
 
-I've explored the JSON with `View()`, so I got a pretty rough idea of the general structure. I found there's 2 fields with different structure at the end of the lists.
+I've explored the JSON with `View()`, so I got a pretty rough idea of the general structure. I found there are 2 fields with different structure at the end of the lists.
 
 ```{r}
 json_data[c(49:50)] |> glimpse()
@@ -216,7 +218,7 @@ drg_missions_unnested
 
 Perfect! Later on, we'll use the `included_in` to filter the missions available to us based on the season.
 
-The lasts thing to convert is the `MissionWarnings`. We could combine them with `paste()` as well, but it's valuable data we can use to analyse the mission, we it'd best to treat them as variables and separate it into two columns with `unnest_wider()`.
+The lasts thing to convert is the `MissionWarnings`. We could combine them with `paste()` as well, but it's a valuable data we can use to analyse the mission. It's better to treat them as variables and separate it into two columns with `unnest_wider()`.
 
 ```{r}
 drg_missions_unnested |> 
@@ -261,7 +263,7 @@ parse_json_drg_dailydeal <- function(json_path) {
 }
 ```
 
-You probably noticed why I reassign `dailyDeal` multiple times instead of just chaining the pipe operator. Please don't ask why. I spent more than 30 minutes debugging why the pipe operator messes up the code. In a nutshell, reassigning it preserves the 'dailyDeal' name inside the column, while pipe operator do the opposite.
+You probably noticed why I reassign `dailyDeal` multiple times instead of just chaining the pipe operator. Please don't ask why 😅. I spent more than 30 minutes debugging why the pipe operator messes up the code. In a nutshell, reassigning it preserves the 'dailyDeal' name inside the column, while pipe operator do the opposite.
 
 Previously, it was supposed to be one function, returning a list of 2 tibbles. But that caused a lot of unexpected headache related to one I just mentioned. So I decided to just make separate functions to parse `dailyDeal` and `missions`.
 
