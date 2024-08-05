@@ -3,6 +3,7 @@ title: "Case Study: Deep Rock Galactic Missions Data"
 description: "Analyzing Deep Rock Galactic Daily Missions Data Over July 2024"
 author: "invictus"
 date: "2024-07-31T08:58:00"
+date-modified: "2024-08-05T12:21:00"
 image: 'images/548430_20240721100857_1.png'
 draft: false
 toc: true
@@ -627,14 +628,131 @@ But remember, we have filtered the data to only include missions that are Double
 
 Below, you can find other findings that aren't related to Double XP, but might be interesting to know.
 
+### Missions
+
+```{r}
+missions_df_combined_cleaned
+```
+
+```{r}
+missions_df_other_findings <- missions_df_combined_cleaned |> 
+  mutate(WeekDay = wday(Timestamp, label=TRUE),
+         Day = day(Timestamp),
+         Hour = hour(Timestamp),
+         .after = Timestamp)
+```
+
+#### Biome
+
+```{r}
+missions_df_other_findings |>
+  count(Day, Biome, name = 'Total_Occurences') |> 
+  group_by(Biome) |> 
+  summarize(Daily_Occurence = mean(Total_Occurences)) |> 
+  arrange(desc(Daily_Occurence)) |> 
+  ggplot(aes(Daily_Occurence, fct_rev(fct_infreq(Biome, Daily_Occurence)))) +
+  geom_col() +
+  labs(title = 'Most Common Biomes', subtitle = 'Based on its Mean of Daily Occurences', x = 'Daily Occurence', y = 'Biomes')
+```
+
+#### Primary Objective
+
+```{r}
+missions_df_other_findings |> 
+  count(Day, PrimaryObjective, name = 'Total_Occurences') |> 
+  group_by(PrimaryObjective) |> 
+  summarize(Daily_Occurence = mean(Total_Occurences)) |> 
+  ggplot(aes(fct_infreq(PrimaryObjective, Daily_Occurence), Daily_Occurence)) +
+  geom_col() +
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 5)) +
+  labs(title = 'Most Common Primary Objectives', subtitle = 'Based on its Mean of Daily Occurences', x = 'Primary Objective', y = 'Daily Occurence')
+```
+
+#### Secondary Objective
+
+```{r}
+missions_df_other_findings |>
+  mutate(SecondaryObjective = str_replace(SecondaryObjective, 'ApocaBlooms', 'Apoca Bloom')) |> 
+  count(Day, SecondaryObjective, name = 'Total_Occurences') |> 
+  group_by(SecondaryObjective) |> 
+  summarize(Daily_Occurence = mean(Total_Occurences)) |> 
+  ggplot(aes(fct_rev(fct_infreq(SecondaryObjective, Daily_Occurence)), Daily_Occurence)) +
+  geom_col() +
+  scale_x_discrete(labels = function(x) str_wrap(x, width = 5)) +
+  labs(title = 'Most Common Secondary Objectives', subtitle = 'Based on its Mean of Daily Occurences', x = 'Secondary Objective', y = 'Daily Occurence')
+```
+
+#### Mission Warnings
+
+##### Primary Warning
+
+```{r}
+missions_df_other_findings |>
+  filter(!is.na(MissionWarning1)) |> 
+  count(Day, MissionWarning1, name = 'Total_Occurences') |> 
+  group_by(MissionWarning1) |> 
+  summarize(Daily_Occurence = mean(Total_Occurences)) |> 
+  arrange(desc(Daily_Occurence)) |> 
+  head(5) |> 
+  ggplot(aes(Daily_Occurence, fct_rev(fct_infreq(MissionWarning1, Daily_Occurence)))) +
+  geom_col() +
+  labs(title = 'Top Five Most Common Frimary Mission Warnings', subtitle = 'Based on its Mean of Daily Occurences', x = 'Daily Occurence', y = 'Primary Mission Warnings')
+```
+
+```{r}
+missions_df_other_findings |>
+  filter(!is.na(MissionWarning1)) |> 
+  count(Day, MissionWarning1, name = 'Total_Occurences') |> 
+  group_by(MissionWarning1) |> 
+  summarize(Daily_Occurence = mean(Total_Occurences)) |> 
+  arrange(Daily_Occurence) |> 
+  head(5) |> 
+  ggplot(aes(Daily_Occurence, fct_infreq(MissionWarning1, Daily_Occurence))) +
+  geom_col() +
+  labs(title = 'Top Five Rarest Primary Mission Warnings', subtitle = 'Based on its Mean of Daily Occurences', x = 'Daily Occurence', y = 'Primary Mission Warnings')
+```
+
+#### Mission Warnings Combinations
+
+##### Top 10
+
+```{r}
+missions_df_other_findings |> 
+  filter(!is.na(MissionWarning1), !is.na(MissionWarning2)) |> 
+  count(MissionWarning1, MissionWarning2, name = 'Total_Occurence') |> 
+  arrange(desc(Total_Occurence))
+```
+
+##### Lowest 10
+
+```{r}
+missions_df_other_findings |> 
+  filter(!is.na(MissionWarning1), !is.na(MissionWarning2)) |> 
+  count(MissionWarning1, MissionWarning2, name = 'Total_Occurence') |> 
+  arrange(Total_Occurence)
+```
+
 ### Daily Deal
 
 ```{r}
 dailyDeal_df_combined
 ```
 
+#### Overall Trend
+
 ```{r}
 dailyDeal_df_combined |> 
   ggplot(aes(timestamp,Credits, colour = DealType)) +
-  geom_line()
+  geom_line() +
+  labs(title = 'Trend of Daily Deal over July 2024', color='Deal Type', x='Date', y='Credits Offered')
+```
+
+#### Common Resource on Sale
+
+```{r}
+dailyDeal_df_combined |> 
+  count(Resource) |> 
+  ggplot(aes(fct_infreq(Resource, n), n)) +
+  geom_col() +
+  labs(title = 'Most Common Resource on Sale', subtitle = 'Based on total occurences over July 2024', x = 'Resource', y = 'Total Occurence')
 ```
