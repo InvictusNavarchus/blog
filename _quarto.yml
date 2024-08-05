@@ -9,6 +9,7 @@ website:
   cookie-consent: true
   google-analytics: G-46H31NF5Y2
   open-graph: true
+  back-to-top-navigation: true
 
 format:
   html:
