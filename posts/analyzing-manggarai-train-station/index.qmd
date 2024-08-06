@@ -1,0 +1,7 @@
+---
+title: "Analyzing Busiest Indonesia's Train Station: Manggarai"
+date: 2024-08-06:21:00:00
+categories: [Project, R]
+draft: true
+---
+
