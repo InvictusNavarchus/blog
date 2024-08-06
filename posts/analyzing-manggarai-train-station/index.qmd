@@ -1,7 +1,50 @@
 ---
 title: "Analyzing Busiest Indonesia's Train Station: Manggarai"
+description: tobe-written
 date: 2024-08-06:21:00:00
 categories: [Project, R]
 draft: true
 ---
 
+## Introduction
+
+in Indonesia, especially in Jakarta, train stations are popular methods for transportation. Out of over 50 train stations, the busiest among them is Manggarai, which also act as the main hub for trains from all different routes. If you're an Indonesian, you know how busy it is during the morning.
+
+With a full day schedule from 00:00 to 23:00, let's uncover what interesting insight we could find.
+
+## Collecting Data
+
+There is an official national train company website, [KAI Commuter](https://commuterline.id/perjalanan-krl/jadwal-kereta), where you can query the schedule based on specified departure and destination. The schedule will then be displayed on the page.
+
+![](images/query-schedule.png)
+
+We can then scrape the page to collect the data. However, I found something interesting when I opened up the dev tools and go to the network tab
+
+![](images/devtool-network-01.png)
+
+You can see it got the data from an api. If you open the request url, you'll see the full JSON file:
+
+![](images/api-jsonfile-01.png)
+
+Unfortunately, the trick no longer works. That was a week ago. Now, if you try the same trick, you'll get a 401 unauthorized access instead.
+
+![](images/unauthorized-access-01.png)
+
+## Parsing Data
+
+First, we need to transform them to a data frame format, where each key will be its own column. As usual, let's load up the weapon, tidyverse!
+
+```{r}
+library(tidyverse)
+library(jsonlite)
+```
+
+```{r}
+jsondata <- read_json('./manggarai-schedule.json')
+jsondata <- jsondata$data
+df <- tibble(schedule = jsondata)
+```
+
+```{r}
+df |> unnest_wider(schedule)
+```
