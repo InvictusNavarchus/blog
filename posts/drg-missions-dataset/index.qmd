@@ -645,6 +645,7 @@ missions_df_other_findings <- missions_df_combined_cleaned |>
 #### Biome
 
 ```{r}
+#| code-fold: true
 missions_df_other_findings |>
   count(Day, Biome, name = 'Total_Occurences') |> 
   group_by(Biome) |> 
@@ -658,6 +659,7 @@ missions_df_other_findings |>
 #### Primary Objective
 
 ```{r}
+#| code-fold: true
 missions_df_other_findings |> 
   count(Day, PrimaryObjective, name = 'Total_Occurences') |> 
   group_by(PrimaryObjective) |> 
@@ -671,6 +673,7 @@ missions_df_other_findings |>
 #### Secondary Objective
 
 ```{r}
+#| code-fold: true
 missions_df_other_findings |>
   mutate(SecondaryObjective = str_replace(SecondaryObjective, 'ApocaBlooms', 'Apoca Bloom')) |> 
   count(Day, SecondaryObjective, name = 'Total_Occurences') |> 
@@ -687,6 +690,7 @@ missions_df_other_findings |>
 ##### Primary Warning
 
 ```{r}
+#| code-fold: true
 missions_df_other_findings |>
   filter(!is.na(MissionWarning1)) |> 
   count(Day, MissionWarning1, name = 'Total_Occurences') |> 
@@ -700,6 +704,7 @@ missions_df_other_findings |>
 ```
 
 ```{r}
+#| code-fold: true
 missions_df_other_findings |>
   filter(!is.na(MissionWarning1)) |> 
   count(Day, MissionWarning1, name = 'Total_Occurences') |> 
@@ -717,6 +722,7 @@ missions_df_other_findings |>
 ##### Top 10
 
 ```{r}
+#| code-fold: true
 missions_df_other_findings |> 
   filter(!is.na(MissionWarning1), !is.na(MissionWarning2)) |> 
   count(MissionWarning1, MissionWarning2, name = 'Total_Occurence') |> 
@@ -726,6 +732,7 @@ missions_df_other_findings |>
 ##### Lowest 10
 
 ```{r}
+#| code-fold: true
 missions_df_other_findings |> 
   filter(!is.na(MissionWarning1), !is.na(MissionWarning2)) |> 
   count(MissionWarning1, MissionWarning2, name = 'Total_Occurence') |> 
@@ -741,6 +748,7 @@ dailyDeal_df_combined
 #### Overall Trend
 
 ```{r}
+#| code-fold: true
 dailyDeal_df_combined |> 
   ggplot(aes(timestamp,Credits, colour = DealType)) +
   geom_line() +
@@ -750,6 +758,7 @@ dailyDeal_df_combined |>
 #### Common Resource on Sale
 
 ```{r}
+#| code-fold: true
 dailyDeal_df_combined |> 
   count(Resource) |> 
   ggplot(aes(fct_infreq(Resource, n), n)) +
