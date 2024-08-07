@@ -1,11 +1,9 @@
 ---
 title: "SmartPath - Customer Data"
 description: "Exploring the fictional dataset Customer Data, provided during SmartPath Data Analyst Bootcamp"
-author: "invictus"
 date: "7/4/2024"
 draft: false
-toc: true
-toc-depth: 6
+categories: [Fictional Project, R]
 ---
 
 ## Setup

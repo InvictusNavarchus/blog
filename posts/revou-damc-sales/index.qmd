@@ -1,11 +1,9 @@
 ---
 title: "Case Study: RevoU DAMC Certification (July 22)"
 description: "See how I tackle RevoU DAMC's Certification Case Study using R"
-author: "invictus"
 date: "2024-07-24T16:05:00"
 draft: false
-toc: true
-toc-depth: 6
+categories: [Fictional Project, R]
 ---
 
 ## Introduction

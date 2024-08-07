@@ -1,11 +1,9 @@
 ---
 title: "Working through G4DS: Getting Started - Part 1"
 description: "This is the first post on this series. I will go over the book and give genuine commentary as I follow the tutorial."
-author: "invictus"
 date: "7/9/2024"
 draft: false
-toc: true
-toc-depth: 6
+categories: [Book Walkthrough, R]
 ---
 
 ## Preface
