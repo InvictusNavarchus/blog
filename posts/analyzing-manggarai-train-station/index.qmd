@@ -43,8 +43,78 @@ library(jsonlite)
 jsondata <- read_json('./manggarai-schedule.json')
 jsondata <- jsondata$data
 df <- tibble(schedule = jsondata)
+df <- df |> unnest_wider(schedule)
+```
+
+## Cleaning Data
+
+### Remove Irrelevant Columns
+
+There isn't any particular objective at hand. I just want to explore the data and find any interesting insights. So, any column might be needed later. However, there are 2 columns that are less likely to be used: train_id and color.
+
+color is obvious. It was used to differentiate the routes visually on KAI Commuterline. However, I'm thinking for using them here for the same purpose as well when drawing plots. So, let's keep that for now.
+
+train_id is just the identifier of each train. It's not a useful information for regular customers because any train is virtually the same. Nevertheless, I'll keep that too, as I'm curious if any particular train stand out.
+
+### Rename Columns
+
+It's good enough it is, with snake_case and quite descriptive names. But we can make it better by changing a few:
+
+1.  'ka' in `ka_name` stands for 'Kereta Api', which means 'trains'. It looks odd because the rest of the columns use English. So, we can rename it to `train_name`. Honestly, they don't feel like names at all, they're more like routes. Or maybe, that's where they got the names from. Anyway, let's leave it as `train_name`.
+2.  since there is `dest_time`, we can change `dest` to `dest_city.`
+3.  we can rename `time_est` to `est_time` for better consistency with `dest_time`. In fact, the word `est` itself is not quite clear, so we can rename it further as `arrival_time`
+4.  'destination' would be much clearer than just 'dest', so let's rename all 'dest' to 'destination'
+
+```{r}
+df |> names()
 ```
 
 ```{r}
-df |> unnest_wider(schedule)
+df_renamed <- df |> 
+  rename(train_name = ka_name,
+         destination_city = dest,
+         arrival_time = time_est,
+         destination_time = dest_time)
 ```
+
+```{r}
+df_renamed |>  names()
+```
+
+### Correct Data Types
+
+All the columns are currently in `chr` data type. So, we need to fix each one of them.
+
+```{r}
+df_renamed |> str()
+```
+
+1.  `train_id`: It contains both numbers and letters, so let's leave it as `chr`
+2.  `ka_name`: this column contains a limited set of labels, so `factor` would be more appropriate
+3.  `route_name`, `dest`: same reason as `ka_name`
+4.  `time_est`, `dest_time`: date objects. More specifically, a period object from `lubridate`
+5.  `color`: kinda tricky. We know there are millions of possible color combinations. But, we also know the train station only uses around 5 of them. Well, let's count it first. if there's truly only few, we'll convert them to `factor`.
+
+```{r}
+df_renamed |> 
+  count(color, name = 'total')
+```
+
+Ahh, that's even less. Alright, `factor` it is.
+
+```{r}
+df_correct_types <- df_renamed |> 
+  mutate(train_name = as_factor(train_name),
+         route_name = as_factor(route_name),
+         destination_city = as_factor(destination_city),
+         arrival_time = hms(arrival_time),
+         color = as_factor(color),
+         destination_time = hms(destination_time)
+         )
+```
+
+```{r}
+df_correct_types
+```
+
+Alright, everything looks great. Let's move on to analysis.
