@@ -4,7 +4,7 @@ description: "Analyzing Deep Rock Galactic Daily Missions Data Over July 2024"
 author: "invictus"
 date: "2024-07-31T08:58:00"
 date-modified: "2024-08-05T12:21:00"
-image: 'images/548430_20240721100857_1.png'
+image: 'images/preview.png'
 draft: false
 toc: true
 toc-depth: 6
