@@ -81,6 +81,29 @@ df_renamed <- df |>
 df_renamed |>  names()
 ```
 
+### Transforming Data
+
+I noticed earlier that the train lines are a bit too long and redundant
+
+```{r}
+df_renamed |> 
+  count(train_line, name = 'total_train')
+```
+
+Let's cut the Commuter Line.
+
+```{r}
+df_renamed <- df_renamed |> 
+  mutate(train_line = str_remove(train_line, 'COMMUTER LINE '))
+```
+
+DINAS Rangkaian is a special train that most people can't get in anyway. So let's remove that.
+
+```{r}
+df_renamed <- df_renamed |> 
+  filter(train_line != "DINAS RANGKAIAN KRL (TIDAK ANGKUT PENUMPANG)")
+```
+
 ### Correct Data Types
 
 All the columns are currently in `chr` data type. So, we need to fix each one of them.
@@ -104,7 +127,7 @@ Ahh, that's even less. Alright, `factor` it is.
 
 ```{r}
 df_correct_types <- df_renamed |> 
-  mutate(train_name = as_factor(train_name),
+  mutate(train_line = as_factor(train_line),
          route_name = as_factor(route_name),
          destination_city = as_factor(destination_city),
          arrival_time = hms(arrival_time),
@@ -155,7 +178,7 @@ We can also group it by the lines.
 df_correct_types |> 
   mutate(hour = hour(arrival_time),
          .after = arrival_time) |> 
-  count(hour, train_name, name = 'total_trains') |> 
-  ggplot(aes(hour, total_trains, color = train_name)) +
+  count(hour, train_line, name = 'total_trains') |> 
+  ggplot(aes(hour, total_trains, color = train_line)) +
   geom_line()
 ```
