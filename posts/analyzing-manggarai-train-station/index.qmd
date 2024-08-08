@@ -118,3 +118,44 @@ df_correct_types
 ```
 
 Alright, everything looks great. Let's move on to analysis.
+
+## Analyzing Data
+
+Since there's no specific objectives, there's many insights we could look for.
+
+### Peak Hours
+
+The first thing that comes to my mind is finding the peak hours. Knowing this, we can anticipate when is the best time to go to the station.
+
+Although, the ideal way to deduce this is to have the data of the passengers' traffic: how many that comes every day and every hour. Nevertheless, we could still infer it based on the amount of trains there are at the moment. It's logical for the company to increases it as the traffic goes up.
+
+To get the peak hours, we can count the number of trains per hour and aggregate the sum.
+
+```{r}
+df_correct_types |> 
+  mutate(hour = hour(arrival_time),
+         .after = arrival_time) |> 
+  count(hour, name = 'total_trains')
+```
+
+So, the peak is on hour 7 and 16, with a total of 37 trains.
+
+```{r}
+df_correct_types |> 
+  mutate(hour = hour(arrival_time),
+         .after = arrival_time) |> 
+  count(hour, name = 'total_trains') |> 
+  ggplot(aes(hour, total_trains)) +
+  geom_line()
+```
+
+We can also group it by the lines.
+
+```{r}
+df_correct_types |> 
+  mutate(hour = hour(arrival_time),
+         .after = arrival_time) |> 
+  count(hour, train_name, name = 'total_trains') |> 
+  ggplot(aes(hour, total_trains, color = train_name)) +
+  geom_line()
+```
