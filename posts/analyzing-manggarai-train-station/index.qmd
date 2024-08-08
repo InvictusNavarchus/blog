@@ -60,7 +60,7 @@ train_id is just the identifier of each train. It's not a useful information for
 
 It's good enough it is, with snake_case and quite descriptive names. But we can make it better by changing a few:
 
-1.  'ka' in `ka_name` stands for 'Kereta Api', which means 'trains'. It looks odd because the rest of the columns use English. So, we can rename it to `train_name`. Honestly, they don't feel like names at all, they're more like routes. Or maybe, that's where they got the names from. Anyway, let's leave it as `train_name`.
+1.  'ka' in `ka_name` stands for 'Kereta Api', which means 'trains'. It looks odd because the rest of the columns use English. So, we can rename it to `train_name`. Honestly, they don't feel like names at all, they're more like lines, so let's rename them as `train_lines`
 2.  since there is `dest_time`, we can change `dest` to `dest_city.`
 3.  we can rename `time_est` to `est_time` for better consistency with `dest_time`. In fact, the word `est` itself is not quite clear, so we can rename it further as `arrival_time`
 4.  'destination' would be much clearer than just 'dest', so let's rename all 'dest' to 'destination'
@@ -71,7 +71,7 @@ df |> names()
 
 ```{r}
 df_renamed <- df |> 
-  rename(train_name = ka_name,
+  rename(train_line = ka_name,
          destination_city = dest,
          arrival_time = time_est,
          destination_time = dest_time)
