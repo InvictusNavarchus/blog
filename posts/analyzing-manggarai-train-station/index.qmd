@@ -155,18 +155,20 @@ Although, the ideal way to deduce this is to have the data of the passengers' tr
 To get the peak hours, we can count the number of trains per hour and aggregate the sum.
 
 ```{r}
-df_correct_types |> 
+df_peak_hour <- df_correct_types |> 
   mutate(hour = hour(arrival_time),
-         .after = arrival_time) |> 
+         .after = arrival_time)
+```
+
+```{r}
+df_peak_hour |> 
   count(hour, name = 'total_trains')
 ```
 
 So, the peak is on hour 7 and 16, with a total of 37 trains.
 
 ```{r}
-df_correct_types |> 
-  mutate(hour = hour(arrival_time),
-         .after = arrival_time) |> 
+df_peak_hour |> 
   count(hour, name = 'total_trains') |> 
   ggplot(aes(hour, total_trains)) +
   geom_line()
@@ -175,9 +177,7 @@ df_correct_types |>
 We can also group it by the lines.
 
 ```{r}
-df_correct_types |> 
-  mutate(hour = hour(arrival_time),
-         .after = arrival_time) |> 
+df_peak_hour |> 
   count(hour, train_line, name = 'total_trains') |> 
   ggplot(aes(hour, total_trains, color = train_line)) +
   geom_line()
