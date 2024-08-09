@@ -146,6 +146,14 @@ Alright, everything looks great. Let's move on to analysis.
 
 Since there's no specific objectives, there's many insights we could look for.
 
+### Library
+
+There's one library that will be helpful to aid our analysis, `ggpmisc.` it'll extend our `ggplot` quite nicely.
+
+```{r}
+library(ggpmisc)
+```
+
 ### Peak Hours
 
 The first thing that comes to my mind is finding the peak hours. Knowing this, we can anticipate when is the best time to go to the station.
