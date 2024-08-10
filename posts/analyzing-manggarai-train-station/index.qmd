@@ -220,11 +220,12 @@ df_peak_hour |>
   filter(train_line == 'CIKARANG') |> 
   ggplot(aes(hour, total_train)) +
   geom_line(color='cyan') +
+  stat_peaks() +
   stat_peaks(
-    geom = 'label',
-    span = 5,
-    x.label.fmt = 'hour: %x:00', position = position_nudge(y = 1)
+    geom = 'text',
+    x.label.fmt = 'hour:', position = position_nudge(x=-1.2, y = 1.2)
   ) +
+  stat_peaks(geom = 'label', position = position_nudge(y=1.2)) +
   labs(title = 'Cikarang Line')
 ```
 
