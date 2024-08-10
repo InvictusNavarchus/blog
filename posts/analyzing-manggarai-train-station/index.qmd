@@ -188,7 +188,14 @@ We can also group it by the lines.
 df_peak_hour |> 
   count(hour, train_line, name = 'total_trains') |> 
   ggplot(aes(hour, total_trains, color = train_line)) +
-  geom_line()
+  geom_line() + 
+  scale_color_manual(values = c(
+    "BOGOR" = "red",
+    "BST" = "blue",
+    "RANGKASBITUNG" = "green",
+    "CIKARANG" = "cyan"
+    # Add more mappings as needed
+  ))
 ```
 
 Let's zoom in on each line
