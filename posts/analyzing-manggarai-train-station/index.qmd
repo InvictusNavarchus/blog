@@ -214,7 +214,6 @@ df_peak_hour |>
 #### Cikarang Line
 
 ```{r}
-{r}
 #| code-fold: true
 df_peak_hour |> 
   count(hour, train_line, name = 'total_train') |> 
@@ -232,7 +231,6 @@ df_peak_hour |>
 #### Soekarno-Hatta Line
 
 ```{r}
-{r}
 #| code-fold: true
 df_peak_hour |> 
   count(hour, train_line, name = 'total_train') |> 
