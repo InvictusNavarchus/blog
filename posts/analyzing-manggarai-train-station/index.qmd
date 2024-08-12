@@ -268,3 +268,5 @@ Here is the route again if you forget.
 ![](images/rute-krl-01.png)
 
 #### Peak Hours summary
+
+The first peaks happen around 06:00 = 07:00, whcih makes sense because that's when most people are going to work. The socond peaks happen around 16:00-17:00, which is when most people are going home.
