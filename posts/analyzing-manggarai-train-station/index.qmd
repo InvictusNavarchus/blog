@@ -270,3 +270,66 @@ Here is the route again if you forget.
 #### Peak Hours summary
 
 The first peaks happen around 06:00 = 07:00, whcih makes sense because that's when most people are going to work. The socond peaks happen around 16:00-17:00, which is when most people are going home.
+
+### Train Intervals
+
+The next useful insight we could find is the interval between the trains. We could obtain this by lagging the `arrival_time` by 1, and subtract it from the original `arrival_time` for all rows.
+
+```{r}
+df_train_intervals <- df_peak_hour |>
+  mutate(arrival_time_lagged = lag(arrival_time, default = first(arrival_time)), 
+         .after = arrival_time)
+
+df_train_intervals <- df_train_intervals |> 
+  mutate(arrival_interval = arrival_time - arrival_time_lagged,
+         .after = arrival_time_lagged)
+```
+
+```{r}
+df_train_intervals |> 
+  select(arrival_time, arrival_time_lagged, arrival_interval)
+  
+```
+
+Perfect. To make use of this column, we need to convert it to a numerical value, like seconds or minutes.
+
+```{r}
+df_train_intervals <-  df_train_intervals |> 
+  mutate(arrival_interval = as.numeric(arrival_interval, 'minutes'))
+
+df_train_intervals |> 
+  select(arrival_time, arrival_time_lagged, arrival_interval)
+```
+
+Now, we can get to the fun part: analyzing it.
+
+```{r}
+df_train_intervals |> 
+  pull(arrival_interval) |> 
+  mean()
+```
+
+On average, there's a new train every 2.5 minutes. Wow.
+
+Next, we'll use `group by` because combining all routes won't make much sense unless we want to see how busy the station is, which we already did.
+
+```{r}
+df_train_intervals <-  df_train_intervals |> 
+  group_by(train_line) |> 
+  mutate(arrival_time_lagged = lag(arrival_time, default = first(arrival_time))) |>
+  mutate(arrival_interval = as.numeric(arrival_time - arrival_time_lagged, "minutes")) |> 
+  ungroup()
+```
+
+```{r}
+df_train_intervals |> 
+  select(train_line, arrival_time, arrival_time_lagged, arrival_interval)
+```
+
+Now, let's find some insight.
+
+```{r}
+df_train_intervals |> 
+  group_by(train_line) |> 
+  summarize(arrival_mean = mean(arrival_interval))
+```
