@@ -1,6 +1,6 @@
 ---
 title: "Analyzing Busiest Indonesia's Train Station: Manggarai"
-description: tobe-written
+description: See how I collect, clean, and analyze Manggarai's train station dataset
 date: 2024-08-06:21:00:00
 date-modified: 2024-08-13:12:32:00
 categories: [Project, R]
