@@ -2,6 +2,7 @@
 title: "Analyzing Busiest Indonesia's Train Station: Manggarai"
 description: tobe-written
 date: 2024-08-06:21:00:00
+date-modified: 2024-08-13:12:32:00
 categories: [Project, R]
 draft: true
 ---
@@ -359,4 +360,4 @@ Right now, our findings of *Train Intervals* isn't helpful, because we combined 
 
 My current analysis is still inadequate and lack depth. To be honest, I find it hard to write an article while doing EDA at the same time in the same place.
 
-Next time, I'll first focus entirely on EDA, exploring all the interesting variabes that come to mind without writing any explanations. After that, I'll do a second post, highlighting the key insights I've got from the EDA.
+Next time, I'll first focus entirely on EDA, exploring all the interesting variables that come to mind without writing any explanations. After that, I'll do a second post, highlighting the key insights I've got from the EDA.
