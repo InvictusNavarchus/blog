@@ -4,12 +4,12 @@ description: tobe-written
 date: 2024-08-06:21:00:00
 date-modified: 2024-08-13:12:32:00
 categories: [Project, R]
-draft: true
+draft: false
 ---
 
 ## Introduction
 
-in Indonesia, especially in Jakarta, train stations are popular methods for transportation. Out of over 50 train stations, the busiest among them is Manggarai, which also act as the main hub for trains from all different routes. If you're an Indonesian, you know how busy it is during the morning.
+in Indonesia, especially in Jak   arta, train stations are popular methods for transportation. Out of over 50 train stations, the busiest among them is Manggarai, which also act as the main hub for trains from all different routes. If you're an Indonesian, you know how busy it is during the morning.
 
 With a full day schedule from 00:00 to 23:00, let's uncover what interesting insight we could find.
 
