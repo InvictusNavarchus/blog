@@ -361,3 +361,12 @@ Right now, our findings of *Train Intervals* isn't helpful, because we combined 
 My current analysis is still inadequate and lack depth. To be honest, I find it hard to write an article while doing EDA at the same time in the same place.
 
 Next time, I'll first focus entirely on EDA, exploring all the interesting variables that come to mind without writing any explanations. After that, I'll do a second post, highlighting the key insights I've got from the EDA.
+
+Let's export the current dataframe to a csv so I don't need to clean it from scratch.
+
+```{r}
+df_peak_hour |> 
+  write_csv('manggarai-station-schedule-2024.csv')
+```
+
+See you on the next post!
