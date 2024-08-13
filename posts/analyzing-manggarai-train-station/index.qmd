@@ -9,6 +9,8 @@ draft: false
 
 ## Introduction
 
+![](images/manggarai-station.webp)
+
 in Indonesia, especially in Jakarta, train stations are popular methods for transportation. Out of over 50 train stations, the busiest among them is Manggarai, which also act as the main hub for trains from all different routes. If you're an Indonesian, you know how busy it is during the morning.
 
 Here is the map of the train route from all stations.
