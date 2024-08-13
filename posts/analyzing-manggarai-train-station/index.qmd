@@ -334,6 +334,29 @@ df_train_intervals |>
   summarize(arrival_mean = mean(arrival_interval),
             arrival_mad = mad(arrival_interval))
 ```
-Except for BST and Rangkasbitung, the interval is very short. This means passengers don't need to worry about getting late, because the next train will soon arrive in less than 10 minutes. 
+
+Except for BST and Rangkasbitung, the interval is very short. This means passengers don't need to worry about getting late, because the next train will soon arrive in less than 10 minutes.
 
 Unfortunately, we combined all routes from the same line as if they're the same routes. In reality, one line can be used for many different routes. So it would be more accurate to compute the `arrival_mean` and `arrival_mad` for each route, provided that each passenger would only focus on of these routes.
+
+## Temporary Conclusion and Recommendation
+
+First, let's sum up what we've found so far.
+
+### Peak Hours
+
+Highest spikes of train arrivals occur between on 06:00-07:00 and 16:00-17:00, where people are going to work and going home from work, respectively.
+
+### Train Intervals
+
+On average, new train arrives roughly every 5-10 min.
+
+### Conclusion
+
+Right now, our findings of *Train Intervals* isn't helpful, because we combined all the routes as one. So, *Peak Hours* is our weapon for now. With this, we can say that if you want to avoid peak hours that are extremely crowded, avoid the peak hours. Conversely, if you don't want to wait for a long time for the next train, come during peak hours.
+
+### Follow Up Project
+
+My current analysis is still inadequate and lack depth. To be honest, I find it hard to write an article while doing EDA at the same time in the same place.
+
+Next time, I'll first focus entirely on EDA, exploring all the interesting variabes that come to mind without writing any explanations. After that, I'll do a second post, highlighting the key insights I've got from the EDA.
