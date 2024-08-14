@@ -3,6 +3,7 @@ title: EDA on islam religion growth worldwide
 description: Exploring World Religion dataset to uncover the growth of Islam in various countries using R
 date: 2024-08-14:06:08:00
 categories: [EDA, R]
+image: mosque.png
 ---
 
 ## Setup
@@ -11,6 +12,7 @@ categories: [EDA, R]
 library(tidyverse)
 library(visdat)
 ```
+
 ```{r}
 df <- read_csv('./ThrowbackDataThursday 201912 - Religion.csv')
 ```
@@ -50,7 +52,6 @@ df_islam |>
   arrange(desc(n))
 ```
 
-
 ```{r}
 df_islam |>
   count(Year, Country) |> 
@@ -64,6 +65,7 @@ df_islam |>
 df_islam |> 
   nrow()
 ```
+
 ```{r}
 df_islam |> 
   distinct() |> 
@@ -97,7 +99,6 @@ df_islam_replacedna |>
   select(!Country) |> 
   vis_expect(function(x) x != 0)
 ```
-
 
 ### Check Number Distribution
 
