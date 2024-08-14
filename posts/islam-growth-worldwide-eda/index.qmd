@@ -1,0 +1,6 @@
+---
+title: EDA on islam religion growth worldwide
+description: Exploring World Religion dataset to uncover the growth of Islam in various countries using R
+date: 2024-08-14:06:08:00
+categories: [EDA, R]
+---
