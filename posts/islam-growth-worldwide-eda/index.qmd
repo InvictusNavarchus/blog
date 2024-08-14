@@ -4,3 +4,115 @@ description: Exploring World Religion dataset to uncover the growth of Islam in 
 date: 2024-08-14:06:08:00
 categories: [EDA, R]
 ---
+
+## Setup
+
+```{r}
+library(tidyverse)
+library(visdat)
+```
+```{r}
+df <- read_csv('./ThrowbackDataThursday 201912 - Religion.csv')
+```
+
+## Inspect Dataset
+
+```{r}
+df
+```
+
+```{r}
+df |> str()
+```
+
+## Clean Data
+
+### Pick relevant columns
+
+```{r}
+df_islam <- df |> 
+  select(Country = StateNme, Year, starts_with('Islam'))
+
+df_islam
+```
+
+### Check Duplicate
+
+```{r}
+df_islam |> names()
+```
+
+#### Check duplicate Year
+
+```{r}
+df_islam |>
+  count(Year, Country) |> 
+  arrange(desc(n))
+```
+
+
+```{r}
+df_islam |>
+  count(Year, Country) |> 
+  arrange(desc(n)) |> 
+  count(n)
+```
+
+#### Remove duplicate using distinct()
+
+```{r}
+df_islam |> 
+  nrow()
+```
+```{r}
+df_islam |> 
+  distinct() |> 
+  nrow()
+```
+
+```{r}
+df_islam_removedduplicate <- df_islam |> 
+  distinct()
+```
+
+### Check Missing Value
+
+```{r}
+df_islam_removedduplicate |> 
+  vis_miss()
+```
+
+```{r}
+df_islam_replacedna <- df_islam_removedduplicate |> 
+  mutate(across(everything(), function(x) replace_na(x, 0)))
+
+df_islam_replacedna |> 
+  vis_miss()
+```
+
+#### Check Zero Distribution (Possible Null Value)
+
+```{r}
+df_islam_replacedna |>
+  select(!Country) |> 
+  vis_expect(function(x) x != 0)
+```
+
+
+### Check Number Distribution
+
+#### Percent
+
+```{r}
+df_islam_replacedna |>
+  select(contains('Percent')) |>
+  vis_value()
+```
+
+#### Population
+
+```{r}
+df_islam_replacedna |> 
+  select(contains('Population')) |> 
+  vis_value()
+```
