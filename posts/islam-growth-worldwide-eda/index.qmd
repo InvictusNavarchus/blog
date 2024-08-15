@@ -13,6 +13,7 @@ library(tidyverse)
 library(visdat)
 library(DataExplorer)
 library(naniar)
+library(janitor)
 ```
 
 ```{r}
