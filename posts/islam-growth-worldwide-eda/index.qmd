@@ -11,6 +11,8 @@ image: mosque.png
 ```{r}
 library(tidyverse)
 library(visdat)
+library(DataExplorer)
+library(naniar)
 ```
 
 ```{r}
