@@ -41,22 +41,33 @@ df_islam <- df |>
 df_islam
 ```
 
+### Check Data type
+
+```{r}
+df_islam |> 
+  str()
+```
+```{r}
+df_islam_correct_type <- df_islam |> 
+  mutate(Country = as_factor(Country))
+```
+
 ### Check Duplicate
 
 ```{r}
-df_islam |> names()
+df_islam_correct_type |> names()
 ```
 
 #### Check duplicate Year
 
 ```{r}
-df_islam |>
-  count(Year, Country) |> 
-  arrange(desc(n))
+df_islam_correct_type |> 
+  get_dupes() |> 
+  relocate(dupe_count)
 ```
 
 ```{r}
-df_islam |>
+df_islam_correct_type |>
   count(Year, Country) |> 
   arrange(desc(n)) |> 
   count(n)
@@ -70,13 +81,13 @@ df_islam |>
 ```
 
 ```{r}
-df_islam |> 
+df_islam_correct_type |> 
   distinct() |> 
   nrow()
 ```
 
 ```{r}
-df_islam_removedduplicate <- df_islam |> 
+df_islam_removedduplicate <- df_islam_correct_type |> 
   distinct()
 ```
 
@@ -102,6 +113,32 @@ df_islam_replacedna |>
   select(!Country) |> 
   vis_expect(function(x) x != 0)
 ```
+#### Replace zero with NA
+
+```{r}
+df_islam_replacedzero <- df_islam_replacedna |> 
+  mutate(across(everything(), function(x) if_else(x == 0, NA, x)))
+```
+
+### Check Missing Value (Second Stage)
+
+```{r}
+df_islam_replacedzero |> 
+  miss_var_summary()
+```
+
+
+```{r}
+df_islam_replacedzero |> 
+  gg_miss_var()
+```
+
+
+```{r}
+df_islam_replacedzero |> 
+  gg_miss_upset()
+```
+
 
 ### Check Number Distribution
 
@@ -120,3 +157,12 @@ df_islam_replacedna |>
   select(contains('Population')) |> 
   vis_value()
 ```
+
+### Check Country Distribution
+
+```{r}
+df_islam_replacedzero |> 
+  select(Country) |> 
+  summarytools::freq(order = 'freq')
+```
+
