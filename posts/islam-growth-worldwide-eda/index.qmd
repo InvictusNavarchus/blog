@@ -133,6 +133,10 @@ df_islam_replacedzero |>
   gg_miss_var()
 ```
 
+```{r}
+df_islam_replacedzero
+```
+
 
 ```{r}
 df_islam_replacedzero |> 
@@ -140,29 +144,44 @@ df_islam_replacedzero |>
 ```
 
 
-### Check Number Distribution
+### Check Distribution
 
-#### Percent
-
-```{r}
-df_islam_replacedna |>
-  select(contains('Percent')) |>
-  vis_value()
-```
-
-#### Population
+#### Overview
 
 ```{r}
-df_islam_replacedna |> 
-  select(contains('Population')) |> 
-  vis_value()
+plot_histogram(df_islam_replacedzero)
 ```
 
-### Check Country Distribution
+#### Year
 
 ```{r}
 df_islam_replacedzero |> 
-  select(Country) |> 
-  summarytools::freq(order = 'freq')
+  ggplot(aes(Year)) +
+  geom_line(stat = 'count') + 
+  geom_point(stat='count') +
+  scale_x_continuous(breaks = seq(1945, 2010, by=5))
+```
+
+
+#### Country
+
+```{r}
+df_islam_replacedzero |> 
+  distinct(Country) |> 
+  nrow()
+```
+
+
+```{r}
+df_islam_year_data <- df_islam_replacedzero |> 
+  count(Country) |> 
+  count(n) |> 
+  arrange(desc(nn)) |> 
+  rename('Year Data Availibility' = n, 'Total Country' = nn)
+
+df_islam_year_data |> 
+  ggplot(aes(`Year Data Availibility`, `Total Country`)) +
+  geom_col() +
+  scale_x_continuous(breaks = seq(1:14))
 ```
 
