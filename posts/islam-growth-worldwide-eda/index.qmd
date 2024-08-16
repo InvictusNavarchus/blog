@@ -149,7 +149,9 @@ df_islam_replacedzero |>
 #### Overview
 
 ```{r}
-plot_histogram(df_islam_replacedzero)
+df_islam_replacedzero |> 
+  select(contains('Population')) |> 
+  plot_histogram(ncol = 1)
 ```
 
 #### Year
