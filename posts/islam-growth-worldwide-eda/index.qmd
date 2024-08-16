@@ -14,6 +14,8 @@ library(visdat)
 library(DataExplorer)
 library(naniar)
 library(janitor)
+library(validate)
+library(countrycode)
 ```
 
 ```{r}
@@ -47,6 +49,9 @@ df_islam
 df_islam |> 
   str()
 ```
+
+#### Fix Data Types
+
 ```{r}
 df_islam_correct_type <- df_islam |> 
   mutate(Country = as_factor(Country))
@@ -141,6 +146,66 @@ df_islam_replacedzero
 ```{r}
 df_islam_replacedzero |> 
   gg_miss_upset()
+```
+
+### Check Data Constrains
+
+#### Check Country Names
+
+```{r}
+valid_countries <- codelist$country.name.en
+
+validation_rules_country <- validator(
+  Country %in% valid_countries
+)
+
+cf_country <- confront(df_islam_replacedzero, validation_rules_country)
+
+```
+
+```{r}
+summary(cf_country)
+```
+```{r}
+violating(df_islam_replacedzero, validation_rules_country) |> 
+  distinct(Country)
+```
+
+
+
+
+#### Check Integers
+
+```{r}
+validation_rules_integer <- validator(
+  `Islam - Sunni (Population)` %% 1 == 0,
+  `Islam - Shi'a (Population)` %% 1 == 0,
+  `Islam - Ibadhi (Population)` %% 1 == 0,
+  `Islam - Nation of Islam (Population)` %% 1 == 0,
+  `Islam - Alawite (Population)` %% 1 == 0,
+  `Islam - Ahmadiyya (Population)` %% 1 == 0,
+  `Islam - Others (Population)` %% 1 == 0,
+  `Islam - Total (Population)` %% 1 == 0
+)
+cf_integer <- confront(df_islam_replacedzero, validation_rules_integer)
+summary(cf_integer)
+```
+#### Check Decimals
+
+```{r}
+validation_rules_decimal <- validator(
+  `Islam - Sunni (Percent)` %% 1 > 0,
+  `Islam - Shi'a (Percent)` %% 1 > 0,
+  `Islam - Ibadhi (Percent)` %% 1 > 0,
+  `Islam - Nation of Islam (Percent)` %% 1 > 0,
+  `Islam - Alawite (Percent)` %% 1 > 0,
+  `Islam - Ahmadiyya (Percent)` %% 1 > 0,
+  `Islam - Others (Percent)` %% 1 > 0,
+  `Islam - Total (Percent)` %% 1 > 0
+)
+
+cf_decimal <- confront(df_islam_replacedzero, validation_rules_decimal)
+summary(cf_decimal)
 ```
 
 
