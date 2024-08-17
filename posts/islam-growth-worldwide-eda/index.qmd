@@ -332,4 +332,23 @@ df_islam_final_year_count |>
   ggplot(aes(Year, n)) +
   geom_col()
 ```
+### Cleaning Summary
 
+#### Verified Values
+
+1. All Population columns are integers
+2. All Percentage columns are decimals
+3. No missing year records in-between. For example: 1945, 1950, 1960 (missing 1955)
+
+#### Changes Applied
+
+1. Removed 58 irrelevant columns
+2. Corrected 1 column's data type
+3. Removed 303 duplicate rows
+4. Replaced all `0` values (71% of all data) with `NA`
+5. Corrected 16 countries' names
+
+#### Other findings
+
+1. The majority of countries (60) have complete records from 1945 to 2010. But the rest vary. Ranging from only having 1 to 14 records.
+2. Despite point 1, nearly all countries have record of 2010, 2005, 2000, and so on. So, the missing records started from the bottom.
