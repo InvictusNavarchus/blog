@@ -179,27 +179,20 @@ invalid_country <- violating(df_country_only, cf_country) |>
 invalid_country
 ```
 
-
-##### Similarity Check
+##### Automated Check by countrycode Package
 
 ```{r}
-# Function to find the most similar country
-find_closest_country <- function(country, valid_list) {
-  distances <- stringdist(country, valid_list, method = 'jw')
-  closest <- valid_list[which.min(distances)]
-  return(closest)
-}
-# Apply the function to each country in the small vector
-results <- sapply(invalid_country, find_closest_country, valid_countries)
-
-# Create a data frame to display results
-comparison <- tibble(
-  Original = invalid_country,
-  Closest_Match = results
-)
-
-comparison
+tibble(invalid_country_name = invalid_country,
+       converted_country_name = countryname(invalid_country))
 ```
+
+##### Correct Country Names
+
+```{r}
+df_islam_correct_country <- df_islam_replacedzero |> 
+  mutate(Country = countryname(Country))
+```
+
 
 #### Check Integers
 
