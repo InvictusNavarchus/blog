@@ -4,6 +4,7 @@ description: Exploring World Religion dataset to uncover the growth of Islam in 
 date: 2024-08-14:06:08:00
 categories: [EDA, R]
 image: mosque.png
+toc-expand: true
 ---
 
 ## Setup
@@ -309,5 +310,33 @@ incomplete_country |>
   ggplot(aes(Year_Gap)) +
   geom_bar() +
   scale_x_continuous(breaks = seq(0,100, by=5))
+```
+##### Average Starting Year
+
+```{r}
+df_islam_replacedzero |> 
+  select(Country, Year) |> 
+  group_by(Country) |> 
+  slice(1) |> 
+  ggplot(aes(Year)) +
+  geom_bar() +
+  scale_x_continuous(breaks = seq(1945, 2010, by=5))
+```
+##### Average Final Year
+
+```{r}
+df_islam_final_year_count <- df_islam_replacedzero |> 
+  select(Country, Year) |> 
+  group_by(Country) |> 
+  slice_tail() |> 
+  ungroup() |> 
+  count(Year)
+
+df_islam_final_year_count
+```
+```{r}
+df_islam_final_year_count |> 
+  ggplot(aes(Year, n)) +
+  geom_col()
 ```
 
