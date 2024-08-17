@@ -204,8 +204,13 @@ validation_rules_decimal <- validator(
   `Islam - Total (Percent)` %% 1 > 0
 )
 
-cf_decimal <- confront(df_islam_replacedzero, validation_rules_decimal)
+cf_decimal <- confront(df_islam_replacedzero,validation_rules_decimal)
 summary(cf_decimal)
+```
+```{r}
+violating(df_islam_replacedzero |> 
+            select(Country, Year, contains('Percent')),
+          cf_decimal)
 ```
 
 
