@@ -16,6 +16,7 @@ library(naniar)
 library(janitor)
 library(validate)
 library(countrycode)
+library(stringdist)
 ```
 
 ```{r}
@@ -152,6 +153,8 @@ df_islam_replacedzero |>
 
 #### Check Country Names
 
+##### Exact Check
+
 ```{r}
 valid_countries <- codelist$country.name.en
 df_country_only <- df_islam |> 
@@ -168,9 +171,33 @@ cf_country <- confront(df_country_only, validation_rules_country)
 summary(cf_country)
 ```
 ```{r}
-violating(df_country_only, cf_country) |> 
+invalid_country <- violating(df_country_only, cf_country) |> 
   arrange(Country) |> 
   pull(Country)
+
+invalid_country
+```
+
+
+##### Similarity Check
+
+```{r}
+# Function to find the most similar country
+find_closest_country <- function(country, valid_list) {
+  distances <- stringdist(country, valid_list, method = 'jw')
+  closest <- valid_list[which.min(distances)]
+  return(closest)
+}
+# Apply the function to each country in the small vector
+results <- sapply(invalid_country, find_closest_country, valid_countries)
+
+# Create a data frame to display results
+comparison <- tibble(
+  Original = invalid_country,
+  Closest_Match = results
+)
+
+comparison
 ```
 
 #### Check Integers
