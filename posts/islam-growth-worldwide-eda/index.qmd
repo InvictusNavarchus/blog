@@ -154,25 +154,24 @@ df_islam_replacedzero |>
 
 ```{r}
 valid_countries <- codelist$country.name.en
+df_country_only <- df_islam |> 
+  distinct(Country)
 
 validation_rules_country <- validator(
   Country %in% valid_countries
 )
 
-cf_country <- confront(df_islam_replacedzero, validation_rules_country)
-
+cf_country <- confront(df_country_only, validation_rules_country)
 ```
 
 ```{r}
 summary(cf_country)
 ```
 ```{r}
-violating(df_islam_replacedzero, validation_rules_country) |> 
-  distinct(Country)
+violating(df_country_only, cf_country) |> 
+  arrange(Country) |> 
+  pull(Country)
 ```
-
-
-
 
 #### Check Integers
 
