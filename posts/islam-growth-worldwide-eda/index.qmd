@@ -268,7 +268,7 @@ df_islam_replacedzero |>
   distinct(Country) |> 
   nrow()
 ```
-
+#### Country Per Year
 
 ```{r}
 df_islam_year_data <- df_islam_replacedzero |> 
@@ -281,5 +281,33 @@ df_islam_year_data |>
   ggplot(aes(`Year Data Availibility`, `Total Country`)) +
   geom_col() +
   scale_x_continuous(breaks = seq(1:14))
+```
+
+```{r}
+validation_rules_year <- validator(
+  contains_at_least( 
+      keys = data.frame(Year = seq(1945, 2010, by=5)),
+      by=list(Country) )
+)
+
+cf_year <- confront(df_islam_replacedzero, validation_rules_year)
+summary(cf_year)
+```
+
+```{r}
+incomplete_country <- violating(df_islam_replacedzero, cf_year) |> 
+  select(Country, Year)
+```
+
+##### Check Year Gap
+
+```{r}
+incomplete_country |>
+  group_by(Country) |> 
+  mutate(lagged_Year = lag(Year, default = first(Year))) |> 
+  mutate(Year_Gap = Year -lagged_Year) |> 
+  ggplot(aes(Year_Gap)) +
+  geom_bar() +
+  scale_x_continuous(breaks = seq(0,100, by=5))
 ```
 
