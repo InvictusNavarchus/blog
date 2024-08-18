@@ -354,6 +354,43 @@ df_islam_percent <- df_islam_correct_country |>
 df_islam_percent
 ```
 
+### Check Sanity
+
+#### Check whether Total value equals to all the other columns combined
+
+#### Population
+
+```{r}
+df_islam_population_total_check <- df_islam_population |> 
+  mutate(Total_Recheck = rowSums(across(-c(Country, Year, Total)), na.rm = TRUE)) |> 
+  mutate(Total_Recheck = if_else(Total_Recheck == 0, NA, Total_Recheck)) |> 
+  relocate(Total, Total_Recheck, .after = Year)
+
+validation_rules_total_population <- validator(Total == Total_Recheck)
+cf_total_population <- confront(df_islam_population_total_check, validation_rules_total_population)
+summary(cf_total_population)
+```
+
+```{r}
+violating(df_islam_population_total_check, cf_total)
+```
+#### Percent
+
+```{r}
+df_islam_percent_total_check <- df_islam_percent |> 
+  mutate(Total_Recheck = rowSums(across(-c(Country, Year, Total)), na.rm = TRUE)) |> 
+  mutate(Total_Recheck = if_else(Total_Recheck == 0, NA, Total_Recheck)) |> 
+  relocate(Total, Total_Recheck, .after = Year)
+
+validation_rules_total_percent <- validator(Total == Total_Recheck)
+cf_total_percent <- confront(df_islam_percent_total_check, validation_rules_total_percent)
+summary(cf_total_percent)
+```
+
+```{r}
+violating(df_islam_percent_total_check, cf_total_percent)
+```
+
 ### Check Distribution
 
 #### Population
