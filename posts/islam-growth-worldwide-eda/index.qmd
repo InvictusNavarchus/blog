@@ -242,46 +242,9 @@ violating(df_islam_correct_country |>
           cf_decimal)
 ```
 
-### Normalize Dataframe
+### Check Record Completeness
 
-#### Separate `Population` from `Percent` columns
-
-```{r}
-df_islam_population <- df_islam_correct_country |> 
-  select(Country, Year, contains('Population')) |> 
-  rename_with(function(x) str_remove(x, ' \\(Population\\)'),
-              contains('Population'))
-
-df_islam_population
-```
-
-```{r}
-df_islam_percent <- df_islam_correct_country |> 
-  select(Country, Year, contains('Percent')) |> 
-  rename_with(function(x) str_remove(x, ' \\(Percent\\)'),
-              contains('Percent'))
-
-df_islam_percent
-```
-
-
-### Check Distribution
-
-#### Population
-
-```{r}
- df_islam_population |> 
-  plot_histogram(ncol = 1)
-```
-#### Percent
-
-```{r}
-df_islam_percent |> 
-  plot_histogram(ncol = 1)
-```
-
-
-#### Year
+#### By Year
 
 ```{r}
 df_islam_replacedzero |> 
@@ -291,8 +254,7 @@ df_islam_replacedzero |>
   scale_x_continuous(breaks = seq(1945, 2010, by=5))
 ```
 
-
-#### Country
+#### By Country
 
 ```{r}
 df_islam_replacedzero |> 
@@ -369,6 +331,44 @@ df_islam_final_year_count |>
   ggplot(aes(Year, n)) +
   geom_col()
 ```
+
+### Normalize Dataframe
+
+#### Separate `Population` from `Percent` columns
+
+```{r}
+df_islam_population <- df_islam_correct_country |> 
+  select(Country, Year, contains('Population')) |> 
+  rename_with(function(x) str_remove(x, ' \\(Population\\)'),
+              contains('Population'))
+
+df_islam_population
+```
+
+```{r}
+df_islam_percent <- df_islam_correct_country |> 
+  select(Country, Year, contains('Percent')) |> 
+  rename_with(function(x) str_remove(x, ' \\(Percent\\)'),
+              contains('Percent'))
+
+df_islam_percent
+```
+
+### Check Distribution
+
+#### Population
+
+```{r}
+ df_islam_population |> 
+  plot_histogram(ncol = 1)
+```
+#### Percent
+
+```{r}
+df_islam_percent |> 
+  plot_histogram(ncol = 1)
+```
+
 ### Cleaning Summary
 
 #### Verified Values
