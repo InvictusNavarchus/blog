@@ -97,15 +97,25 @@ df_islam_removedduplicate <- df_islam_correct_type |>
   distinct()
 ```
 
+### Normalize Dataframe
+
+#### Remove redundant 'Islam'
+
+```{r}
+df_islam_columns_renamed <- df_islam_removedduplicate |> 
+  rename_with(function(x) str_remove(x, 'Islam - '),
+              starts_with('Islam'))
+```
+
 ### Check Missing Value
 
 ```{r}
-df_islam_removedduplicate |> 
+df_islam_columns_renamed |> 
   vis_miss()
 ```
 
 ```{r}
-df_islam_replacedna <- df_islam_removedduplicate |> 
+df_islam_replacedna <- df_islam_columns_renamed |> 
   mutate(across(everything(), function(x) replace_na(x, 0)))
 
 df_islam_replacedna |> 
@@ -197,51 +207,79 @@ df_islam_correct_country <- df_islam_replacedzero |>
 
 ```{r}
 validation_rules_integer <- validator(
-  `Islam - Sunni (Population)` %% 1 == 0,
-  `Islam - Shi'a (Population)` %% 1 == 0,
-  `Islam - Ibadhi (Population)` %% 1 == 0,
-  `Islam - Nation of Islam (Population)` %% 1 == 0,
-  `Islam - Alawite (Population)` %% 1 == 0,
-  `Islam - Ahmadiyya (Population)` %% 1 == 0,
-  `Islam - Others (Population)` %% 1 == 0,
-  `Islam - Total (Population)` %% 1 == 0
+  `Sunni (Population)` %% 1 == 0,
+  `Shi'a (Population)` %% 1 == 0,
+  `Ibadhi (Population)` %% 1 == 0,
+  `Nation of Islam (Population)` %% 1 == 0,
+  `Alawite (Population)` %% 1 == 0,
+  `Ahmadiyya (Population)` %% 1 == 0,
+  `Others (Population)` %% 1 == 0,
+  `Total (Population)` %% 1 == 0
 )
-cf_integer <- confront(df_islam_replacedzero, validation_rules_integer)
+cf_integer <- confront(df_islam_correct_country, validation_rules_integer)
 summary(cf_integer)
 ```
 #### Check Decimals
 
 ```{r}
 validation_rules_decimal <- validator(
-  `Islam - Sunni (Percent)` %% 1 > 0,
-  `Islam - Shi'a (Percent)` %% 1 > 0,
-  `Islam - Ibadhi (Percent)` %% 1 > 0,
-  `Islam - Nation of Islam (Percent)` %% 1 > 0,
-  `Islam - Alawite (Percent)` %% 1 > 0,
-  `Islam - Ahmadiyya (Percent)` %% 1 > 0,
-  `Islam - Others (Percent)` %% 1 > 0,
-  `Islam - Total (Percent)` %% 1 > 0
+  `Sunni (Percent)` %% 1 > 0,
+  `Shi'a (Percent)` %% 1 > 0,
+  `Ibadhi (Percent)` %% 1 > 0,
+  `Nation of Islam (Percent)` %% 1 > 0,
+  `Alawite (Percent)` %% 1 > 0,
+  `Ahmadiyya (Percent)` %% 1 > 0,
+  `Others (Percent)` %% 1 > 0,
+  `Total (Percent)` %% 1 > 0
 )
 
-cf_decimal <- confront(df_islam_replacedzero,validation_rules_decimal)
+cf_decimal <- confront(df_islam_correct_country,validation_rules_decimal)
 summary(cf_decimal)
 ```
 ```{r}
-violating(df_islam_replacedzero |> 
+violating(df_islam_correct_country |> 
             select(Country, Year, contains('Percent')),
           cf_decimal)
+```
+
+### Normalize Dataframe
+
+#### Separate `Population` from `Percent` columns
+
+```{r}
+df_islam_population <- df_islam_correct_country |> 
+  select(Country, Year, contains('Population')) |> 
+  rename_with(function(x) str_remove(x, ' \\(Population\\)'),
+              contains('Population'))
+
+df_islam_population
+```
+
+```{r}
+df_islam_percent <- df_islam_correct_country |> 
+  select(Country, Year, contains('Percent')) |> 
+  rename_with(function(x) str_remove(x, ' \\(Percent\\)'),
+              contains('Percent'))
+
+df_islam_percent
 ```
 
 
 ### Check Distribution
 
-#### Overview
+#### Population
 
 ```{r}
-df_islam_replacedzero |> 
-  select(contains('Population')) |> 
+ df_islam_population |> 
   plot_histogram(ncol = 1)
 ```
+#### Percent
+
+```{r}
+df_islam_percent |> 
+  plot_histogram(ncol = 1)
+```
+
 
 #### Year
 
