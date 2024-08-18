@@ -413,6 +413,8 @@ df_islam_percent |>
 1. All Population columns are integers
 2. All Percentage columns are decimals
 3. No missing year records in-between. For example: 1945, 1950, 1960 (missing 1955)
+4. `Total Population` column is equal to other `Population` columns combined
+5. `Total Percent` column is equal to other `Percent` columns combined
 
 #### Changes Applied
 
@@ -421,6 +423,8 @@ df_islam_percent |>
 3. Removed 303 duplicate rows
 4. Replaced all `0` values (71% of all data) with `NA`
 5. Corrected 16 countries' names
+6. Separate Population and Percent columns into two dataframes.
+7. Remove 'Islam - ' prefix and '(Population)'/'(Percent)' suffix
 
 #### Other findings
 
