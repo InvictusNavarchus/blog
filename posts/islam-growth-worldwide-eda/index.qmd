@@ -358,7 +358,7 @@ df_islam_percent
 
 #### Check whether Total value equals to all the other columns combined
 
-#### Population
+##### Population
 
 ```{r}
 df_islam_population_total_check <- df_islam_population |> 
@@ -374,7 +374,7 @@ summary(cf_total_population)
 ```{r}
 violating(df_islam_population_total_check, cf_total)
 ```
-#### Percent
+##### Percent
 
 ```{r}
 df_islam_percent_total_check <- df_islam_percent |> 
