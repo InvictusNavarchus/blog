@@ -30,7 +30,7 @@ df
 ```
 
 ```{r}
-df |> str()
+df |> names()
 ```
 
 ## Clean Data
