@@ -425,7 +425,7 @@ summary(cf_total_population)
 ```
 
 ```{r}
-violating(df_islam_population_total_check, cf_total)
+violating(df_islam_population_total_check, cf_total_population)
 ```
 ##### Percent
 
