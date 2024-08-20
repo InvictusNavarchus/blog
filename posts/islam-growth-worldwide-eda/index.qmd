@@ -25,6 +25,8 @@ df <- read_csv('./ThrowbackDataThursday 201912 - Religion.csv')
 
 ## Inspect Dataset
 
+### Understand the data
+
 ```{r}
 df
 ```
@@ -32,6 +34,56 @@ df
 ```{r}
 df |> names()
 ```
+### Check Data Quality
+
+#### Missing Values
+
+```{r}
+df |> 
+  vis_miss()
+```
+
+
+```{r}
+df |> 
+  vis_expect(function(x) x != 0)
+```
+```{r}
+df |> 
+  replace_with_na_all(~ . == 0) |> 
+  vis_miss()
+```
+
+##### Total Population Columns
+
+```{r}
+df |> 
+  select(contains('Total') & contains('Population')) |> 
+  rename_with(function(x) str_remove(x, ' - Total \\(Population\\)')) |> 
+  replace_with_na_all(~ . == 0) |> 
+  vis_miss(sort_miss = TRUE)
+```
+
+##### Total Percent Columns
+
+```{r}
+df |> 
+  select(contains('Total') & contains('Percent')) |> 
+  rename_with(function(x) str_remove(x, ' - Total \\(Percent\\)')) |> 
+  replace_with_na_all(~ . == 0) |> 
+  vis_miss(sort_miss = TRUE)
+```
+
+##### Population but Non Total columns
+
+```{r}
+df |> 
+  select(-contains('Total') & contains('Population')) |>
+  rename_with(function(x) str_remove(x, ' \\(Population\\)')) |> 
+  replace_with_na_all(~ . == 0) |> 
+  vis_miss(sort_miss = TRUE)
+```
+
 
 ## Clean Data
 
