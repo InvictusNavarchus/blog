@@ -480,8 +480,9 @@ df_islam_percent |>
 
 #### Other findings
 
-1. The majority of countries (60) have complete records from 1945 to 2010. But the rest vary. Ranging from only having 1 to 14 records.
-2. Despite point 1, nearly all countries have record of 2010, 2005, 2000, and so on. So, the missing records started from the bottom.
+1. Extremely high prevalence of missing values.
+2. The majority of countries (60) have complete records from 1945 to 2010. But the rest vary. Ranging from only having 1 to 14 records.
+3. Despite point 1, nearly all countries have record of 2010, 2005, 2000, and so on. So, the missing records started from the bottom.
 
 ### Next Steps
 
