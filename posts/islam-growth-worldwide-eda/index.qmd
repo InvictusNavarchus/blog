@@ -482,3 +482,22 @@ df_islam_percent |>
 
 1. The majority of countries (60) have complete records from 1945 to 2010. But the rest vary. Ranging from only having 1 to 14 records.
 2. Despite point 1, nearly all countries have record of 2010, 2005, 2000, and so on. So, the missing records started from the bottom.
+
+### Next Steps
+
+The plan was to analyze the growth of islam worldwide. However, the prevalenece of missing values are concerning. Most non-null values come from `Sunni` and `Others` category. So, it's better to just use the `Total` column.
+
+If you look at the data quality check at the beginning, Islam is actually the least variable with missing values. Other religions are even more dominated by missing values. This reduces the credibility of the data itself. Although, it wasn't clearly mentioned what's the data source anyway.
+
+I can continue analyzing with just focusing on the overall Islam growth, but I doubt the finding would be trustworthy. For now, let's convert the latest data frame into csv for later analysis. I'm thinking of uploading it to Tableau for easier exploration.
+
+#### Export to CSV for further analysis
+
+```{r}
+df_islam_population |> 
+  write_csv('dataset_islam_population.csv')
+
+df_islam_percent |> 
+  write_csv('dataset_islam_percent.csv')
+```
+
