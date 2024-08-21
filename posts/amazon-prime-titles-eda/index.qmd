@@ -2,3 +2,166 @@
 title: EDA on Amazon Prime Movies and TV Shows
 description: Exploratory Data Analysis on Amazon Prime Titles
 ---
+
+## Setup
+
+### Library
+
+```{r}
+library(tidyverse)
+library(naniar)
+library(visdat)
+library(DataExplorer)
+library(janitor)
+library(validate)
+```
+
+### Dataframe
+
+```{r}
+df <- read_csv('./amazon_prime_titles.csv')
+```
+
+
+## Inspect Dataset
+
+### Understand the Dataset
+
+```{r}
+df |> 
+  head()
+```
+```{r}
+df |> tail()
+```
+
+
+```{r}
+df |> 
+  glimpse()
+```
+
+#### What's a show_id?
+
+```{r}
+df |> 
+  mutate(show_id = parse_number(show_id)) |>
+  pull(show_id) |> 
+  is_linear_sequence()
+```
+
+
+### Check Data Quality
+
+#### Missing Values
+
+```{r}
+df |> 
+  vis_miss()
+```
+```{r}
+df |> 
+  gg_miss_upset()
+```
+#### Duplicate Rows
+
+```{r}
+df |> 
+  get_dupes()
+```
+```{r}
+df |> 
+  get_dupes(show_id)
+```
+```{r}
+df |> 
+  get_dupes(description)
+```
+```{r}
+df |> 
+  get_dupes(cast) |> 
+  filter(!is.na(cast)) |> 
+  distinct(cast)
+```
+
+
+#### Data Constraints
+
+#### Check Categorical Data
+
+```{r}
+df |> 
+  count(type)
+```
+
+```{r}
+df |> 
+  count(listed_in)
+```
+
+
+##### Possible Null Value
+
+```{r}
+df |> 
+  vis_expect(function(x) nchar(x) < 10)
+```
+
+
+```{r}
+nchar_limit <- 10
+df_possible_null <- df |>
+  select(title, cast, description, director)
+
+v_nchar <- validator(
+ title = nchar(title) > nchar_limit,
+ cast =  nchar(cast) > nchar_limit,
+ director = nchar(director) > nchar_limit,
+ description = nchar(description) > nchar_limit
+)
+
+cf_nchar <- confront(df_possible_null, v_nchar)
+summary(cf_nchar)
+```
+
+###### Title
+
+```{r}
+df |> 
+  select(release_year, type:director, description) |> 
+  filter(nchar(title) < 3)
+```
+
+###### Cast
+
+```{r}
+df |> 
+ names()
+```
+
+
+```{r}
+df |> 
+  select(cast, description) |> 
+  filter(nchar(cast) < 8)
+```
+
+###### Director
+
+```{r}
+df |> 
+  relocate(director, title) |> 
+  filter(nchar(director) < 5)
+```
+
+###### Description
+
+```{r}
+df |> 
+  relocate(description, title) |> 
+  filter(nchar(description) < 15)
+```
+
+
+
+
