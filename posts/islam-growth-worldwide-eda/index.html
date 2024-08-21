@@ -1,0 +1,2082 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.53">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="invictus">
+<meta name="dcterms.date" content="2024-08-14">
+<meta name="description" content="Exploring World Religion dataset to uncover the growth of Islam in various countries using R">
+
+<title>EDA on islam religion growth worldwide – Blog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-46H31NF5Y2"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-46H31NF5Y2', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<!-- Default Statcounter code for Invictus Quarto https://invictus.quarto.pub -->
+<script type="text/javascript">
+var sc_project=13016686; 
+var sc_invisible=1; 
+var sc_security="1325b7f6"; 
+</script>
+<script type="text/plain" cookie-consent="tracking">
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript></noscript><meta property="og:title" content="EDA on islam religion growth worldwide – Blog">
+<meta property="og:description" content="Exploring World Religion dataset to uncover the growth of Islam in various countries using R">
+<meta property="og:image" content="mosque.png">
+<meta property="og:site_name" content="Blog">
+</head><body class="nav-fixed"><div class="statcounter"><a title="Web Analytics
+Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13016686/0/1325b7f6/1/" alt="Web Analytics Made Easy - Statcounter" referrerpolicy="no-referrer-when-downgrade"></a></div>
+<!-- End of Statcounter Code -->
+
+
+<link rel="stylesheet" href="../../styles.css">
+
+
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup">Setup</a></li>
+  <li><a href="#inspect-dataset" id="toc-inspect-dataset" class="nav-link" data-scroll-target="#inspect-dataset">Inspect Dataset</a>
+  <ul>
+  <li><a href="#understand-the-data" id="toc-understand-the-data" class="nav-link" data-scroll-target="#understand-the-data">Understand the data</a></li>
+  <li><a href="#check-data-quality" id="toc-check-data-quality" class="nav-link" data-scroll-target="#check-data-quality">Check Data Quality</a>
+  <ul>
+  <li><a href="#missing-values" id="toc-missing-values" class="nav-link" data-scroll-target="#missing-values">Missing Values</a>
+  <ul>
+  <li><a href="#total-population-columns" id="toc-total-population-columns" class="nav-link" data-scroll-target="#total-population-columns">Total Population Columns</a></li>
+  <li><a href="#total-percent-columns" id="toc-total-percent-columns" class="nav-link" data-scroll-target="#total-percent-columns">Total Percent Columns</a></li>
+  <li><a href="#population-but-non-total-columns" id="toc-population-but-non-total-columns" class="nav-link" data-scroll-target="#population-but-non-total-columns">Population but Non Total columns</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#clean-data" id="toc-clean-data" class="nav-link" data-scroll-target="#clean-data">Clean Data</a>
+  <ul>
+  <li><a href="#pick-relevant-columns" id="toc-pick-relevant-columns" class="nav-link" data-scroll-target="#pick-relevant-columns">Pick relevant columns</a></li>
+  <li><a href="#check-data-type" id="toc-check-data-type" class="nav-link" data-scroll-target="#check-data-type">Check Data type</a>
+  <ul>
+  <li><a href="#fix-data-types" id="toc-fix-data-types" class="nav-link" data-scroll-target="#fix-data-types">Fix Data Types</a></li>
+  </ul></li>
+  <li><a href="#check-duplicate" id="toc-check-duplicate" class="nav-link" data-scroll-target="#check-duplicate">Check Duplicate</a>
+  <ul>
+  <li><a href="#check-duplicate-year" id="toc-check-duplicate-year" class="nav-link" data-scroll-target="#check-duplicate-year">Check duplicate Year</a></li>
+  <li><a href="#remove-duplicate-using-distinct" id="toc-remove-duplicate-using-distinct" class="nav-link" data-scroll-target="#remove-duplicate-using-distinct">Remove duplicate using distinct()</a></li>
+  </ul></li>
+  <li><a href="#normalize-dataframe" id="toc-normalize-dataframe" class="nav-link" data-scroll-target="#normalize-dataframe">Normalize Dataframe</a>
+  <ul>
+  <li><a href="#remove-redundant-islam" id="toc-remove-redundant-islam" class="nav-link" data-scroll-target="#remove-redundant-islam">Remove redundant ‘Islam’</a></li>
+  </ul></li>
+  <li><a href="#check-missing-value" id="toc-check-missing-value" class="nav-link" data-scroll-target="#check-missing-value">Check Missing Value</a>
+  <ul>
+  <li><a href="#check-zero-distribution-possible-null-value" id="toc-check-zero-distribution-possible-null-value" class="nav-link" data-scroll-target="#check-zero-distribution-possible-null-value">Check Zero Distribution (Possible Null Value)</a></li>
+  <li><a href="#replace-zero-with-na" id="toc-replace-zero-with-na" class="nav-link" data-scroll-target="#replace-zero-with-na">Replace zero with NA</a></li>
+  </ul></li>
+  <li><a href="#check-missing-value-second-stage" id="toc-check-missing-value-second-stage" class="nav-link" data-scroll-target="#check-missing-value-second-stage">Check Missing Value (Second Stage)</a></li>
+  <li><a href="#check-data-constrains" id="toc-check-data-constrains" class="nav-link" data-scroll-target="#check-data-constrains">Check Data Constrains</a>
+  <ul>
+  <li><a href="#check-country-names" id="toc-check-country-names" class="nav-link" data-scroll-target="#check-country-names">Check Country Names</a>
+  <ul>
+  <li><a href="#exact-check" id="toc-exact-check" class="nav-link" data-scroll-target="#exact-check">Exact Check</a></li>
+  <li><a href="#automated-check-by-countrycode-package" id="toc-automated-check-by-countrycode-package" class="nav-link" data-scroll-target="#automated-check-by-countrycode-package">Automated Check by countrycode Package</a></li>
+  <li><a href="#correct-country-names" id="toc-correct-country-names" class="nav-link" data-scroll-target="#correct-country-names">Correct Country Names</a></li>
+  </ul></li>
+  <li><a href="#check-integers" id="toc-check-integers" class="nav-link" data-scroll-target="#check-integers">Check Integers</a></li>
+  <li><a href="#check-decimals" id="toc-check-decimals" class="nav-link" data-scroll-target="#check-decimals">Check Decimals</a></li>
+  </ul></li>
+  <li><a href="#check-record-completeness" id="toc-check-record-completeness" class="nav-link" data-scroll-target="#check-record-completeness">Check Record Completeness</a>
+  <ul>
+  <li><a href="#by-year" id="toc-by-year" class="nav-link" data-scroll-target="#by-year">By Year</a></li>
+  <li><a href="#by-country" id="toc-by-country" class="nav-link" data-scroll-target="#by-country">By Country</a></li>
+  <li><a href="#country-per-year" id="toc-country-per-year" class="nav-link" data-scroll-target="#country-per-year">Country Per Year</a>
+  <ul>
+  <li><a href="#check-year-gap" id="toc-check-year-gap" class="nav-link" data-scroll-target="#check-year-gap">Check Year Gap</a></li>
+  <li><a href="#average-starting-year" id="toc-average-starting-year" class="nav-link" data-scroll-target="#average-starting-year">Average Starting Year</a></li>
+  <li><a href="#average-final-year" id="toc-average-final-year" class="nav-link" data-scroll-target="#average-final-year">Average Final Year</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#normalize-dataframe-1" id="toc-normalize-dataframe-1" class="nav-link" data-scroll-target="#normalize-dataframe-1">Normalize Dataframe</a>
+  <ul>
+  <li><a href="#separate-population-from-percent-columns" id="toc-separate-population-from-percent-columns" class="nav-link" data-scroll-target="#separate-population-from-percent-columns">Separate <code>Population</code> from <code>Percent</code> columns</a></li>
+  </ul></li>
+  <li><a href="#check-sanity" id="toc-check-sanity" class="nav-link" data-scroll-target="#check-sanity">Check Sanity</a>
+  <ul>
+  <li><a href="#check-whether-total-value-equals-to-all-the-other-columns-combined" id="toc-check-whether-total-value-equals-to-all-the-other-columns-combined" class="nav-link" data-scroll-target="#check-whether-total-value-equals-to-all-the-other-columns-combined">Check whether Total value equals to all the other columns combined</a>
+  <ul>
+  <li><a href="#population" id="toc-population" class="nav-link" data-scroll-target="#population">Population</a></li>
+  <li><a href="#percent" id="toc-percent" class="nav-link" data-scroll-target="#percent">Percent</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#check-distribution" id="toc-check-distribution" class="nav-link" data-scroll-target="#check-distribution">Check Distribution</a>
+  <ul>
+  <li><a href="#population-1" id="toc-population-1" class="nav-link" data-scroll-target="#population-1">Population</a></li>
+  <li><a href="#percent-1" id="toc-percent-1" class="nav-link" data-scroll-target="#percent-1">Percent</a></li>
+  </ul></li>
+  <li><a href="#cleaning-summary" id="toc-cleaning-summary" class="nav-link" data-scroll-target="#cleaning-summary">Cleaning Summary</a>
+  <ul>
+  <li><a href="#verified-values" id="toc-verified-values" class="nav-link" data-scroll-target="#verified-values">Verified Values</a></li>
+  <li><a href="#changes-applied" id="toc-changes-applied" class="nav-link" data-scroll-target="#changes-applied">Changes Applied</a></li>
+  <li><a href="#other-findings" id="toc-other-findings" class="nav-link" data-scroll-target="#other-findings">Other findings</a></li>
+  </ul></li>
+  <li><a href="#next-steps" id="toc-next-steps" class="nav-link" data-scroll-target="#next-steps">Next Steps</a>
+  <ul>
+  <li><a href="#export-to-csv-for-further-analysis" id="toc-export-to-csv-for-further-analysis" class="nav-link" data-scroll-target="#export-to-csv-for-further-analysis">Export to CSV for further analysis</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">EDA on islam religion growth worldwide</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">EDA</div>
+    <div class="quarto-category">R</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Exploring World Religion dataset to uncover the growth of Islam in various countries using R
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>invictus </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 14, 2024</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">August 20, 2024</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+<nav id="TOC-body" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#setup" id="toc-setup">Setup</a></li>
+  <li><a href="#inspect-dataset" id="toc-inspect-dataset">Inspect Dataset</a>
+  <ul>
+  <li><a href="#understand-the-data" id="toc-understand-the-data">Understand the data</a></li>
+  <li><a href="#check-data-quality" id="toc-check-data-quality">Check Data Quality</a>
+  <ul>
+  <li><a href="#missing-values" id="toc-missing-values">Missing Values</a>
+  <ul>
+  <li><a href="#total-population-columns" id="toc-total-population-columns">Total Population Columns</a></li>
+  <li><a href="#total-percent-columns" id="toc-total-percent-columns">Total Percent Columns</a></li>
+  <li><a href="#population-but-non-total-columns" id="toc-population-but-non-total-columns">Population but Non Total columns</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#clean-data" id="toc-clean-data">Clean Data</a>
+  <ul>
+  <li><a href="#pick-relevant-columns" id="toc-pick-relevant-columns">Pick relevant columns</a></li>
+  <li><a href="#check-data-type" id="toc-check-data-type">Check Data type</a>
+  <ul>
+  <li><a href="#fix-data-types" id="toc-fix-data-types">Fix Data Types</a></li>
+  </ul></li>
+  <li><a href="#check-duplicate" id="toc-check-duplicate">Check Duplicate</a>
+  <ul>
+  <li><a href="#check-duplicate-year" id="toc-check-duplicate-year">Check duplicate Year</a></li>
+  <li><a href="#remove-duplicate-using-distinct" id="toc-remove-duplicate-using-distinct">Remove duplicate using distinct()</a></li>
+  </ul></li>
+  <li><a href="#normalize-dataframe" id="toc-normalize-dataframe">Normalize Dataframe</a>
+  <ul>
+  <li><a href="#remove-redundant-islam" id="toc-remove-redundant-islam">Remove redundant ‘Islam’</a></li>
+  </ul></li>
+  <li><a href="#check-missing-value" id="toc-check-missing-value">Check Missing Value</a>
+  <ul>
+  <li><a href="#check-zero-distribution-possible-null-value" id="toc-check-zero-distribution-possible-null-value">Check Zero Distribution (Possible Null Value)</a></li>
+  <li><a href="#replace-zero-with-na" id="toc-replace-zero-with-na">Replace zero with NA</a></li>
+  </ul></li>
+  <li><a href="#check-missing-value-second-stage" id="toc-check-missing-value-second-stage">Check Missing Value (Second Stage)</a></li>
+  <li><a href="#check-data-constrains" id="toc-check-data-constrains">Check Data Constrains</a>
+  <ul>
+  <li><a href="#check-country-names" id="toc-check-country-names">Check Country Names</a>
+  <ul>
+  <li><a href="#exact-check" id="toc-exact-check">Exact Check</a></li>
+  <li><a href="#automated-check-by-countrycode-package" id="toc-automated-check-by-countrycode-package">Automated Check by countrycode Package</a></li>
+  <li><a href="#correct-country-names" id="toc-correct-country-names">Correct Country Names</a></li>
+  </ul></li>
+  <li><a href="#check-integers" id="toc-check-integers">Check Integers</a></li>
+  <li><a href="#check-decimals" id="toc-check-decimals">Check Decimals</a></li>
+  </ul></li>
+  <li><a href="#check-record-completeness" id="toc-check-record-completeness">Check Record Completeness</a>
+  <ul>
+  <li><a href="#by-year" id="toc-by-year">By Year</a></li>
+  <li><a href="#by-country" id="toc-by-country">By Country</a></li>
+  <li><a href="#country-per-year" id="toc-country-per-year">Country Per Year</a>
+  <ul>
+  <li><a href="#check-year-gap" id="toc-check-year-gap">Check Year Gap</a></li>
+  <li><a href="#average-starting-year" id="toc-average-starting-year">Average Starting Year</a></li>
+  <li><a href="#average-final-year" id="toc-average-final-year">Average Final Year</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#normalize-dataframe-1" id="toc-normalize-dataframe-1">Normalize Dataframe</a>
+  <ul>
+  <li><a href="#separate-population-from-percent-columns" id="toc-separate-population-from-percent-columns">Separate <code>Population</code> from <code>Percent</code> columns</a></li>
+  </ul></li>
+  <li><a href="#check-sanity" id="toc-check-sanity">Check Sanity</a>
+  <ul>
+  <li><a href="#check-whether-total-value-equals-to-all-the-other-columns-combined" id="toc-check-whether-total-value-equals-to-all-the-other-columns-combined">Check whether Total value equals to all the other columns combined</a>
+  <ul>
+  <li><a href="#population" id="toc-population">Population</a></li>
+  <li><a href="#percent" id="toc-percent">Percent</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#check-distribution" id="toc-check-distribution">Check Distribution</a>
+  <ul>
+  <li><a href="#population-1" id="toc-population-1">Population</a></li>
+  <li><a href="#percent-1" id="toc-percent-1">Percent</a></li>
+  </ul></li>
+  <li><a href="#cleaning-summary" id="toc-cleaning-summary">Cleaning Summary</a>
+  <ul>
+  <li><a href="#verified-values" id="toc-verified-values">Verified Values</a></li>
+  <li><a href="#changes-applied" id="toc-changes-applied">Changes Applied</a></li>
+  <li><a href="#other-findings" id="toc-other-findings">Other findings</a></li>
+  </ul></li>
+  <li><a href="#next-steps" id="toc-next-steps">Next Steps</a>
+  <ul>
+  <li><a href="#export-to-csv-for-further-analysis" id="toc-export-to-csv-for-further-analysis">Export to CSV for further analysis</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+<section id="setup" class="level2">
+<h2 class="anchored" data-anchor-id="setup">Setup</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visdat)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DataExplorer)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(naniar)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(validate)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(countrycode)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'./ThrowbackDataThursday 201912 - Religion.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 2308 Columns: 76
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (1): StateNme
+dbl (75): index, Year, Christianity - Protestants (Population), Christianity...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+</div>
+</section>
+<section id="inspect-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="inspect-dataset">Inspect Dataset</h2>
+<section id="understand-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="understand-the-data">Understand the data</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,308 × 76
+   index  Year `Christianity - Protestants (Population)` Christianity - Roman …¹
+   &lt;dbl&gt; &lt;dbl&gt;                                     &lt;dbl&gt;                   &lt;dbl&gt;
+ 1     0  1945                                  66069671                38716742
+ 2     1  1950                                  73090083                42635882
+ 3     2  1955                                  79294628                46402368
+ 4     3  1960                                  90692928                50587880
+ 5     4  1965                                  94165803                64761783
+ 6     5  1970                                  93918347                69119143
+ 7     6  1975                                  93578909                77181399
+ 8     7  1980                                 101216516                75149580
+ 9     8  1985                                 107309700                82463100
+10     9  1990                                 132040181                65530789
+# ℹ 2,298 more rows
+# ℹ abbreviated name: ¹​`Christianity - Roman Catholics (Population)`
+# ℹ 72 more variables: `Christianity - Eastern Orthodox (Population)` &lt;dbl&gt;,
+#   `Christianity - Anglican (Population)` &lt;dbl&gt;,
+#   `Christianity - Others (Population)` &lt;dbl&gt;,
+#   `Christianity - Total (Population)` &lt;dbl&gt;,
+#   `Judaism - Orthodox (Population)` &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "index"                                       
+ [2] "Year"                                        
+ [3] "Christianity - Protestants (Population)"     
+ [4] "Christianity - Roman Catholics (Population)" 
+ [5] "Christianity - Eastern Orthodox (Population)"
+ [6] "Christianity - Anglican (Population)"        
+ [7] "Christianity - Others (Population)"          
+ [8] "Christianity - Total (Population)"           
+ [9] "Judaism - Orthodox (Population)"             
+[10] "Judaism - Conservatives (Population)"        
+[11] "Judaism - Reform (Population)"               
+[12] "Judaism - Others (Population)"               
+[13] "Judaism - Total (Population)"                
+[14] "Islam - Sunni (Population)"                  
+[15] "Islam - Shi'a (Population)"                  
+[16] "Islam - Ibadhi (Population)"                 
+[17] "Islam - Nation of Islam (Population)"        
+[18] "Islam - Alawite (Population)"                
+[19] "Islam - Ahmadiyya (Population)"              
+[20] "Islam - Others (Population)"                 
+[21] "Islam - Total (Population)"                  
+[22] "Buddhism - Mahayana (Population)"            
+[23] "Buddhism - Theravada (Population)"           
+[24] "Buddhism - Others (Population)"              
+[25] "Buddhism - Total (Population)"               
+[26] "Zoroastrian - Total (Population)"            
+[27] "Hindu - Total (Population)"                  
+[28] "Sike - Total (Population)"                   
+[29] "Shinto - Total (Population)"                 
+[30] "Baha'i - Total (Population)"                 
+[31] "Taoism - Total (Population)"                 
+[32] "Confucianism - Total (Population)"           
+[33] "Jain - Total (Population)"                   
+[34] "Syncretic Religions - Total (Population)"    
+[35] "Animist - Total (Population)"                
+[36] "Non Religious - Total (Population)"          
+[37] "Other Religions - Total (Population)"        
+[38] "Total Religious - Total (Population)"        
+[39] "Population - Total (Population)"             
+[40] "Christianity - Protestants (Percent)"        
+[41] "Christianity - Roman Catholics (Percent)"    
+[42] "Christianity - Eastern Orthodox (Percent)"   
+[43] "Christianity - Anglican (Percent)"           
+[44] "Christianity - Others (Percent)"             
+[45] "Christianity - Total (Percent)"              
+[46] "Judaism - Orthodox (Percent)"                
+[47] "Judaism - Conservatives (Percent)"           
+[48] "Judaism - Reform (Percent)"                  
+[49] "Judaism - Others (Percent)"                  
+[50] "Judaism - Total (Percent)"                   
+[51] "Islam - Sunni (Percent)"                     
+[52] "Islam - Shi'a (Percent)"                     
+[53] "Islam - Ibadhi (Percent)"                    
+[54] "Islam - Nation of Islam (Percent)"           
+[55] "Islam - Alawite (Percent)"                   
+[56] "Islam - Ahmadiyya (Percent)"                 
+[57] "Islam - Others (Percent)"                    
+[58] "Islam - Total (Percent)"                     
+[59] "Buddhism - Mahayana (Percent)"               
+[60] "Buddhism - Theravada (Percent)"              
+[61] "Buddhism - Others (Percent)"                 
+[62] "Buddhism - Total (Percent)"                  
+[63] "Zoroastrian - Total (Percent)"               
+[64] "Hindu - Total (Percent)"                     
+[65] "Sike - Total (Percent)"                      
+[66] "Shinto - Total (Percent)"                    
+[67] "Baha'i - Total (Percent)"                    
+[68] "Taoism - Total (Percent)"                    
+[69] "Confucianism - Total (Percent)"              
+[70] "Jain - Total (Percent)"                      
+[71] "Syncretic Religions - Total (Percent)"       
+[72] "Animist - Total (Percent)"                   
+[73] "Non Religious - Total (Percent)"             
+[74] "Other Religions - Total (Percent)"           
+[75] "Total Religious - Total (Percent)"           
+[76] "StateNme"                                    </code></pre>
+</div>
+</div>
+</section>
+<section id="check-data-quality" class="level3">
+<h3 class="anchored" data-anchor-id="check-data-quality">Check Data Quality</h3>
+<section id="missing-values" class="level4">
+<h4 class="anchored" data-anchor-id="missing-values">Missing Values</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vis_miss</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vis_expect</span>(<span class="cf">function</span>(x) x <span class="sc">!=</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_with_na_all</span>(<span class="sc">~</span> . <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vis_miss</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="total-population-columns" class="level5">
+<h5 class="anchored" data-anchor-id="total-population-columns">Total Population Columns</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">'Total'</span>) <span class="sc">&amp;</span> <span class="fu">contains</span>(<span class="st">'Population'</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_with</span>(<span class="cf">function</span>(x) <span class="fu">str_remove</span>(x, <span class="st">' - Total </span><span class="sc">\\</span><span class="st">(Population</span><span class="sc">\\</span><span class="st">)'</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_with_na_all</span>(<span class="sc">~</span> . <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vis_miss</span>(<span class="at">sort_miss =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="total-percent-columns" class="level5">
+<h5 class="anchored" data-anchor-id="total-percent-columns">Total Percent Columns</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">contains</span>(<span class="st">'Total'</span>) <span class="sc">&amp;</span> <span class="fu">contains</span>(<span class="st">'Percent'</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_with</span>(<span class="cf">function</span>(x) <span class="fu">str_remove</span>(x, <span class="st">' - Total </span><span class="sc">\\</span><span class="st">(Percent</span><span class="sc">\\</span><span class="st">)'</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_with_na_all</span>(<span class="sc">~</span> . <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vis_miss</span>(<span class="at">sort_miss =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="population-but-non-total-columns" class="level5">
+<h5 class="anchored" data-anchor-id="population-but-non-total-columns">Population but Non Total columns</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">contains</span>(<span class="st">'Total'</span>) <span class="sc">&amp;</span> <span class="fu">contains</span>(<span class="st">'Population'</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_with</span>(<span class="cf">function</span>(x) <span class="fu">str_remove</span>(x, <span class="st">' </span><span class="sc">\\</span><span class="st">(Population</span><span class="sc">\\</span><span class="st">)'</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_with_na_all</span>(<span class="sc">~</span> . <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vis_miss</span>(<span class="at">sort_miss =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+</section>
+<section id="clean-data" class="level2">
+<h2 class="anchored" data-anchor-id="clean-data">Clean Data</h2>
+<section id="pick-relevant-columns" class="level3">
+<h3 class="anchored" data-anchor-id="pick-relevant-columns">Pick relevant columns</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df_islam <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">Country =</span> StateNme, Year, <span class="fu">starts_with</span>(<span class="st">'Islam'</span>))</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>df_islam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2,308 × 18
+   Country                   Year Islam - Sunni (Popula…¹ Islam - Shi'a (Popul…²
+   &lt;chr&gt;                    &lt;dbl&gt;                   &lt;dbl&gt;                  &lt;dbl&gt;
+ 1 United States of America  1945                       0                      0
+ 2 United States of America  1950                       0                      0
+ 3 United States of America  1955                       0                      0
+ 4 United States of America  1960                       0                      0
+ 5 United States of America  1965                       0                      0
+ 6 United States of America  1970                       0                      0
+ 7 United States of America  1975                       0                      0
+ 8 United States of America  1980                 2407464                 254121
+ 9 United States of America  1985                 2186675                 298183
+10 United States of America  1990                 2019386                 275371
+# ℹ 2,298 more rows
+# ℹ abbreviated names: ¹​`Islam - Sunni (Population)`,
+#   ²​`Islam - Shi'a (Population)`
+# ℹ 14 more variables: `Islam - Ibadhi (Population)` &lt;dbl&gt;,
+#   `Islam - Nation of Islam (Population)` &lt;dbl&gt;,
+#   `Islam - Alawite (Population)` &lt;dbl&gt;,
+#   `Islam - Ahmadiyya (Population)` &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+</section>
+<section id="check-data-type" class="level3">
+<h3 class="anchored" data-anchor-id="check-data-type">Check Data type</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df_islam <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [2,308 × 18] (S3: tbl_df/tbl/data.frame)
+ $ Country                             : chr [1:2308] "United States of America" "United States of America" "United States of America" "United States of America" ...
+ $ Year                                : num [1:2308] 1945 1950 1955 1960 1965 ...
+ $ Islam - Sunni (Population)          : num [1:2308] 0 0 0 0 0 ...
+ $ Islam - Shi'a (Population)          : num [1:2308] 0 0 0 0 0 ...
+ $ Islam - Ibadhi (Population)         : num [1:2308] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Islam - Nation of Islam (Population): num [1:2308] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Islam - Alawite (Population)        : num [1:2308] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Islam - Ahmadiyya (Population)      : num [1:2308] 0 0 0 0 0 ...
+ $ Islam - Others (Population)         : num [1:2308] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Islam - Total (Population)          : num [1:2308] 0 0 0 0 0 ...
+ $ Islam - Sunni (Percent)             : num [1:2308] 0 0 0 0 0 0 0 0.0106 0.0092 0.0081 ...
+ $ Islam - Shi'a (Percent)             : num [1:2308] 0 0 0 0 0 0 0 0.0011 0.0013 0.0011 ...
+ $ Islam - Ibadhi (Percent)            : num [1:2308] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Islam - Nation of Islam (Percent)   : num [1:2308] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Islam - Alawite (Percent)           : num [1:2308] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Islam - Ahmadiyya (Percent)         : num [1:2308] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Islam - Others (Percent)            : num [1:2308] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Islam - Total (Percent)             : num [1:2308] 0 0 0 0 0 0 0 0.0117 0.0104 0.0092 ...</code></pre>
+</div>
+</div>
+<section id="fix-data-types" class="level4">
+<h4 class="anchored" data-anchor-id="fix-data-types">Fix Data Types</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df_islam_correct_type <span class="ot">&lt;-</span> df_islam <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Country =</span> <span class="fu">as_factor</span>(Country))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="check-duplicate" class="level3">
+<h3 class="anchored" data-anchor-id="check-duplicate">Check Duplicate</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df_islam_correct_type <span class="sc">|&gt;</span> <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Country"                             
+ [2] "Year"                                
+ [3] "Islam - Sunni (Population)"          
+ [4] "Islam - Shi'a (Population)"          
+ [5] "Islam - Ibadhi (Population)"         
+ [6] "Islam - Nation of Islam (Population)"
+ [7] "Islam - Alawite (Population)"        
+ [8] "Islam - Ahmadiyya (Population)"      
+ [9] "Islam - Others (Population)"         
+[10] "Islam - Total (Population)"          
+[11] "Islam - Sunni (Percent)"             
+[12] "Islam - Shi'a (Percent)"             
+[13] "Islam - Ibadhi (Percent)"            
+[14] "Islam - Nation of Islam (Percent)"   
+[15] "Islam - Alawite (Percent)"           
+[16] "Islam - Ahmadiyya (Percent)"         
+[17] "Islam - Others (Percent)"            
+[18] "Islam - Total (Percent)"             </code></pre>
+</div>
+</div>
+<section id="check-duplicate-year" class="level4">
+<h4 class="anchored" data-anchor-id="check-duplicate-year">Check duplicate Year</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df_islam_correct_type <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">get_dupes</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(dupe_count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>No variable names specified - using all columns.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 626 × 19
+   dupe_count Country  Year `Islam - Sunni (Population)` Islam - Shi'a (Popula…¹
+        &lt;int&gt; &lt;fct&gt;   &lt;dbl&gt;                        &lt;dbl&gt;                   &lt;dbl&gt;
+ 1          2 Cuba     1945                            0                       0
+ 2          2 Cuba     1945                            0                       0
+ 3          2 Cuba     1950                            0                       0
+ 4          2 Cuba     1950                            0                       0
+ 5          2 Cuba     1955                            0                       0
+ 6          2 Cuba     1955                            0                       0
+ 7          2 Cuba     1960                            0                       0
+ 8          2 Cuba     1960                            0                       0
+ 9          2 Cuba     1965                            0                       0
+10          2 Cuba     1965                            0                       0
+# ℹ 616 more rows
+# ℹ abbreviated name: ¹​`Islam - Shi'a (Population)`
+# ℹ 14 more variables: `Islam - Ibadhi (Population)` &lt;dbl&gt;,
+#   `Islam - Nation of Islam (Population)` &lt;dbl&gt;,
+#   `Islam - Alawite (Population)` &lt;dbl&gt;,
+#   `Islam - Ahmadiyya (Population)` &lt;dbl&gt;,
+#   `Islam - Others (Population)` &lt;dbl&gt;, `Islam - Total (Population)` &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>df_islam_correct_type <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Year, Country) <span class="sc">|&gt;</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">|&gt;</span> </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Storing counts in `nn`, as `n` already present in input
+ℹ Use `name = "new_name"` to pick a new name.</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 2
+      n    nn
+  &lt;int&gt; &lt;int&gt;
+1     1  1682
+2     2   313</code></pre>
+</div>
+</div>
+</section>
+<section id="remove-duplicate-using-distinct" class="level4">
+<h4 class="anchored" data-anchor-id="remove-duplicate-using-distinct">Remove duplicate using distinct()</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df_islam <span class="sc">|&gt;</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2308</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>df_islam_correct_type <span class="sc">|&gt;</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1995</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df_islam_removedduplicate <span class="ot">&lt;-</span> df_islam_correct_type <span class="sc">|&gt;</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="normalize-dataframe" class="level3">
+<h3 class="anchored" data-anchor-id="normalize-dataframe">Normalize Dataframe</h3>
+<section id="remove-redundant-islam" class="level4">
+<h4 class="anchored" data-anchor-id="remove-redundant-islam">Remove redundant ‘Islam’</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df_islam_columns_renamed <span class="ot">&lt;-</span> df_islam_removedduplicate <span class="sc">|&gt;</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_with</span>(<span class="cf">function</span>(x) <span class="fu">str_remove</span>(x, <span class="st">'Islam - '</span>),</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>              <span class="fu">starts_with</span>(<span class="st">'Islam'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="check-missing-value" class="level3">
+<h3 class="anchored" data-anchor-id="check-missing-value">Check Missing Value</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>df_islam_columns_renamed <span class="sc">|&gt;</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vis_miss</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df_islam_replacedna <span class="ot">&lt;-</span> df_islam_columns_renamed <span class="sc">|&gt;</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="cf">function</span>(x) <span class="fu">replace_na</span>(x, <span class="dv">0</span>)))</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>df_islam_replacedna <span class="sc">|&gt;</span> </span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vis_miss</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="check-zero-distribution-possible-null-value" class="level4">
+<h4 class="anchored" data-anchor-id="check-zero-distribution-possible-null-value">Check Zero Distribution (Possible Null Value)</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>df_islam_replacedna <span class="sc">|&gt;</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">!</span>Country) <span class="sc">|&gt;</span> </span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">vis_expect</span>(<span class="cf">function</span>(x) x <span class="sc">!=</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="replace-zero-with-na" class="level4">
+<h4 class="anchored" data-anchor-id="replace-zero-with-na">Replace zero with NA</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>df_islam_replacedzero <span class="ot">&lt;-</span> df_islam_replacedna <span class="sc">|&gt;</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="cf">function</span>(x) <span class="fu">if_else</span>(x <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA</span>, x)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="check-missing-value-second-stage" class="level3">
+<h3 class="anchored" data-anchor-id="check-missing-value-second-stage">Check Missing Value (Second Stage)</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>df_islam_replacedzero <span class="sc">|&gt;</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">miss_var_summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 18 × 3
+   variable                     n_miss pct_miss
+   &lt;chr&gt;                         &lt;int&gt;    &lt;num&gt;
+ 1 Nation of Islam (Population)   1995    100  
+ 2 Ibadhi (Percent)               1995    100  
+ 3 Nation of Islam (Percent)      1995    100  
+ 4 Ibadhi (Population)            1985     99.5
+ 5 Alawite (Population)           1974     98.9
+ 6 Alawite (Percent)              1974     98.9
+ 7 Ahmadiyya (Percent)            1960     98.2
+ 8 Ahmadiyya (Population)         1953     97.9
+ 9 Shi'a (Population)             1639     82.2
+10 Shi'a (Percent)                1639     82.2
+11 Sunni (Percent)                1422     71.3
+12 Sunni (Population)             1421     71.2
+13 Others (Percent)                879     44.1
+14 Others (Population)             856     42.9
+15 Total (Percent)                 354     17.7
+16 Total (Population)              329     16.5
+17 Country                           0      0  
+18 Year                              0      0  </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>df_islam_replacedzero <span class="sc">|&gt;</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gg_miss_var</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>df_islam_replacedzero</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,995 × 18
+   Country  Year `Sunni (Population)` `Shi'a (Population)` `Ibadhi (Population)`
+   &lt;fct&gt;   &lt;dbl&gt;                &lt;dbl&gt;                &lt;dbl&gt;                 &lt;dbl&gt;
+ 1 United…  1945                   NA                   NA                    NA
+ 2 United…  1950                   NA                   NA                    NA
+ 3 United…  1955                   NA                   NA                    NA
+ 4 United…  1960                   NA                   NA                    NA
+ 5 United…  1965                   NA                   NA                    NA
+ 6 United…  1970                   NA                   NA                    NA
+ 7 United…  1975                   NA                   NA                    NA
+ 8 United…  1980              2407464               254121                    NA
+ 9 United…  1985              2186675               298183                    NA
+10 United…  1990              2019386               275371                    NA
+# ℹ 1,985 more rows
+# ℹ 13 more variables: `Nation of Islam (Population)` &lt;dbl&gt;,
+#   `Alawite (Population)` &lt;dbl&gt;, `Ahmadiyya (Population)` &lt;dbl&gt;,
+#   `Others (Population)` &lt;dbl&gt;, `Total (Population)` &lt;dbl&gt;,
+#   `Sunni (Percent)` &lt;dbl&gt;, `Shi'a (Percent)` &lt;dbl&gt;, `Ibadhi (Percent)` &lt;dbl&gt;,
+#   `Nation of Islam (Percent)` &lt;dbl&gt;, `Alawite (Percent)` &lt;dbl&gt;,
+#   `Ahmadiyya (Percent)` &lt;dbl&gt;, `Others (Percent)` &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>df_islam_replacedzero <span class="sc">|&gt;</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gg_miss_upset</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="check-data-constrains" class="level3">
+<h3 class="anchored" data-anchor-id="check-data-constrains">Check Data Constrains</h3>
+<section id="check-country-names" class="level4">
+<h4 class="anchored" data-anchor-id="check-country-names">Check Country Names</h4>
+<section id="exact-check" class="level5">
+<h5 class="anchored" data-anchor-id="exact-check">Exact Check</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>valid_countries <span class="ot">&lt;-</span> codelist<span class="sc">$</span>country.name.en</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>df_country_only <span class="ot">&lt;-</span> df_islam <span class="sc">|&gt;</span> </span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(Country)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>validation_rules_country <span class="ot">&lt;-</span> <span class="fu">validator</span>(</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  Country <span class="sc">%in%</span> valid_countries</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>cf_country <span class="ot">&lt;-</span> <span class="fu">confront</span>(df_country_only, validation_rules_country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cf_country)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  name items passes fails nNA error warning                    expression
+1   V1   200    184    16   0 FALSE   FALSE Country %vin% valid_countries</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>invalid_country <span class="ot">&lt;-</span> <span class="fu">violating</span>(df_country_only, cf_country) <span class="sc">|&gt;</span> </span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Country) <span class="sc">|&gt;</span> </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(Country)</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>invalid_country</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Bosnia and Herzegovina"           "Congo"                           
+ [3] "Czech Republic"                   "Democratic Republic of the Congo"
+ [5] "East Timor"                       "Federated States of Micronesia"  
+ [7] "German Federal Republic"          "Ivory Coast"                     
+ [9] "Macedonia"                        "Myanmar"                         
+[11] "Sao Tome and Principe"            "St. Kitts and Nevis"             
+[13] "St. Vincent and the Grenadines"   "Swaziland"                       
+[15] "Trinidad and Tobago"              "United States of America"        </code></pre>
+</div>
+</div>
+</section>
+<section id="automated-check-by-countrycode-package" class="level5">
+<h5 class="anchored" data-anchor-id="automated-check-by-countrycode-package">Automated Check by countrycode Package</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">invalid_country_name =</span> invalid_country,</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">converted_country_name =</span> <span class="fu">countryname</span>(invalid_country))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 2
+   invalid_country_name             converted_country_name          
+   &lt;chr&gt;                            &lt;chr&gt;                           
+ 1 Bosnia and Herzegovina           Bosnia &amp; Herzegovina            
+ 2 Congo                            Congo - Brazzaville             
+ 3 Czech Republic                   Czechia                         
+ 4 Democratic Republic of the Congo Congo - Kinshasa                
+ 5 East Timor                       Timor-Leste                     
+ 6 Federated States of Micronesia   Micronesia (Federated States of)
+ 7 German Federal Republic          Germany                         
+ 8 Ivory Coast                      Côte d’Ivoire                   
+ 9 Macedonia                        North Macedonia                 
+10 Myanmar                          Myanmar (Burma)                 
+11 Sao Tome and Principe            São Tomé &amp; Príncipe             
+12 St. Kitts and Nevis              St. Kitts &amp; Nevis               
+13 St. Vincent and the Grenadines   St. Vincent &amp; Grenadines        
+14 Swaziland                        Eswatini                        
+15 Trinidad and Tobago              Trinidad &amp; Tobago               
+16 United States of America         United States                   </code></pre>
+</div>
+</div>
+</section>
+<section id="correct-country-names" class="level5">
+<h5 class="anchored" data-anchor-id="correct-country-names">Correct Country Names</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>df_islam_correct_country <span class="ot">&lt;-</span> df_islam_replacedzero <span class="sc">|&gt;</span> </span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Country =</span> <span class="fu">countryname</span>(Country))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="check-integers" class="level4">
+<h4 class="anchored" data-anchor-id="check-integers">Check Integers</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>validation_rules_integer <span class="ot">&lt;-</span> <span class="fu">validator</span>(</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Sunni (Population)</span><span class="st">`</span> <span class="sc">%%</span> <span class="dv">1</span> <span class="sc">==</span> <span class="dv">0</span>,</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Shi'a (Population)</span><span class="st">`</span> <span class="sc">%%</span> <span class="dv">1</span> <span class="sc">==</span> <span class="dv">0</span>,</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Ibadhi (Population)</span><span class="st">`</span> <span class="sc">%%</span> <span class="dv">1</span> <span class="sc">==</span> <span class="dv">0</span>,</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Nation of Islam (Population)</span><span class="st">`</span> <span class="sc">%%</span> <span class="dv">1</span> <span class="sc">==</span> <span class="dv">0</span>,</span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Alawite (Population)</span><span class="st">`</span> <span class="sc">%%</span> <span class="dv">1</span> <span class="sc">==</span> <span class="dv">0</span>,</span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Ahmadiyya (Population)</span><span class="st">`</span> <span class="sc">%%</span> <span class="dv">1</span> <span class="sc">==</span> <span class="dv">0</span>,</span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Others (Population)</span><span class="st">`</span> <span class="sc">%%</span> <span class="dv">1</span> <span class="sc">==</span> <span class="dv">0</span>,</span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Total (Population)</span><span class="st">`</span> <span class="sc">%%</span> <span class="dv">1</span> <span class="sc">==</span> <span class="dv">0</span></span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>cf_integer <span class="ot">&lt;-</span> <span class="fu">confront</span>(df_islam_correct_country, validation_rules_integer)</span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cf_integer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  name items passes fails  nNA error warning
+1   V1  1995    574     0 1421 FALSE   FALSE
+2   V2  1995    356     0 1639 FALSE   FALSE
+3   V3  1995     10     0 1985 FALSE   FALSE
+4   V4  1995      0     0 1995 FALSE   FALSE
+5   V5  1995     21     0 1974 FALSE   FALSE
+6   V6  1995     42     0 1953 FALSE   FALSE
+7   V7  1995   1139     0  856 FALSE   FALSE
+8   V8  1995   1666     0  329 FALSE   FALSE
+                              expression
+1           `Sunni (Population)`%%1 == 0
+2           `Shi'a (Population)`%%1 == 0
+3          `Ibadhi (Population)`%%1 == 0
+4 `Nation of Islam (Population)`%%1 == 0
+5         `Alawite (Population)`%%1 == 0
+6       `Ahmadiyya (Population)`%%1 == 0
+7          `Others (Population)`%%1 == 0
+8           `Total (Population)`%%1 == 0</code></pre>
+</div>
+</div>
+</section>
+<section id="check-decimals" class="level4">
+<h4 class="anchored" data-anchor-id="check-decimals">Check Decimals</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>validation_rules_decimal <span class="ot">&lt;-</span> <span class="fu">validator</span>(</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Sunni (Percent)</span><span class="st">`</span> <span class="sc">%%</span> <span class="dv">1</span> <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Shi'a (Percent)</span><span class="st">`</span> <span class="sc">%%</span> <span class="dv">1</span> <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Ibadhi (Percent)</span><span class="st">`</span> <span class="sc">%%</span> <span class="dv">1</span> <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Nation of Islam (Percent)</span><span class="st">`</span> <span class="sc">%%</span> <span class="dv">1</span> <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Alawite (Percent)</span><span class="st">`</span> <span class="sc">%%</span> <span class="dv">1</span> <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Ahmadiyya (Percent)</span><span class="st">`</span> <span class="sc">%%</span> <span class="dv">1</span> <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Others (Percent)</span><span class="st">`</span> <span class="sc">%%</span> <span class="dv">1</span> <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Total (Percent)</span><span class="st">`</span> <span class="sc">%%</span> <span class="dv">1</span> <span class="sc">&gt;</span> <span class="dv">0</span></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>cf_decimal <span class="ot">&lt;-</span> <span class="fu">confront</span>(df_islam_correct_country,validation_rules_decimal)</span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cf_decimal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  name items passes fails  nNA error warning                         expression
+1   V1  1995    571     2 1422 FALSE   FALSE           `Sunni (Percent)`%%1 &gt; 0
+2   V2  1995    356     0 1639 FALSE   FALSE           `Shi'a (Percent)`%%1 &gt; 0
+3   V3  1995      0     0 1995 FALSE   FALSE          `Ibadhi (Percent)`%%1 &gt; 0
+4   V4  1995      0     0 1995 FALSE   FALSE `Nation of Islam (Percent)`%%1 &gt; 0
+5   V5  1995     21     0 1974 FALSE   FALSE         `Alawite (Percent)`%%1 &gt; 0
+6   V6  1995     35     0 1960 FALSE   FALSE       `Ahmadiyya (Percent)`%%1 &gt; 0
+7   V7  1995   1116     0  879 FALSE   FALSE          `Others (Percent)`%%1 &gt; 0
+8   V8  1995   1635     6  354 FALSE   FALSE           `Total (Percent)`%%1 &gt; 0</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">violating</span>(df_islam_correct_country <span class="sc">|&gt;</span> </span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">select</span>(Country, Year, <span class="fu">contains</span>(<span class="st">'Percent'</span>)),</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>          cf_decimal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 10
+  Country            Year `Sunni (Percent)` `Shi'a (Percent)` `Ibadhi (Percent)`
+  &lt;chr&gt;             &lt;dbl&gt;             &lt;dbl&gt;             &lt;dbl&gt;              &lt;dbl&gt;
+1 Yemen              2000             0.69               0.31                 NA
+2 Yemen People's R…  1970             1                 NA                    NA
+3 Yemen People's R…  1975             1                 NA                    NA
+4 Qatar              1970             0.9                0.1                  NA
+5 Oman               1970             0.498             NA                    NA
+6 Oman               1975             0.5               NA                    NA
+# ℹ 5 more variables: `Nation of Islam (Percent)` &lt;dbl&gt;,
+#   `Alawite (Percent)` &lt;dbl&gt;, `Ahmadiyya (Percent)` &lt;dbl&gt;,
+#   `Others (Percent)` &lt;dbl&gt;, `Total (Percent)` &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="check-record-completeness" class="level3">
+<h3 class="anchored" data-anchor-id="check-record-completeness">Check Record Completeness</h3>
+<section id="by-year" class="level4">
+<h4 class="anchored" data-anchor-id="by-year">By Year</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>df_islam_replacedzero <span class="sc">|&gt;</span> </span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Year)) <span class="sc">+</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">stat =</span> <span class="st">'count'</span>) <span class="sc">+</span> </span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">stat=</span><span class="st">'count'</span>) <span class="sc">+</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1945</span>, <span class="dv">2010</span>, <span class="at">by=</span><span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="by-country" class="level4">
+<h4 class="anchored" data-anchor-id="by-country">By Country</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>df_islam_replacedzero <span class="sc">|&gt;</span> </span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(Country) <span class="sc">|&gt;</span> </span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 200</code></pre>
+</div>
+</div>
+</section>
+<section id="country-per-year" class="level4">
+<h4 class="anchored" data-anchor-id="country-per-year">Country Per Year</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>df_islam_year_data <span class="ot">&lt;-</span> df_islam_replacedzero <span class="sc">|&gt;</span> </span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Country) <span class="sc">|&gt;</span> </span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(n) <span class="sc">|&gt;</span> </span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(nn)) <span class="sc">|&gt;</span> </span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">'Year Data Availibility'</span> <span class="ot">=</span> n, <span class="st">'Total Country'</span> <span class="ot">=</span> nn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Storing counts in `nn`, as `n` already present in input
+ℹ Use `name = "new_name"` to pick a new name.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>df_islam_year_data <span class="sc">|&gt;</span> </span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="st">`</span><span class="at">Year Data Availibility</span><span class="st">`</span>, <span class="st">`</span><span class="at">Total Country</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">14</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>validation_rules_year <span class="ot">&lt;-</span> <span class="fu">validator</span>(</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">contains_at_least</span>( </span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">keys =</span> <span class="fu">data.frame</span>(<span class="at">Year =</span> <span class="fu">seq</span>(<span class="dv">1945</span>, <span class="dv">2010</span>, <span class="at">by=</span><span class="dv">5</span>)),</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">by=</span><span class="fu">list</span>(Country) )</span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a>cf_year <span class="ot">&lt;-</span> <span class="fu">confront</span>(df_islam_replacedzero, validation_rules_year)</span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cf_year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  name items passes fails nNA error warning
+1   V1  1995    868  1127   0 FALSE   FALSE
+                                                                                expression
+1 contains_at_least(keys = data.frame(Year = seq(1945, 2010, by = 5)), by = list(Country))</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>incomplete_country <span class="ot">&lt;-</span> <span class="fu">violating</span>(df_islam_replacedzero, cf_year) <span class="sc">|&gt;</span> </span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Country, Year)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="check-year-gap" class="level5">
+<h5 class="anchored" data-anchor-id="check-year-gap">Check Year Gap</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>incomplete_country <span class="sc">|&gt;</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Country) <span class="sc">|&gt;</span> </span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lagged_Year =</span> <span class="fu">lag</span>(Year, <span class="at">default =</span> <span class="fu">first</span>(Year))) <span class="sc">|&gt;</span> </span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year_Gap =</span> Year <span class="sc">-</span>lagged_Year) <span class="sc">|&gt;</span> </span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Year_Gap)) <span class="sc">+</span></span>
+<span id="cb66-6"><a href="#cb66-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb66-7"><a href="#cb66-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">100</span>, <span class="at">by=</span><span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-42-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="average-starting-year" class="level5">
+<h5 class="anchored" data-anchor-id="average-starting-year">Average Starting Year</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>df_islam_replacedzero <span class="sc">|&gt;</span> </span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Country, Year) <span class="sc">|&gt;</span> </span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Country) <span class="sc">|&gt;</span> </span>
+<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Year)) <span class="sc">+</span></span>
+<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">1945</span>, <span class="dv">2010</span>, <span class="at">by=</span><span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-43-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="average-final-year" class="level5">
+<h5 class="anchored" data-anchor-id="average-final-year">Average Final Year</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>df_islam_final_year_count <span class="ot">&lt;-</span> df_islam_replacedzero <span class="sc">|&gt;</span> </span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Country, Year) <span class="sc">|&gt;</span> </span>
+<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Country) <span class="sc">|&gt;</span> </span>
+<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice_tail</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Year)</span>
+<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>df_islam_final_year_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 2
+   Year     n
+  &lt;dbl&gt; &lt;int&gt;
+1  1970     1
+2  1985     1
+3  1990     4
+4  2010   194</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>df_islam_final_year_count <span class="sc">|&gt;</span> </span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Year, n)) <span class="sc">+</span></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="normalize-dataframe-1" class="level3">
+<h3 class="anchored" data-anchor-id="normalize-dataframe-1">Normalize Dataframe</h3>
+<section id="separate-population-from-percent-columns" class="level4">
+<h4 class="anchored" data-anchor-id="separate-population-from-percent-columns">Separate <code>Population</code> from <code>Percent</code> columns</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>df_islam_population <span class="ot">&lt;-</span> df_islam_correct_country <span class="sc">|&gt;</span> </span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Country, Year, <span class="fu">contains</span>(<span class="st">'Population'</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_with</span>(<span class="cf">function</span>(x) <span class="fu">str_remove</span>(x, <span class="st">' </span><span class="sc">\\</span><span class="st">(Population</span><span class="sc">\\</span><span class="st">)'</span>),</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">contains</span>(<span class="st">'Population'</span>))</span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>df_islam_population</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,995 × 10
+   Country       Year   Sunni `Shi'a` Ibadhi `Nation of Islam` Alawite Ahmadiyya
+   &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;             &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+ 1 United Stat…  1945      NA      NA     NA                NA      NA        NA
+ 2 United Stat…  1950      NA      NA     NA                NA      NA        NA
+ 3 United Stat…  1955      NA      NA     NA                NA      NA        NA
+ 4 United Stat…  1960      NA      NA     NA                NA      NA        NA
+ 5 United Stat…  1965      NA      NA     NA                NA      NA        NA
+ 6 United Stat…  1970      NA      NA     NA                NA      NA        NA
+ 7 United Stat…  1975      NA      NA     NA                NA      NA        NA
+ 8 United Stat…  1980 2407464  254121     NA                NA      NA      4975
+ 9 United Stat…  1985 2186675  298183     NA                NA      NA        NA
+10 United Stat…  1990 2019386  275371     NA                NA      NA        NA
+# ℹ 1,985 more rows
+# ℹ 2 more variables: Others &lt;dbl&gt;, Total &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>df_islam_percent <span class="ot">&lt;-</span> df_islam_correct_country <span class="sc">|&gt;</span> </span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Country, Year, <span class="fu">contains</span>(<span class="st">'Percent'</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename_with</span>(<span class="cf">function</span>(x) <span class="fu">str_remove</span>(x, <span class="st">' </span><span class="sc">\\</span><span class="st">(Percent</span><span class="sc">\\</span><span class="st">)'</span>),</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>              <span class="fu">contains</span>(<span class="st">'Percent'</span>))</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>df_islam_percent</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,995 × 10
+   Country       Year   Sunni `Shi'a` Ibadhi `Nation of Islam` Alawite Ahmadiyya
+   &lt;chr&gt;        &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;             &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+ 1 United Stat…  1945 NA      NA          NA                NA      NA        NA
+ 2 United Stat…  1950 NA      NA          NA                NA      NA        NA
+ 3 United Stat…  1955 NA      NA          NA                NA      NA        NA
+ 4 United Stat…  1960 NA      NA          NA                NA      NA        NA
+ 5 United Stat…  1965 NA      NA          NA                NA      NA        NA
+ 6 United Stat…  1970 NA      NA          NA                NA      NA        NA
+ 7 United Stat…  1975 NA      NA          NA                NA      NA        NA
+ 8 United Stat…  1980  0.0106  0.0011     NA                NA      NA        NA
+ 9 United Stat…  1985  0.0092  0.0013     NA                NA      NA        NA
+10 United Stat…  1990  0.0081  0.0011     NA                NA      NA        NA
+# ℹ 1,985 more rows
+# ℹ 2 more variables: Others &lt;dbl&gt;, Total &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="check-sanity" class="level3">
+<h3 class="anchored" data-anchor-id="check-sanity">Check Sanity</h3>
+<section id="check-whether-total-value-equals-to-all-the-other-columns-combined" class="level4">
+<h4 class="anchored" data-anchor-id="check-whether-total-value-equals-to-all-the-other-columns-combined">Check whether Total value equals to all the other columns combined</h4>
+<section id="population" class="level5">
+<h5 class="anchored" data-anchor-id="population">Population</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>df_islam_population_total_check <span class="ot">&lt;-</span> df_islam_population <span class="sc">|&gt;</span> </span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Total_Recheck =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="sc">-</span><span class="fu">c</span>(Country, Year, Total)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Total_Recheck =</span> <span class="fu">if_else</span>(Total_Recheck <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA</span>, Total_Recheck)) <span class="sc">|&gt;</span> </span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Total, Total_Recheck, <span class="at">.after =</span> Year)</span>
+<span id="cb75-5"><a href="#cb75-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-6"><a href="#cb75-6" aria-hidden="true" tabindex="-1"></a>validation_rules_total_population <span class="ot">&lt;-</span> <span class="fu">validator</span>(Total <span class="sc">==</span> Total_Recheck)</span>
+<span id="cb75-7"><a href="#cb75-7" aria-hidden="true" tabindex="-1"></a>cf_total_population <span class="ot">&lt;-</span> <span class="fu">confront</span>(df_islam_population_total_check, validation_rules_total_population)</span>
+<span id="cb75-8"><a href="#cb75-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cf_total_population)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  name items passes fails nNA error warning                          expression
+1   V1  1995   1663     3 329 FALSE   FALSE abs(Total - Total_Recheck) &lt;= 1e-08</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">violating</span>(df_islam_population_total_check, cf_total_population)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 11
+  Country      Year  Total Total_Recheck  Sunni `Shi'a` Ibadhi `Nation of Islam`
+  &lt;chr&gt;       &lt;dbl&gt;  &lt;dbl&gt;         &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;             &lt;dbl&gt;
+1 Burkina Fa…  2010 9.02e6       9023118 8.88e6  140256     NA                NA
+2 Kenya        2010 4.20e6       4198089 3.99e6  209904     NA                NA
+3 Tanzania     2010 1.55e7      15505202 1.37e7 1768358     NA                NA
+# ℹ 3 more variables: Alawite &lt;dbl&gt;, Ahmadiyya &lt;dbl&gt;, Others &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="percent" class="level5">
+<h5 class="anchored" data-anchor-id="percent">Percent</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>df_islam_percent_total_check <span class="ot">&lt;-</span> df_islam_percent <span class="sc">|&gt;</span> </span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Total_Recheck =</span> <span class="fu">rowSums</span>(<span class="fu">across</span>(<span class="sc">-</span><span class="fu">c</span>(Country, Year, Total)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Total_Recheck =</span> <span class="fu">if_else</span>(Total_Recheck <span class="sc">==</span> <span class="dv">0</span>, <span class="cn">NA</span>, Total_Recheck)) <span class="sc">|&gt;</span> </span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(Total, Total_Recheck, <span class="at">.after =</span> Year)</span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a>validation_rules_total_percent <span class="ot">&lt;-</span> <span class="fu">validator</span>(Total <span class="sc">==</span> Total_Recheck)</span>
+<span id="cb79-7"><a href="#cb79-7" aria-hidden="true" tabindex="-1"></a>cf_total_percent <span class="ot">&lt;-</span> <span class="fu">confront</span>(df_islam_percent_total_check, validation_rules_total_percent)</span>
+<span id="cb79-8"><a href="#cb79-8" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(cf_total_percent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  name items passes fails nNA error warning                          expression
+1   V1  1995   1566    75 354 FALSE   FALSE abs(Total - Total_Recheck) &lt;= 1e-08</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">violating</span>(df_islam_percent_total_check, cf_total_percent)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 75 × 11
+   Country    Year  Total Total_Recheck   Sunni `Shi'a` Ibadhi `Nation of Islam`
+   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;             &lt;dbl&gt;
+ 1 United S…  1985 0.0104        0.0105  0.0092  0.0013     NA                NA
+ 2 Canada     1980 0.0072        0.0071  0.0064  0.0007     NA                NA
+ 3 Canada     1995 0.0043        0.0042  0.0038  0.0004     NA                NA
+ 4 Suriname   1975 0.196         0.196  NA      NA          NA                NA
+ 5 United K…  1980 0.0147        0.0148 NA      NA          NA                NA
+ 6 Luxembou…  2010 0.02          0.0201  0.0181  0.002      NA                NA
+ 7 France     2000 0.0753        0.0754  0.0669  0.0085     NA                NA
+ 8 Germany    2010 0.049         0.0489  0.0355  0.0034     NA                NA
+ 9 Yugoslav…  2010 0.031         0.0311  0.0264  0.0047     NA                NA
+10 Sweden     1980 0.001         0.0009 NA      NA          NA                NA
+# ℹ 65 more rows
+# ℹ 3 more variables: Alawite &lt;dbl&gt;, Ahmadiyya &lt;dbl&gt;, Others &lt;dbl&gt;</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="check-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="check-distribution">Check Distribution</h3>
+<section id="population-1" class="level4">
+<h4 class="anchored" data-anchor-id="population-1">Population</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb83"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a> df_islam_population <span class="sc">|&gt;</span> </span>
+<span id="cb83-2"><a href="#cb83-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_histogram</span>(<span class="at">ncol =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-52-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-52-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="percent-1" class="level4">
+<h4 class="anchored" data-anchor-id="percent-1">Percent</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>df_islam_percent <span class="sc">|&gt;</span> </span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_histogram</span>(<span class="at">ncol =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-53-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-53-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="cleaning-summary" class="level3">
+<h3 class="anchored" data-anchor-id="cleaning-summary">Cleaning Summary</h3>
+<section id="verified-values" class="level4">
+<h4 class="anchored" data-anchor-id="verified-values">Verified Values</h4>
+<ol type="1">
+<li>All Population columns are integers</li>
+<li>All Percentage columns are decimals</li>
+<li>No missing year records in-between. For example: 1945, 1950, 1960 (missing 1955)</li>
+<li><code>Total Population</code> column is equal to other <code>Population</code> columns combined</li>
+<li><code>Total Percent</code> column is equal to other <code>Percent</code> columns combined</li>
+</ol>
+</section>
+<section id="changes-applied" class="level4">
+<h4 class="anchored" data-anchor-id="changes-applied">Changes Applied</h4>
+<ol type="1">
+<li>Removed 58 irrelevant columns</li>
+<li>Corrected 1 column’s data type</li>
+<li>Removed 303 duplicate rows</li>
+<li>Replaced all <code>0</code> values (71% of all data) with <code>NA</code></li>
+<li>Corrected 16 countries’ names</li>
+<li>Separate Population and Percent columns into two dataframes.</li>
+<li>Remove ‘Islam -’ prefix and ‘(Population)’/‘(Percent)’ suffix</li>
+</ol>
+</section>
+<section id="other-findings" class="level4">
+<h4 class="anchored" data-anchor-id="other-findings">Other findings</h4>
+<ol type="1">
+<li>Extremely high prevalence of missing values.</li>
+<li>The majority of countries (60) have complete records from 1945 to 2010. But the rest vary. Ranging from only having 1 to 14 records.</li>
+<li>Despite point 1, nearly all countries have record of 2010, 2005, 2000, and so on. So, the missing records started from the bottom.</li>
+</ol>
+</section>
+</section>
+<section id="next-steps" class="level3">
+<h3 class="anchored" data-anchor-id="next-steps">Next Steps</h3>
+<p>The plan was to analyze the growth of islam worldwide. However, the prevalenece of missing values are concerning. Most non-null values come from <code>Sunni</code> and <code>Others</code> category. So, it’s better to just use the <code>Total</code> column.</p>
+<p>If you look at the data quality check at the beginning, Islam is actually the least variable with missing values. Other religions are even more dominated by missing values. This reduces the credibility of the data itself. Although, it wasn’t clearly mentioned what’s the data source anyway.</p>
+<p>I can continue analyzing with just focusing on the overall Islam growth, but I doubt the finding would be trustworthy. For now, let’s convert the latest data frame into csv for later analysis. I’m thinking of uploading it to Tableau for easier exploration.</p>
+<section id="export-to-csv-for-further-analysis" class="level4">
+<h4 class="anchored" data-anchor-id="export-to-csv-for-further-analysis">Export to CSV for further analysis</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>df_islam_population <span class="sc">|&gt;</span> </span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">'dataset_islam_population.csv'</span>)</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>df_islam_percent <span class="sc">|&gt;</span> </span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">'dataset_islam_percent.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="invictus1032/quartopub-blog" data-repo-id="R_kgDOMR7VJw" data-category="Blog Comments (Giscus)" data-category-id="DIC_kwDOMR7VJ84CgsU5" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="preferred_color_scheme">
+<input type="hidden" id="giscus-alt-theme" value="preferred_color_scheme">
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

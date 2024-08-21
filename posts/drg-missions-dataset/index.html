@@ -1,0 +1,2177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.53">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="invictus">
+<meta name="dcterms.date" content="2024-07-31">
+<meta name="description" content="Analyzing Deep Rock Galactic Daily Missions Data Over July 2024">
+
+<title>Case Study: Deep Rock Galactic Missions Data – Blog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-46H31NF5Y2"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-46H31NF5Y2', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<!-- Default Statcounter code for Invictus Quarto https://invictus.quarto.pub -->
+<script type="text/javascript">
+var sc_project=13016686; 
+var sc_invisible=1; 
+var sc_security="1325b7f6"; 
+</script>
+<script type="text/plain" cookie-consent="tracking">
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript></noscript><meta property="og:title" content="Case Study: Deep Rock Galactic Missions Data – Blog">
+<meta property="og:description" content="Analyzing Deep Rock Galactic Daily Missions Data Over July 2024">
+<meta property="og:image" content="images/preview.png">
+<meta property="og:site_name" content="Blog">
+</head><body class="nav-fixed"><div class="statcounter"><a title="Web Analytics
+Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13016686/0/1325b7f6/1/" alt="Web Analytics Made Easy - Statcounter" referrerpolicy="no-referrer-when-downgrade"></a></div>
+<!-- End of Statcounter Code -->
+
+
+<link rel="stylesheet" href="../../styles.css">
+
+
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul>
+  <li><a href="#acknowledgement" id="toc-acknowledgement" class="nav-link" data-scroll-target="#acknowledgement">Acknowledgement</a></li>
+  <li><a href="#objective" id="toc-objective" class="nav-link" data-scroll-target="#objective">Objective</a></li>
+  </ul></li>
+  <li><a href="#collecting-data" id="toc-collecting-data" class="nav-link" data-scroll-target="#collecting-data">Collecting Data</a></li>
+  <li><a href="#processing-data" id="toc-processing-data" class="nav-link" data-scroll-target="#processing-data">Processing Data</a>
+  <ul>
+  <li><a href="#parsing-one-json" id="toc-parsing-one-json" class="nav-link" data-scroll-target="#parsing-one-json">Parsing one JSON</a></li>
+  <li><a href="#parsing-multiple-json" id="toc-parsing-multiple-json" class="nav-link" data-scroll-target="#parsing-multiple-json">Parsing multiple JSON</a></li>
+  <li><a href="#cleaning-data" id="toc-cleaning-data" class="nav-link" data-scroll-target="#cleaning-data">Cleaning Data</a>
+  <ul>
+  <li><a href="#non-tidy-data" id="toc-non-tidy-data" class="nav-link" data-scroll-target="#non-tidy-data">Non-tidy Data</a></li>
+  <li><a href="#improper-column-names" id="toc-improper-column-names" class="nav-link" data-scroll-target="#improper-column-names">Improper Column Names</a></li>
+  <li><a href="#irrelevant-data" id="toc-irrelevant-data" class="nav-link" data-scroll-target="#irrelevant-data">Irrelevant Data</a></li>
+  <li><a href="#incorrect-data-types" id="toc-incorrect-data-types" class="nav-link" data-scroll-target="#incorrect-data-types">Incorrect Data Types</a></li>
+  <li><a href="#duplicate-data" id="toc-duplicate-data" class="nav-link" data-scroll-target="#duplicate-data">Duplicate Data</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#analyzing-data" id="toc-analyzing-data" class="nav-link" data-scroll-target="#analyzing-data">Analyzing Data</a>
+  <ul>
+  <li><a href="#mission-pattern" id="toc-mission-pattern" class="nav-link" data-scroll-target="#mission-pattern">Mission Pattern</a>
+  <ul>
+  <li><a href="#overall-distribution" id="toc-overall-distribution" class="nav-link" data-scroll-target="#overall-distribution">Overall Distribution</a></li>
+  <li><a href="#double-xp-pattern" id="toc-double-xp-pattern" class="nav-link" data-scroll-target="#double-xp-pattern">Double XP Pattern</a>
+  <ul>
+  <li><a href="#weekly" id="toc-weekly" class="nav-link" data-scroll-target="#weekly">Weekly</a></li>
+  <li><a href="#daily" id="toc-daily" class="nav-link" data-scroll-target="#daily">Daily</a></li>
+  <li><a href="#hourly" id="toc-hourly" class="nav-link" data-scroll-target="#hourly">Hourly</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary">Summary</a>
+  <ul>
+  <li><a href="#insight-1-double-xp-pattern" id="toc-insight-1-double-xp-pattern" class="nav-link" data-scroll-target="#insight-1-double-xp-pattern">Insight 1: Double XP Pattern</a></li>
+  <li><a href="#insight-2-mutators-occurrences" id="toc-insight-2-mutators-occurrences" class="nav-link" data-scroll-target="#insight-2-mutators-occurrences">Insight 2: Mutators Occurrences</a></li>
+  </ul></li>
+  <li><a href="#appendix-other-findings" id="toc-appendix-other-findings" class="nav-link" data-scroll-target="#appendix-other-findings">Appendix: Other Findings</a>
+  <ul>
+  <li><a href="#missions" id="toc-missions" class="nav-link" data-scroll-target="#missions">Missions</a>
+  <ul>
+  <li><a href="#biome" id="toc-biome" class="nav-link" data-scroll-target="#biome">Biome</a></li>
+  <li><a href="#primary-objective" id="toc-primary-objective" class="nav-link" data-scroll-target="#primary-objective">Primary Objective</a></li>
+  <li><a href="#secondary-objective" id="toc-secondary-objective" class="nav-link" data-scroll-target="#secondary-objective">Secondary Objective</a></li>
+  <li><a href="#mission-warnings" id="toc-mission-warnings" class="nav-link" data-scroll-target="#mission-warnings">Mission Warnings</a>
+  <ul>
+  <li><a href="#primary-warning" id="toc-primary-warning" class="nav-link" data-scroll-target="#primary-warning">Primary Warning</a></li>
+  </ul></li>
+  <li><a href="#mission-warnings-combinations" id="toc-mission-warnings-combinations" class="nav-link" data-scroll-target="#mission-warnings-combinations">Mission Warnings Combinations</a>
+  <ul>
+  <li><a href="#top-10" id="toc-top-10" class="nav-link" data-scroll-target="#top-10">Top 10</a></li>
+  <li><a href="#lowest-10" id="toc-lowest-10" class="nav-link" data-scroll-target="#lowest-10">Lowest 10</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#daily-deal" id="toc-daily-deal" class="nav-link" data-scroll-target="#daily-deal">Daily Deal</a>
+  <ul>
+  <li><a href="#overall-trend" id="toc-overall-trend" class="nav-link" data-scroll-target="#overall-trend">Overall Trend</a></li>
+  <li><a href="#common-resource-on-sale" id="toc-common-resource-on-sale" class="nav-link" data-scroll-target="#common-resource-on-sale">Common Resource on Sale</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Case Study: Deep Rock Galactic Missions Data</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Case Study</div>
+    <div class="quarto-category">R</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Analyzing Deep Rock Galactic Daily Missions Data Over July 2024
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>invictus </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 31, 2024</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">August 5, 2024</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+<nav id="TOC-body" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction">Introduction</a>
+  <ul>
+  <li><a href="#acknowledgement" id="toc-acknowledgement">Acknowledgement</a></li>
+  <li><a href="#objective" id="toc-objective">Objective</a></li>
+  </ul></li>
+  <li><a href="#collecting-data" id="toc-collecting-data">Collecting Data</a></li>
+  <li><a href="#processing-data" id="toc-processing-data">Processing Data</a>
+  <ul>
+  <li><a href="#parsing-one-json" id="toc-parsing-one-json">Parsing one JSON</a></li>
+  <li><a href="#parsing-multiple-json" id="toc-parsing-multiple-json">Parsing multiple JSON</a></li>
+  <li><a href="#cleaning-data" id="toc-cleaning-data">Cleaning Data</a>
+  <ul>
+  <li><a href="#non-tidy-data" id="toc-non-tidy-data">Non-tidy Data</a></li>
+  <li><a href="#improper-column-names" id="toc-improper-column-names">Improper Column Names</a></li>
+  <li><a href="#irrelevant-data" id="toc-irrelevant-data">Irrelevant Data</a></li>
+  <li><a href="#incorrect-data-types" id="toc-incorrect-data-types">Incorrect Data Types</a></li>
+  <li><a href="#duplicate-data" id="toc-duplicate-data">Duplicate Data</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#analyzing-data" id="toc-analyzing-data">Analyzing Data</a>
+  <ul>
+  <li><a href="#mission-pattern" id="toc-mission-pattern">Mission Pattern</a>
+  <ul>
+  <li><a href="#overall-distribution" id="toc-overall-distribution">Overall Distribution</a></li>
+  <li><a href="#double-xp-pattern" id="toc-double-xp-pattern">Double XP Pattern</a>
+  <ul>
+  <li><a href="#weekly" id="toc-weekly">Weekly</a></li>
+  <li><a href="#daily" id="toc-daily">Daily</a></li>
+  <li><a href="#hourly" id="toc-hourly">Hourly</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary">Summary</a>
+  <ul>
+  <li><a href="#insight-1-double-xp-pattern" id="toc-insight-1-double-xp-pattern">Insight 1: Double XP Pattern</a></li>
+  <li><a href="#insight-2-mutators-occurrences" id="toc-insight-2-mutators-occurrences">Insight 2: Mutators Occurrences</a></li>
+  </ul></li>
+  <li><a href="#appendix-other-findings" id="toc-appendix-other-findings">Appendix: Other Findings</a>
+  <ul>
+  <li><a href="#missions" id="toc-missions">Missions</a>
+  <ul>
+  <li><a href="#biome" id="toc-biome">Biome</a></li>
+  <li><a href="#primary-objective" id="toc-primary-objective">Primary Objective</a></li>
+  <li><a href="#secondary-objective" id="toc-secondary-objective">Secondary Objective</a></li>
+  <li><a href="#mission-warnings" id="toc-mission-warnings">Mission Warnings</a>
+  <ul>
+  <li><a href="#primary-warning" id="toc-primary-warning">Primary Warning</a></li>
+  </ul></li>
+  <li><a href="#mission-warnings-combinations" id="toc-mission-warnings-combinations">Mission Warnings Combinations</a>
+  <ul>
+  <li><a href="#top-10" id="toc-top-10">Top 10</a></li>
+  <li><a href="#lowest-10" id="toc-lowest-10">Lowest 10</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#daily-deal" id="toc-daily-deal">Daily Deal</a>
+  <ul>
+  <li><a href="#overall-trend" id="toc-overall-trend">Overall Trend</a></li>
+  <li><a href="#common-resource-on-sale" id="toc-common-resource-on-sale">Common Resource on Sale</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<blockquote class="blockquote">
+<p>Rocks and stones may break my bones, but beer will never hurt me. <strong><em>gee</em></strong>, <strong><em>I’m feeling poetic today</em></strong>!</p>
+</blockquote>
+<p>Anyone who plays Deep Rock Galactic (DRG) must’ve heard of that phrase once. It’s my personal favorite.</p>
+<p>If you’re not familiar with the game, DRG is an FPS Sandbox Generated type of game, where you’ll play as a miner that lives on space. You’ll be diving 1000km to the underground to accomplish a given mission. These missions are randomly generated (or is it?) every 30 minutes.</p>
+<p><img src="images/548430_20240721100857_1.png" class="img-fluid"></p>
+<p>Interestingly, these missions are the same for all players around the world, as long as you play on the same season.</p>
+<p>For every mission, there’s a small chance that it’ll come with a mutator that changes that nature of the gameplay. One that most sought after is the ‘Double XP’ mutator, as you can guess, will double the amount of XP you’ll obtain.</p>
+<p>XP is very important during the early games, because your level will determine what weapons you can unlock and what upgrades you can purchase.</p>
+<p>Therefore, one of the reasons that inspired me to conduct this study is to discover the pattern of ‘Double XP’ mutator. I want to know whether it’s completely random or whether I can find out at which hours it usually appear.</p>
+<p>I’m a beginner myself in the game, only have about 40 hours gameplay. So, the result of this study will benefit me very much.</p>
+<section id="acknowledgement" class="level3">
+<h3 class="anchored" data-anchor-id="acknowledgement">Acknowledgement</h3>
+<p>This work could’ve not been done without the massive effort by <a href="https://github.com/rolfosian/">rolfosian</a>, who has written a script to extract the missions data stored on the game. Additionally, he has a site that displays the current active missions updated in real-time, <a href="https://doublexp.net/" class="uri">https://doublexp.net/</a>. Feel free to check the source code his <a href="https://github.com/rolfosian/drgmissions">github repo</a>.</p>
+</section>
+<section id="objective" class="level3">
+<h3 class="anchored" data-anchor-id="objective">Objective</h3>
+<p>I haven’t run it myself on my PC. Fortunately, I discovered that he stores many of the collected missions in json format on the site. Not long after, I wrote simple <a href="https://github.com/invictus1032/drg-mission-parser">python scripts</a> to download, parse, and convert them to csv.</p>
+<p>It was a lot of fun. Now, I want to rewrite the script in R and then finally analyze the data. The objective is to get a full daily missions data over July 2024. And then hopefully to find pattern on ‘Double XP’. Additionally, I’ll peek on other insights as well, because, why not?</p>
+</section>
+</section>
+<section id="collecting-data" class="level2">
+<h2 class="anchored" data-anchor-id="collecting-data">Collecting Data</h2>
+<p>Let’s fire up our swiss-army knife, <code>tidyverse</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+<p>From the rolfosian’s project source code, I discovered that the json files are stored on <code>https://doublexp.net/static/json/bulkmissions/{yyyy-mm-dd}.json.</code> So let’s set that up as the <code>base_url</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>json_base_url <span class="ot">&lt;-</span> <span class="st">'https://doublexp.net/static/json/bulkmissions/'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The base URL will be used to generate all the download links for each json file. Since the file names are formatted by ISO dates, it’s easy to generate using <code>lubridate</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>start_date <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">'2024-07-01'</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>end_date <span class="ot">&lt;-</span> <span class="fu">ymd</span>(<span class="st">'2024-07-31'</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>date_list <span class="ot">&lt;-</span> <span class="fu">seq</span>(start_date, end_date, <span class="at">by =</span> <span class="st">'day'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>As simple as that. Now we have a list of date from July 1 to July 31</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>date_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "2024-07-01" "2024-07-02" "2024-07-03" "2024-07-04" "2024-07-05"
+ [6] "2024-07-06" "2024-07-07" "2024-07-08" "2024-07-09" "2024-07-10"
+[11] "2024-07-11" "2024-07-12" "2024-07-13" "2024-07-14" "2024-07-15"
+[16] "2024-07-16" "2024-07-17" "2024-07-18" "2024-07-19" "2024-07-20"
+[21] "2024-07-21" "2024-07-22" "2024-07-23" "2024-07-24" "2024-07-25"
+[26] "2024-07-26" "2024-07-27" "2024-07-28" "2024-07-29" "2024-07-30"
+[31] "2024-07-31"</code></pre>
+</div>
+</div>
+<p>We can simply use <code>paste0</code> to put <code>.json</code> on them for the extension.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>filename_list <span class="ot">&lt;-</span> <span class="fu">paste0</span>(date_list, <span class="st">'.json'</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>filename_list</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "2024-07-01.json" "2024-07-02.json" "2024-07-03.json" "2024-07-04.json"
+ [5] "2024-07-05.json" "2024-07-06.json" "2024-07-07.json" "2024-07-08.json"
+ [9] "2024-07-09.json" "2024-07-10.json" "2024-07-11.json" "2024-07-12.json"
+[13] "2024-07-13.json" "2024-07-14.json" "2024-07-15.json" "2024-07-16.json"
+[17] "2024-07-17.json" "2024-07-18.json" "2024-07-19.json" "2024-07-20.json"
+[21] "2024-07-21.json" "2024-07-22.json" "2024-07-23.json" "2024-07-24.json"
+[25] "2024-07-25.json" "2024-07-26.json" "2024-07-27.json" "2024-07-28.json"
+[29] "2024-07-29.json" "2024-07-30.json" "2024-07-31.json"</code></pre>
+</div>
+</div>
+<p>We can also use <code>paste0()</code> to combine them with the base URL to get the download links</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>json_urls <span class="ot">&lt;-</span> <span class="fu">paste0</span>(json_base_url, filename_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can use this list to download all the json files from <a href="https://doublexp.net">doublexp.net</a>. Let’s put a time recorder on it too, because why not 😆.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dir.create</span>(<span class="st">'json'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in dir.create("json"): 'json' already exists</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tictoc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>(<span class="st">'Download all missions json for July 2024'</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mapply</span>(download.file, json_urls, <span class="fu">paste0</span>(<span class="st">'json/'</span>, filename_list))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>trying URL 'https://doublexp.net/static/json/bulkmissions/2024-07-01.json'
+Content type 'application/json' length 261344 bytes (255 KB)
+==================================================
+downloaded 255 KB
+...
+https://doublexp.net/static/json/bulkmissions/2024-07-01.json https://doublexp.net/static/json/bulkmissions/2024-07-01.json 
+...
+Download all missions json for July 2024: 64.759 sec elapsed</code></pre>
+<p>64 seconds. Not bad. Now let’s parse it into a data frame. But first, we need to understand the structure of the JSON.</p>
+</section>
+<section id="processing-data" class="level2">
+<h2 class="anchored" data-anchor-id="processing-data">Processing Data</h2>
+<section id="parsing-one-json" class="level4">
+<h4 class="anchored" data-anchor-id="parsing-one-json">Parsing one JSON</h4>
+<p>Due to its unstructured nature, JSON can be messy and hard to parse. Fortunately, the JSON we have here is not too complex. The good thing is, all the JSON are structured the same way. So, we only need to figure out a way to parse one JSON, to parse all of them.</p>
+<p>Let’s take a look at the JSON file.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'jsonlite'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:purrr':
+
+    flatten</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>json_data <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="st">'./json/2024-07-01.json'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>json_data <span class="sc">|&gt;</span> <span class="fu">length</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 50</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>json_data[<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)] <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 3
+ $ 2024-07-01T00:00:00Z:List of 2
+  ..$ timestamp: chr "2024-07-01T00:00:00Z"
+  ..$ Biomes   :List of 6
+  .. ..$ Glacial Strata            :List of 3
+  .. ..$ Crystalline Caverns       :List of 4
+  .. ..$ Sandblasted Corridors     :List of 5
+  .. ..$ Radioactive Exclusion Zone:List of 4
+  .. ..$ Dense Biozone             :List of 5
+  .. ..$ Hollow Bough              :List of 3
+ $ 2024-07-01T00:30:00Z:List of 2
+  ..$ timestamp: chr "2024-07-01T00:30:00Z"
+  ..$ Biomes   :List of 5
+  .. ..$ Crystalline Caverns       :List of 4
+  .. ..$ Azure Weald               :List of 4
+  .. ..$ Fungus Bogs               :List of 7
+  .. ..$ Radioactive Exclusion Zone:List of 4
+  .. ..$ Dense Biozone             :List of 4
+ $ 2024-07-01T01:00:00Z:List of 2
+  ..$ timestamp: chr "2024-07-01T01:00:00Z"
+  ..$ Biomes   :List of 5
+  .. ..$ Glacial Strata            :List of 5
+  .. ..$ Crystalline Caverns       :List of 3
+  .. ..$ Salt Pits                 :List of 9
+  .. ..$ Azure Weald               :List of 4
+  .. ..$ Radioactive Exclusion Zone:List of 4</code></pre>
+</div>
+</div>
+<p>So, the JSON has 4 levels:</p>
+<ol type="1">
+<li>Timestamps</li>
+<li>Biomes</li>
+<li>The biomes themselves</li>
+<li>Mission for each biome (note that the fields under Biomes are also lists)</li>
+</ol>
+<p>I’ve explored the JSON with <code>View()</code>, so I got a pretty rough idea of the general structure. I found there are 2 fields with different structure at the end of the lists.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>json_data[<span class="fu">c</span>(<span class="dv">49</span><span class="sc">:</span><span class="dv">50</span>)] <span class="sc">|&gt;</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 2
+ $ dailyDeal:List of 6
+  ..$ ResourceAmount: int 138
+  ..$ ChangePercent : num 57
+  ..$ DealType      : chr "Buy"
+  ..$ Credits       : int 8908
+  ..$ Resource      : chr "Enor Pearl"
+  ..$ timestamp     : chr "2024-07-01T00:00:00Z"
+ $ ver      : int 4</code></pre>
+</div>
+</div>
+<p>The <code>ver</code> field is probably just an internal variable for <a href="doublexp.net">doublexp.net</a>. So it’s safe to remove it. <code>dailyDeal</code> however, is a useful data we can use to analyze the daily deal of the game. But we need to process it differently so it doesn’t interfere with the missions parsing.</p>
+<p>Let’s store in a separate variable, <code>dailyDeal</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>dailyDeal <span class="ot">&lt;-</span> json_data<span class="sc">$</span>dailyDeal</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we can remove them from the <code>json_data</code>. I’m not comfortable mutating our JSON directly, so let’s assign it to a new variable.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>drg_missions <span class="ot">&lt;-</span> json_data</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>drg_missions<span class="sc">$</span>dailyDeal <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>drg_missions<span class="sc">$</span>ver <span class="ot">&lt;-</span> <span class="cn">NULL</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We’re good to go. It’s time to unravel this JSON to a beautiful data frame.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>drg_missions <span class="ot">&lt;-</span> <span class="fu">tibble</span>(drg_missions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Unfortunately, this comes the hard part, unnesting the JSON. <code>tidyr</code> provides a powerful set of tools to unnest a data. Yet, I barely able to wrap my head around it.</p>
+<p>Basically, there’s two main functions we’ll use:</p>
+<ol type="1">
+<li><code>unnest_wider()</code>: To unpack a list into columns</li>
+<li><code>unnest_longer():</code> To unpack a list into rows</li>
+</ol>
+<p>First, we’ll do <code>unnest_wider()</code> to make the timestamps as a new column.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>drg_missions <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(drg_missions)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 48 × 2
+   timestamp            Biomes          
+   &lt;chr&gt;                &lt;list&gt;          
+ 1 2024-07-01T00:00:00Z &lt;named list [6]&gt;
+ 2 2024-07-01T00:30:00Z &lt;named list [5]&gt;
+ 3 2024-07-01T01:00:00Z &lt;named list [5]&gt;
+ 4 2024-07-01T01:30:00Z &lt;named list [5]&gt;
+ 5 2024-07-01T02:00:00Z &lt;named list [6]&gt;
+ 6 2024-07-01T02:30:00Z &lt;named list [5]&gt;
+ 7 2024-07-01T03:00:00Z &lt;named list [5]&gt;
+ 8 2024-07-01T03:30:00Z &lt;named list [5]&gt;
+ 9 2024-07-01T04:00:00Z &lt;named list [6]&gt;
+10 2024-07-01T04:30:00Z &lt;named list [5]&gt;
+# ℹ 38 more rows</code></pre>
+</div>
+</div>
+<p>Then, we’ll <code>unnest_longer()</code> twice to unwrap the Biomes, and the biomes themselves (level 2 and 3).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>drg_missions <span class="sc">|&gt;</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(drg_missions) <span class="sc">|&gt;</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_longer</span>(Biomes) <span class="sc">|&gt;</span> </span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_longer</span>(Biomes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,212 × 3
+   timestamp            Biomes           Biomes_id            
+   &lt;chr&gt;                &lt;list&gt;           &lt;chr&gt;                
+ 1 2024-07-01T00:00:00Z &lt;named list [7]&gt; Glacial Strata       
+ 2 2024-07-01T00:00:00Z &lt;named list [8]&gt; Glacial Strata       
+ 3 2024-07-01T00:00:00Z &lt;named list [8]&gt; Glacial Strata       
+ 4 2024-07-01T00:00:00Z &lt;named list [7]&gt; Crystalline Caverns  
+ 5 2024-07-01T00:00:00Z &lt;named list [7]&gt; Crystalline Caverns  
+ 6 2024-07-01T00:00:00Z &lt;named list [7]&gt; Crystalline Caverns  
+ 7 2024-07-01T00:00:00Z &lt;named list [9]&gt; Crystalline Caverns  
+ 8 2024-07-01T00:00:00Z &lt;named list [7]&gt; Sandblasted Corridors
+ 9 2024-07-01T00:00:00Z &lt;named list [7]&gt; Sandblasted Corridors
+10 2024-07-01T00:00:00Z &lt;named list [7]&gt; Sandblasted Corridors
+# ℹ 1,202 more rows</code></pre>
+</div>
+</div>
+<p>Finally, we’ll do <code>unnests_wider()</code> to unpack the mission details from each biome (level 4).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>drg_missions_unnested <span class="ot">&lt;-</span> drg_missions <span class="sc">|&gt;</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(drg_missions) <span class="sc">|&gt;</span> </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_longer</span>(Biomes) <span class="sc">|&gt;</span> </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_longer</span>(Biomes) <span class="sc">|&gt;</span> </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(Biomes)</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>drg_missions_unnested</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,212 × 11
+   timestamp      PrimaryObjective SecondaryObjective Complexity Length CodeName
+   &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;              &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;   
+ 1 2024-07-01T00… Point Extraction Glyphid Eggs       3          2      Forbidd…
+ 2 2024-07-01T00… Mining Expediti… ApocaBlooms        1          2      Duplici…
+ 3 2024-07-01T00… Deep Scan        ApocaBlooms        2          1      Mythic …
+ 4 2024-07-01T00… Mining Expediti… Glyphid Eggs       1          1      Blue Da…
+ 5 2024-07-01T00… Egg Hunt         ApocaBlooms        1          1      Crumbly…
+ 6 2024-07-01T00… On-Site Refining Dystrum            2          2      Frozen …
+ 7 2024-07-01T00… Deep Scan        Glyphid Eggs       3          2      Ancient…
+ 8 2024-07-01T00… Elimination      Fester Fleas       2          2      Clean D…
+ 9 2024-07-01T00… Escort Duty      ApocaBlooms        2          2      Fragile…
+10 2024-07-01T00… Deep Scan        Hollomite          2          1      Awful A…
+# ℹ 1,202 more rows
+# ℹ 5 more variables: included_in &lt;list&gt;, id &lt;int&gt;, MissionWarnings &lt;list&gt;,
+#   MissionMutator &lt;chr&gt;, Biomes_id &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>At this point, the data frame is almost done. It looks exactly like how we want it to be. Except, 2 columns are still lists: <code>MissionWarnings</code> and <code>Included_in</code>. We could do <code>unnest_longer()</code> on them, but it’ll make duplicate rows, since the only thing different is them. So, the alternative is to use <code>paste</code> to join them as one string, separated by comma.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>drg_missions_unnested <span class="sc">|&gt;</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(included_in) <span class="sc">|&gt;</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 1
+  included_in
+  &lt;list&gt;     
+1 &lt;list [3]&gt; 
+2 &lt;list [3]&gt; 
+3 &lt;list [1]&gt; 
+4 &lt;list [3]&gt; </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>drg_missions_unnested <span class="ot">&lt;-</span> drg_missions_unnested <span class="sc">|&gt;</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">included_in =</span> <span class="fu">map_chr</span>(included_in, <span class="sc">~</span> <span class="fu">paste</span>(.x, <span class="at">collapse =</span> <span class="st">", "</span>)))</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>drg_missions_unnested</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,212 × 11
+   timestamp      PrimaryObjective SecondaryObjective Complexity Length CodeName
+   &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;              &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;   
+ 1 2024-07-01T00… Point Extraction Glyphid Eggs       3          2      Forbidd…
+ 2 2024-07-01T00… Mining Expediti… ApocaBlooms        1          2      Duplici…
+ 3 2024-07-01T00… Deep Scan        ApocaBlooms        2          1      Mythic …
+ 4 2024-07-01T00… Mining Expediti… Glyphid Eggs       1          1      Blue Da…
+ 5 2024-07-01T00… Egg Hunt         ApocaBlooms        1          1      Crumbly…
+ 6 2024-07-01T00… On-Site Refining Dystrum            2          2      Frozen …
+ 7 2024-07-01T00… Deep Scan        Glyphid Eggs       3          2      Ancient…
+ 8 2024-07-01T00… Elimination      Fester Fleas       2          2      Clean D…
+ 9 2024-07-01T00… Escort Duty      ApocaBlooms        2          2      Fragile…
+10 2024-07-01T00… Deep Scan        Hollomite          2          1      Awful A…
+# ℹ 1,202 more rows
+# ℹ 5 more variables: included_in &lt;chr&gt;, id &lt;int&gt;, MissionWarnings &lt;list&gt;,
+#   MissionMutator &lt;chr&gt;, Biomes_id &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>Perfect! Later on, we’ll use the <code>included_in</code> to filter the missions available to us based on the season.</p>
+<p>The lasts thing to convert is the <code>MissionWarnings</code>. We could combine them with <code>paste()</code> as well, but it’s a valuable data we can use to analyse the mission. It’s better to treat them as variables and separate it into two columns with <code>unnest_wider()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>drg_missions_unnested <span class="sc">|&gt;</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_wider</span>(MissionWarnings, <span class="at">names_sep =</span> <span class="st">'_'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,212 × 12
+   timestamp      PrimaryObjective SecondaryObjective Complexity Length CodeName
+   &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;              &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;   
+ 1 2024-07-01T00… Point Extraction Glyphid Eggs       3          2      Forbidd…
+ 2 2024-07-01T00… Mining Expediti… ApocaBlooms        1          2      Duplici…
+ 3 2024-07-01T00… Deep Scan        ApocaBlooms        2          1      Mythic …
+ 4 2024-07-01T00… Mining Expediti… Glyphid Eggs       1          1      Blue Da…
+ 5 2024-07-01T00… Egg Hunt         ApocaBlooms        1          1      Crumbly…
+ 6 2024-07-01T00… On-Site Refining Dystrum            2          2      Frozen …
+ 7 2024-07-01T00… Deep Scan        Glyphid Eggs       3          2      Ancient…
+ 8 2024-07-01T00… Elimination      Fester Fleas       2          2      Clean D…
+ 9 2024-07-01T00… Escort Duty      ApocaBlooms        2          2      Fragile…
+10 2024-07-01T00… Deep Scan        Hollomite          2          1      Awful A…
+# ℹ 1,202 more rows
+# ℹ 6 more variables: included_in &lt;chr&gt;, id &lt;int&gt;, MissionWarnings_1 &lt;chr&gt;,
+#   MissionWarnings_2 &lt;chr&gt;, MissionMutator &lt;chr&gt;, Biomes_id &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>Perfect! Now, we know how to parse 1 JSON. Let’s apply it to all the JSON we have and combine them into one giant tibble.</p>
+</section>
+<section id="parsing-multiple-json" class="level4">
+<h4 class="anchored" data-anchor-id="parsing-multiple-json">Parsing multiple JSON</h4>
+<p>To automate the algorithm above, we’d need to condense it to a function in which we can map it to all the JSON files.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>parse_json_drg_mission <span class="ot">&lt;-</span> <span class="cf">function</span>(json_path) {</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  json_data <span class="ot">&lt;-</span> <span class="fu">read_json</span>(json_path)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  json_data<span class="sc">$</span>dailyDeal <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  json_data<span class="sc">$</span>ver <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  drg_missions <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">drg_missions =</span> json_data)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  drg_missions <span class="ot">&lt;-</span>  drg_missions <span class="sc">|&gt;</span> </span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_wider</span>(drg_missions) <span class="sc">|&gt;</span> </span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_longer</span>(Biomes) <span class="sc">|&gt;</span> </span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_longer</span>(Biomes) <span class="sc">|&gt;</span> </span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_wider</span>(Biomes)</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>  drg_missions <span class="ot">&lt;-</span>  drg_missions <span class="sc">|&gt;</span> </span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_wider</span>(MissionWarnings, <span class="at">names_sep =</span> <span class="st">'_'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">included_in =</span> <span class="fu">map_chr</span>(included_in, <span class="sc">~</span> <span class="fu">paste</span>(.x, <span class="at">collapse =</span> <span class="st">", "</span>)))</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(drg_missions)</span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>parse_json_drg_dailydeal <span class="ot">&lt;-</span> <span class="cf">function</span>(json_path) {</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  json_data <span class="ot">&lt;-</span> <span class="fu">read_json</span>(json_path)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  dailyDeal <span class="ot">&lt;-</span> json_data<span class="sc">$</span>dailyDeal</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  dailyDeal <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="fu">list</span>(dailyDeal))</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  dailyDeal <span class="ot">&lt;-</span> dailyDeal <span class="sc">|&gt;</span> </span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unnest_wider</span>(<span class="fu">everything</span>())</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(dailyDeal)</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You probably noticed why I reassign <code>dailyDeal</code> multiple times instead of just chaining the pipe operator. Please don’t ask why 😅. I spent more than 30 minutes debugging why the pipe operator messes up the code. In a nutshell, reassigning it preserves the ‘dailyDeal’ name inside the column, while pipe operator do the opposite.</p>
+<p>Previously, it was supposed to be one function, returning a list of 2 tibbles. But that caused a lot of unexpected headache related to one I just mentioned. So I decided to just make separate functions to parse <code>dailyDeal</code> and <code>missions</code>.</p>
+<p>Anyway, here’s the output of the functions</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_json_drg_mission</span>(<span class="st">'./json/2024-07-01.json'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1,212 × 12
+   timestamp      PrimaryObjective SecondaryObjective Complexity Length CodeName
+   &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;              &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;   
+ 1 2024-07-01T00… Point Extraction Glyphid Eggs       3          2      Forbidd…
+ 2 2024-07-01T00… Mining Expediti… ApocaBlooms        1          2      Duplici…
+ 3 2024-07-01T00… Deep Scan        ApocaBlooms        2          1      Mythic …
+ 4 2024-07-01T00… Mining Expediti… Glyphid Eggs       1          1      Blue Da…
+ 5 2024-07-01T00… Egg Hunt         ApocaBlooms        1          1      Crumbly…
+ 6 2024-07-01T00… On-Site Refining Dystrum            2          2      Frozen …
+ 7 2024-07-01T00… Deep Scan        Glyphid Eggs       3          2      Ancient…
+ 8 2024-07-01T00… Elimination      Fester Fleas       2          2      Clean D…
+ 9 2024-07-01T00… Escort Duty      ApocaBlooms        2          2      Fragile…
+10 2024-07-01T00… Deep Scan        Hollomite          2          1      Awful A…
+# ℹ 1,202 more rows
+# ℹ 6 more variables: included_in &lt;chr&gt;, id &lt;int&gt;, MissionWarnings_1 &lt;chr&gt;,
+#   MissionWarnings_2 &lt;chr&gt;, MissionMutator &lt;chr&gt;, Biomes_id &lt;chr&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">parse_json_drg_dailydeal</span>(<span class="st">'./json/2024-07-01.json'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 6
+  ResourceAmount ChangePercent DealType Credits Resource   timestamp           
+           &lt;int&gt;         &lt;dbl&gt; &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;      &lt;chr&gt;               
+1            138          57.0 Buy         8908 Enor Pearl 2024-07-01T00:00:00Z</code></pre>
+</div>
+</div>
+<p>Working perfectly, finally. Now, we just need to apply these functions to the list of JSON file paths and combine each of them with <code>bindrows()</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>filepath_list <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">'json/'</span>,filename_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>(<span class="st">'combining dailyDeal'</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>dailyDeal_df_list <span class="ot">&lt;-</span> <span class="fu">map</span>(filepath_list, parse_json_drg_dailydeal)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tic</span>(<span class="st">'combining missions'</span>)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>missions_df_list <span class="ot">&lt;-</span> <span class="fu">map</span>(filepath_list, parse_json_drg_mission)</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="fu">toc</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>combining dailyDeal: 1.266 sec elapsed
+combining missions: 7.144 sec elapsed</code></pre>
+<p>Wow, that’s quite a significant processing time. Let’s cache them to csv files so I don’t need to convert them again from scratch if I need to debug.</p>
+<p>But first, we need to combine them into one data frames</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>dailyDeal_df_combined <span class="ot">&lt;-</span> dailyDeal_df_list <span class="sc">|&gt;</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>missions_df_combined <span class="ot">&lt;-</span> missions_df_list <span class="sc">|&gt;</span> </span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_rows</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>dailyDeal_df_combined <span class="sc">|&gt;</span> <span class="fu">write_csv</span>(<span class="st">'csv/drg_dailydeal_july_2024.csv'</span>)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>missions_df_combined <span class="sc">|&gt;</span> <span class="fu">write_csv</span>(<span class="st">'csv/drg_missions_july_2024.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we can read from these csv files instead.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>dailyDeal_df_combined <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'csv/drg_dailydeal_july_2024.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Rows: 31 Columns: 6
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+chr  (2): DealType, Resource
+dbl  (3): ResourceAmount, ChangePercent, Credits
+dttm (1): timestamp
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>missions_df_combined <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">'csv/drg_missions_july_2024.csv'</span>, <span class="at">col_types =</span> <span class="st">'c'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>dailyDeal_df_combined</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 31 × 6
+   ResourceAmount ChangePercent DealType Credits Resource   timestamp          
+            &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;      &lt;dttm&gt;             
+ 1            138          57.0 Buy         8908 Enor Pearl 2024-07-01 00:00:00
+ 2            168          68.3 Buy         7982 Enor Pearl 2024-07-02 00:00:00
+ 3             68          49.7 Buy         5130 Croppa     2024-07-03 00:00:00
+ 4             98         266.  Sell       13057 Croppa     2024-07-04 00:00:00
+ 5             95          36.0 Buy         9120 Magnite    2024-07-05 00:00:00
+ 6            130          51.9 Buy         9369 Umanite    2024-07-06 00:00:00
+ 7             87         213.  Sell        9264 Umanite    2024-07-07 00:00:00
+ 8             60          44.7 Buy         4978 Jadiz      2024-07-08 00:00:00
+ 9             55          47.9 Buy         4294 Croppa     2024-07-09 00:00:00
+10             56         152.  Sell        4258 Enor Pearl 2024-07-10 00:00:00
+# ℹ 21 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>missions_df_combined</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 38,521 × 12
+   timestamp      PrimaryObjective SecondaryObjective Complexity Length CodeName
+   &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;                   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   
+ 1 2024-07-01T00… Point Extraction Glyphid Eggs                3      2 Forbidd…
+ 2 2024-07-01T00… Mining Expediti… ApocaBlooms                 1      2 Duplici…
+ 3 2024-07-01T00… Deep Scan        ApocaBlooms                 2      1 Mythic …
+ 4 2024-07-01T00… Mining Expediti… Glyphid Eggs                1      1 Blue Da…
+ 5 2024-07-01T00… Egg Hunt         ApocaBlooms                 1      1 Crumbly…
+ 6 2024-07-01T00… On-Site Refining Dystrum                     2      2 Frozen …
+ 7 2024-07-01T00… Deep Scan        Glyphid Eggs                3      2 Ancient…
+ 8 2024-07-01T00… Elimination      Fester Fleas                2      2 Clean D…
+ 9 2024-07-01T00… Escort Duty      ApocaBlooms                 2      2 Fragile…
+10 2024-07-01T00… Deep Scan        Hollomite                   2      1 Awful A…
+# ℹ 38,511 more rows
+# ℹ 6 more variables: included_in &lt;chr&gt;, id &lt;dbl&gt;, MissionWarnings_1 &lt;chr&gt;,
+#   MissionWarnings_2 &lt;chr&gt;, MissionMutator &lt;chr&gt;, Biomes_id &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>Nice. Now we have tidy data frames we can work with. The last step before it’s 100% ready to be analyzed is to clean it.</p>
+</section>
+<section id="cleaning-data" class="level4">
+<h4 class="anchored" data-anchor-id="cleaning-data">Cleaning Data</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>missions_df_combined_cleaned <span class="ot">&lt;-</span> missions_df_combined</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="non-tidy-data" class="level5">
+<h5 class="anchored" data-anchor-id="non-tidy-data">Non-tidy Data</h5>
+<p>In his book <a href="https://r4ds.hadley.nz/"><em>R for Data Science</em></a><em>,</em> Hadley introduces a concept of Tidy Data, which makes data analysis much easier:</p>
+<blockquote class="blockquote">
+<ol type="1">
+<li><p>Each column is a variable.</p></li>
+<li><p>Each row is an observation.</p></li>
+<li><p>Each cell is a single value.</p></li>
+</ol>
+</blockquote>
+<p>Fortunately, it looks like we’ve passed 3 rules, so our data is already tidy.</p>
+</section>
+<section id="improper-column-names" class="level5">
+<h5 class="anchored" data-anchor-id="improper-column-names">Improper Column Names</h5>
+<p>It’s good enough as it is, but we can make it even better.</p>
+<ol type="1">
+<li><strong>Inconsistencies:</strong> most of the column names are in PascalCase, but <code>included_in</code> is in snake_case, and <code>timestamp</code> is just all lowercase.</li>
+<li><strong>Grammatically Wrong:</strong> <code>MissionWarnings_1</code>, <code>MissionWarnings_2,</code> and <code>Biomes_id</code> only contain one value in each row, so they should be singular</li>
+<li><strong>Misc:</strong> <code>Biomes_id</code> just sounds weird. “id” shouldn’t be there.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>missions_df_combined_cleaned <span class="ot">&lt;-</span> missions_df_combined_cleaned <span class="sc">|&gt;</span> </span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Timestamp =</span> timestamp,</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">IncludedIn =</span> included_in,</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">Biome =</span> Biomes_id,</span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">MissionWarning1 =</span> MissionWarnings_1,</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">MissionWarning2 =</span> MissionWarnings_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>missions_df_combined_cleaned <span class="sc">|&gt;</span> </span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "Timestamp"          "PrimaryObjective"   "SecondaryObjective"
+ [4] "Complexity"         "Length"             "CodeName"          
+ [7] "IncludedIn"         "id"                 "MissionWarning1"   
+[10] "MissionWarning2"    "MissionMutator"     "Biome"             </code></pre>
+</div>
+</div>
+</section>
+<section id="irrelevant-data" class="level5">
+<h5 class="anchored" data-anchor-id="irrelevant-data">Irrelevant Data</h5>
+<p>Previously, I mentioned that we’d only analyze missions data that is usually availabe to most people. Which is the unseasoned ones. In this data, it’s the <code>s0</code> from <code>included_in</code>. So we can filter only the rows with <code>s0</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>missions_df_combined_cleaned <span class="ot">&lt;-</span> missions_df_combined_cleaned <span class="sc">|&gt;</span> </span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(IncludedIn <span class="sc">|&gt;</span> <span class="fu">str_detect</span>(<span class="st">'s0'</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>missions_df_combined_cleaned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 28,272 × 12
+   Timestamp      PrimaryObjective SecondaryObjective Complexity Length CodeName
+   &lt;chr&gt;          &lt;chr&gt;            &lt;chr&gt;                   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt;   
+ 1 2024-07-01T00… Point Extraction Glyphid Eggs                3      2 Forbidd…
+ 2 2024-07-01T00… Mining Expediti… ApocaBlooms                 1      2 Duplici…
+ 3 2024-07-01T00… Mining Expediti… Glyphid Eggs                1      1 Blue Da…
+ 4 2024-07-01T00… Egg Hunt         ApocaBlooms                 1      1 Crumbly…
+ 5 2024-07-01T00… On-Site Refining Dystrum                     2      2 Frozen …
+ 6 2024-07-01T00… Deep Scan        Glyphid Eggs                3      2 Ancient…
+ 7 2024-07-01T00… Elimination      Fester Fleas                2      2 Clean D…
+ 8 2024-07-01T00… Escort Duty      ApocaBlooms                 2      2 Fragile…
+ 9 2024-07-01T00… Deep Scan        Hollomite                   2      1 Awful A…
+10 2024-07-01T00… Industrial Sabo… Hollomite                   2      2 Dreadfu…
+# ℹ 28,262 more rows
+# ℹ 6 more variables: IncludedIn &lt;chr&gt;, id &lt;dbl&gt;, MissionWarning1 &lt;chr&gt;,
+#   MissionWarning2 &lt;chr&gt;, MissionMutator &lt;chr&gt;, Biome &lt;chr&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="incorrect-data-types" class="level5">
+<h5 class="anchored" data-anchor-id="incorrect-data-types">Incorrect Data Types</h5>
+<p>Since we manually extracted and parsed the data from the JSON files, R didn’t assume any data type and just render everything as <code>chr</code>. Which mean, a lot of them needs to be changed.</p>
+<ol type="1">
+<li><p><strong>Factors</strong><br>
+<code>Biomes</code>, <code>PrimaryObjective</code>, <code>SecondaryObjective</code>, <code>MissionMutator</code>, <code>MissionWarning1</code>, and <code>MissionWarning2</code> should be factors, since they’re categorical variables with limited set of values. <code>Complexity</code> and <code>Length</code> are a bit tricky since they’re ordinal variables, which can be treated as either qualitative or quantitative. Claude Sonnet 3.5, however, argues that since we don’t know the exact interval between 1 to 2, or 2 to 3, they should be treated as categorical. Sonnet 3.5 has helped me a lot, so I’ll trust her 🤣.</p>
+<blockquote class="blockquote">
+<p>Based on the information provided, your ‘Complexity Level’ variable is an ordinal categorical variable. Even though it’s represented by numbers (1, 2, 3), it’s not truly numeric in nature, as the intervals between levels may not be equal.</p>
+</blockquote></li>
+<li><p><strong>Characters<br>
+</strong>CodeName can stay as <code>chr</code> since they don’t really hold any values other than being randomly generated names. <code>included_in</code> should probably be factors, but the structure isn’t standardized yet, and we don’t need to deal with them anyway.</p></li>
+<li><p><strong>Integers<br>
+<code>id</code></strong> should be integers. Oh wait, it’s already is! I didn’t know that.</p></li>
+<li><p><strong>Date<br>
+</strong>This one is obvious. The <code>Timestamp</code> column should be in date object format. Otherwise, we can’t do any date computation with it.</p></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>missions_df_combined_cleaned <span class="ot">&lt;-</span> missions_df_combined_cleaned <span class="sc">|&gt;</span> </span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(Biome, PrimaryObjective, SecondaryObjective, MissionMutator, MissionWarning1, MissionWarning2, Complexity, Length),</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>         as_factor)) <span class="sc">|&gt;</span> </span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Timestamp =</span> <span class="fu">ymd_hms</span>(Timestamp))</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>missions_df_combined_cleaned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 28,272 × 12
+   Timestamp           PrimaryObjective    SecondaryObjective Complexity Length
+   &lt;dttm&gt;              &lt;fct&gt;               &lt;fct&gt;              &lt;fct&gt;      &lt;fct&gt; 
+ 1 2024-07-01 00:00:00 Point Extraction    Glyphid Eggs       3          2     
+ 2 2024-07-01 00:00:00 Mining Expedition   ApocaBlooms        1          2     
+ 3 2024-07-01 00:00:00 Mining Expedition   Glyphid Eggs       1          1     
+ 4 2024-07-01 00:00:00 Egg Hunt            ApocaBlooms        1          1     
+ 5 2024-07-01 00:00:00 On-Site Refining    Dystrum            2          2     
+ 6 2024-07-01 00:00:00 Deep Scan           Glyphid Eggs       3          2     
+ 7 2024-07-01 00:00:00 Elimination         Fester Fleas       2          2     
+ 8 2024-07-01 00:00:00 Escort Duty         ApocaBlooms        2          2     
+ 9 2024-07-01 00:00:00 Deep Scan           Hollomite          2          1     
+10 2024-07-01 00:00:00 Industrial Sabotage Hollomite          2          2     
+# ℹ 28,262 more rows
+# ℹ 7 more variables: CodeName &lt;chr&gt;, IncludedIn &lt;chr&gt;, id &lt;dbl&gt;,
+#   MissionWarning1 &lt;fct&gt;, MissionWarning2 &lt;fct&gt;, MissionMutator &lt;fct&gt;,
+#   Biome &lt;fct&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="duplicate-data" class="level5">
+<h5 class="anchored" data-anchor-id="duplicate-data">Duplicate Data</h5>
+<p>We also need to scan for duplicates. Assuming the extractor script is robust, there shouldn’t be any. But Just in case, we should still check.</p>
+<p>First, we can check the frequency count of each id, since it’s supposed to be the unique indentifier.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>missions_df_combined_cleaned <span class="sc">|&gt;</span> </span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(id, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 28,272 × 2
+      id     n
+   &lt;dbl&gt; &lt;int&gt;
+ 1  9722     1
+ 2  9723     1
+ 3  9725     1
+ 4  9726     1
+ 5  9727     1
+ 6  9728     1
+ 7  9729     1
+ 8  9730     1
+ 9  9731     1
+10  9732     1
+# ℹ 28,262 more rows</code></pre>
+</div>
+</div>
+<p>There’s no duplicate id, great. The next column we could check is the <code>codeName</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>missions_df_combined_cleaned <span class="sc">|&gt;</span> </span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(CodeName, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20,867 × 2
+   CodeName             n
+   &lt;chr&gt;            &lt;int&gt;
+ 1 Corrupt Trail        8
+ 2 Gangrenous End       7
+ 3 Rejected Shelter     7
+ 4 Burning Comeback     6
+ 5 Burning Desert       6
+ 6 Sharp Trench         6
+ 7 True Ravine          6
+ 8 Wild Anvil           6
+ 9 Wild Edge            6
+10 Wild End             6
+# ℹ 20,857 more rows</code></pre>
+</div>
+</div>
+<p>There’s quite several repetitions. However, as long as they’re in different time, it’s safe. So that’s our third comparison: <code>timestamp</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>missions_df_combined_cleaned <span class="sc">|&gt;</span> </span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(CodeName, Timestamp, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 28,272 × 3
+   CodeName          Timestamp               n
+   &lt;chr&gt;             &lt;dttm&gt;              &lt;int&gt;
+ 1 Abandoned Abyss   2024-07-10 01:30:00     1
+ 2 Abandoned Agony   2024-07-06 17:00:00     1
+ 3 Abandoned Arm     2024-07-13 14:30:00     1
+ 4 Abandoned Barrens 2024-07-04 17:30:00     1
+ 5 Abandoned Base    2024-07-13 22:30:00     1
+ 6 Abandoned Base    2024-07-14 07:00:00     1
+ 7 Abandoned Basin   2024-07-20 22:30:00     1
+ 8 Abandoned Bed     2024-07-12 20:30:00     1
+ 9 Abandoned Bedrock 2024-07-10 11:30:00     1
+10 Abandoned Benefit 2024-07-31 10:00:00     1
+# ℹ 28,262 more rows</code></pre>
+</div>
+</div>
+<p>Yup, all unique. We could also pick one codename and see its time pattern:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>missions_df_combined_cleaned <span class="sc">|&gt;</span> </span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(CodeName, Timestamp, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(CodeName <span class="sc">==</span> <span class="st">'Corrupt Trail'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 3
+  CodeName      Timestamp               n
+  &lt;chr&gt;         &lt;dttm&gt;              &lt;int&gt;
+1 Corrupt Trail 2024-07-09 12:30:00     1
+2 Corrupt Trail 2024-07-09 15:00:00     1
+3 Corrupt Trail 2024-07-11 03:00:00     1
+4 Corrupt Trail 2024-07-15 00:00:00     1
+5 Corrupt Trail 2024-07-16 04:00:00     1
+6 Corrupt Trail 2024-07-25 00:00:00     1
+7 Corrupt Trail 2024-07-27 13:00:00     1
+8 Corrupt Trail 2024-07-31 04:00:00     1</code></pre>
+</div>
+</div>
+<p>No particular pattern visible, but we can see they’re on different days. Only one on the same day, but with 3 hours difference.</p>
+<p>Alright, all set. We’re good to go.</p>
+</section>
+</section>
+</section>
+<section id="analyzing-data" class="level2">
+<h2 class="anchored" data-anchor-id="analyzing-data">Analyzing Data</h2>
+<section id="mission-pattern" class="level3">
+<h3 class="anchored" data-anchor-id="mission-pattern">Mission Pattern</h3>
+<section id="overall-distribution" class="level4">
+<h4 class="anchored" data-anchor-id="overall-distribution">Overall Distribution</h4>
+<p>Before we analyze the pattern of Double XP’s mission mutator, let’s first see the overall distribution of mission mutators</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>missions_df_combined_cleaned <span class="sc">|&gt;</span> </span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(MissionMutator)) <span class="sc">+</span></span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-45-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>I’m not sure why <code>NA</code> values are also visualized, since they’re usually implicitly removed.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>missions_df_combined_cleaned <span class="sc">|&gt;</span> </span>
+<span id="cb76-2"><a href="#cb76-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(MissionMutator) <span class="sc">|&gt;</span> </span>
+<span id="cb76-3"><a href="#cb76-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(MissionMutator)) <span class="sc">|&gt;</span> </span>
+<span id="cb76-4"><a href="#cb76-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(MissionMutator)) <span class="sc">+</span></span>
+<span id="cb76-5"><a href="#cb76-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-46-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now the <code>NA</code> values are removed, the labels are hard to read due to how many it is. Let’s try mitigating this by wrapping the labels to newlines</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>missions_df_combined_cleaned <span class="sc">|&gt;</span> </span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(MissionMutator) <span class="sc">|&gt;</span> </span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(MissionMutator)) <span class="sc">|&gt;</span> </span>
+<span id="cb77-4"><a href="#cb77-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(MissionMutator)) <span class="sc">+</span></span>
+<span id="cb77-5"><a href="#cb77-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb77-6"><a href="#cb77-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">str_wrap</span>(x, <span class="at">width =</span> <span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-47-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now it looks much better. We can reorder the bar descendingly with <code>fct_infreq()</code> to see what’s the highest and lowest, but honestly, they all don’t seem much differ in values, except for <em>Blood Sugar.</em></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>missions_df_combined_cleaned <span class="sc">|&gt;</span> </span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(MissionMutator) <span class="sc">|&gt;</span> </span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(MissionMutator)) <span class="sc">|&gt;</span> </span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">fct_infreq</span>(MissionMutator))) <span class="sc">+</span></span>
+<span id="cb78-5"><a href="#cb78-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb78-6"><a href="#cb78-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">str_wrap</span>(x, <span class="at">width =</span> <span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-48-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>See? Well, I guess this is to be expected as it’s generated by computers 😅.</p>
+</section>
+<section id="double-xp-pattern" class="level4">
+<h4 class="anchored" data-anchor-id="double-xp-pattern">Double XP Pattern</h4>
+<p>Finally, we reach the main objective.</p>
+<p>Since we have the complete data with complete timestamp for the entire month, there’s various ways we can visualize the pattern.</p>
+<ol type="1">
+<li>Hourly</li>
+<li>Daily</li>
+<li>Weekly</li>
+</ol>
+<p>To make our analysis easier, we need to extract each component of the date from the Timestamp, which are: week days (names), days (numbers), and hours</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb79"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>double_xp_trend <span class="ot">&lt;-</span> missions_df_combined_cleaned <span class="sc">|&gt;</span> </span>
+<span id="cb79-2"><a href="#cb79-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">WeekDay =</span> <span class="fu">wday</span>(Timestamp, <span class="at">label=</span><span class="cn">TRUE</span>),</span>
+<span id="cb79-3"><a href="#cb79-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">Day =</span> <span class="fu">day</span>(Timestamp),</span>
+<span id="cb79-4"><a href="#cb79-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">Hour =</span> <span class="fu">hour</span>(Timestamp),</span>
+<span id="cb79-5"><a href="#cb79-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">.after =</span> Timestamp) <span class="sc">|&gt;</span> </span>
+<span id="cb79-6"><a href="#cb79-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(MissionMutator <span class="sc">==</span> <span class="st">'Double XP'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>double_xp_trend</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 613 × 15
+   Timestamp           WeekDay   Day  Hour PrimaryObjective   SecondaryObjective
+   &lt;dttm&gt;              &lt;ord&gt;   &lt;int&gt; &lt;int&gt; &lt;fct&gt;              &lt;fct&gt;             
+ 1 2024-07-01 03:00:00 Mon         1     3 Elimination        Hollomite         
+ 2 2024-07-01 03:30:00 Mon         1     3 On-Site Refining   Gunk Seeds        
+ 3 2024-07-01 04:00:00 Mon         1     4 Point Extraction   Dystrum           
+ 4 2024-07-01 05:00:00 Mon         1     5 Mining Expedition  Bha Barnacles     
+ 5 2024-07-01 06:30:00 Mon         1     6 Deep Scan          Fossils           
+ 6 2024-07-01 10:30:00 Mon         1    10 Mining Expedition  Ebonuts           
+ 7 2024-07-01 10:30:00 Mon         1    10 Elimination        Ebonuts           
+ 8 2024-07-01 10:30:00 Mon         1    10 Industrial Sabota… Hollomite         
+ 9 2024-07-01 11:00:00 Mon         1    11 Mining Expedition  Gunk Seeds        
+10 2024-07-01 11:30:00 Mon         1    11 Deep Scan          Fester Fleas      
+# ℹ 603 more rows
+# ℹ 9 more variables: Complexity &lt;fct&gt;, Length &lt;fct&gt;, CodeName &lt;chr&gt;,
+#   IncludedIn &lt;chr&gt;, id &lt;dbl&gt;, MissionWarning1 &lt;fct&gt;, MissionWarning2 &lt;fct&gt;,
+#   MissionMutator &lt;fct&gt;, Biome &lt;fct&gt;</code></pre>
+</div>
+</div>
+<section id="weekly" class="level5">
+<h5 class="anchored" data-anchor-id="weekly">Weekly</h5>
+<p>Let’s compute the average occurrence per day. We can obtain it by first computing the total count each day, and then get the mean from them.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>double_xp_trend_weekly <span class="ot">&lt;-</span> double_xp_trend <span class="sc">|&gt;</span> </span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Day, WeekDay) <span class="sc">|&gt;</span> </span>
+<span id="cb82-3"><a href="#cb82-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(WeekDay) <span class="sc">|&gt;</span> </span>
+<span id="cb82-4"><a href="#cb82-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(n))</span>
+<span id="cb82-5"><a href="#cb82-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb82-6"><a href="#cb82-6" aria-hidden="true" tabindex="-1"></a>double_xp_trend_weekly</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 7 × 2
+  WeekDay  mean
+  &lt;ord&gt;   &lt;dbl&gt;
+1 Sun      21.2
+2 Mon      18.6
+3 Tue      20.2
+4 Wed      19  
+5 Thu      17  
+6 Fri      20.2
+7 Sat      22.5</code></pre>
+</div>
+</div>
+<p>It looks like there isn’t much difference between the day. We can verify it by checking the SD.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>double_xp_trend_weekly <span class="sc">|&gt;</span> </span>
+<span id="cb84-2"><a href="#cb84-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(mean) <span class="sc">|&gt;</span> </span>
+<span id="cb84-3"><a href="#cb84-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sd</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.810584</code></pre>
+</div>
+</div>
+<p>Yeah, that’s minuscule. But still, let’s visualize it to get a better picture.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb86"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a>double_xp_trend_weekly <span class="sc">|&gt;</span>  </span>
+<span id="cb86-2"><a href="#cb86-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(WeekDay, mean, <span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span>  </span>
+<span id="cb86-3"><a href="#cb86-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb86-4"><a href="#cb86-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label</span>(<span class="fu">aes</span>(<span class="at">label =</span> mean)) <span class="sc">+</span></span>
+<span id="cb86-5"><a href="#cb86-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">'Week Day'</span>, <span class="at">y=</span><span class="st">'Averge Occurence (mean)'</span>, <span class="at">title =</span> <span class="st">'Average Occurence (Mean) of Double XP Each Day'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-53-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>So the peak is on Saturday and the trough is on Thursday. Still, if you think about it as a gamer, it really isnt’ much of a difference, except maybe for Thursday. 20 Double XP a day is a lot. One game can range from 30 to 60 minutes. Even if you stay up all day, you can’t get all of them anyway.</p>
+</section>
+<section id="daily" class="level5">
+<h5 class="anchored" data-anchor-id="daily">Daily</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>double_xp_trend <span class="sc">|&gt;</span> </span>
+<span id="cb87-2"><a href="#cb87-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Day, WeekDay) <span class="sc">|&gt;</span> </span>
+<span id="cb87-3"><a href="#cb87-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Day, n)) <span class="sc">+</span></span>
+<span id="cb87-4"><a href="#cb87-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb87-5"><a href="#cb87-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">31</span>)) <span class="sc">+</span></span>
+<span id="cb87-6"><a href="#cb87-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">'Daily Occurences of Double XP'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-54-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>When we zoom out and see the pattern throughout the month, we can see a repeating up and down cycle that’s going down nearing the end of the month. I wish we have data from the other months to complete the pattern.</p>
+</section>
+<section id="hourly" class="level5">
+<h5 class="anchored" data-anchor-id="hourly">Hourly</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb88"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true" tabindex="-1"></a>double_xp_trend <span class="sc">|&gt;</span> </span>
+<span id="cb88-2"><a href="#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Day, Hour) <span class="sc">|&gt;</span> </span>
+<span id="cb88-3"><a href="#cb88-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Hour) <span class="sc">|&gt;</span> </span>
+<span id="cb88-4"><a href="#cb88-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 24 × 2
+    Hour  mean
+   &lt;int&gt; &lt;dbl&gt;
+ 1     0  1.64
+ 2     1  1.8 
+ 3     2  1.31
+ 4     3  1.43
+ 5     4  1.53
+ 6     5  1.45
+ 7     6  1.35
+ 8     7  1.44
+ 9     8  1.23
+10     9  1.53
+# ℹ 14 more rows</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb90"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true" tabindex="-1"></a>double_xp_trend <span class="sc">|&gt;</span> </span>
+<span id="cb90-2"><a href="#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Hour) <span class="sc">|&gt;</span> </span>
+<span id="cb90-3"><a href="#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Hour, n)) <span class="sc">+</span></span>
+<span id="cb90-4"><a href="#cb90-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb90-5"><a href="#cb90-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">23</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-56-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>If we zoom in on the hours and sum all the occurrences on each hour, we can see that the peak is on 10:00 UTC. But is it really that much of a difference compared to the rest? As we did previously, we can use the <code>mean</code> instead to see how many occurence is it on average.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb91"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a>double_xp_trend_hourly <span class="ot">&lt;-</span> double_xp_trend <span class="sc">|&gt;</span> </span>
+<span id="cb91-2"><a href="#cb91-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Day, Hour) <span class="sc">|&gt;</span> </span>
+<span id="cb91-3"><a href="#cb91-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Hour) <span class="sc">|&gt;</span> </span>
+<span id="cb91-4"><a href="#cb91-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(n))</span>
+<span id="cb91-5"><a href="#cb91-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb91-6"><a href="#cb91-6" aria-hidden="true" tabindex="-1"></a>double_xp_trend_hourly <span class="sc">|&gt;</span></span>
+<span id="cb91-7"><a href="#cb91-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Hour, mean)) <span class="sc">+</span></span>
+<span id="cb91-8"><a href="#cb91-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb91-9"><a href="#cb91-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">23</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-57-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Ohhh, that’s unexpected. So on average, the highest is not on 10:00 UTC, but on 01:00 UTC, which was quite low when we see the the total count. This might indicate a presence of outliers.</p>
+<p>Anyway, it doesn’t matter. The range is only about 1 difference, from 1 to 2. That’s meaningless when you consider the game duration per mission. Once you finish one, a new mission will be generated.</p>
+</section>
+</section>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2 class="anchored" data-anchor-id="summary">Summary</h2>
+<section id="insight-1-double-xp-pattern" class="level3">
+<h3 class="anchored" data-anchor-id="insight-1-double-xp-pattern">Insight 1: Double XP Pattern</h3>
+<p>Statistically, there are trends and pattern of peaks and troughs, of when Double XP most likely to happen.</p>
+<p>Unfortunately, from the gamer’s perspective, the difference is not significant enough. On Weekly difference, you don’t play game all day. On hourly difference, a new mission will be generated once you played.</p>
+<p>In short, there is no strategy that we, as the gamers, can use to find the right time to play. Fortunately, since we have the complete timestamps, we can use it to instead snipe the Double XP missions directly.</p>
+</section>
+<section id="insight-2-mutators-occurrences" class="level3">
+<h3 class="anchored" data-anchor-id="insight-2-mutators-occurrences">Insight 2: Mutators Occurrences</h3>
+<p>There’s another interesting insight, though. The hourly average is about 1.5. However, we know that the game mission refreshes every 30 minutes. And there’s like 20 missions at once. Which mean, on average, there can only be 1 Double XP mission in every cycle.</p>
+<p>But remember, we have filtered the data to only include missions that are Double XP. If we have included all mutators, it’s highly possible they have similar pattern, considering the frequency of all mutators are highly similar.</p>
+</section>
+</section>
+<section id="appendix-other-findings" class="level2">
+<h2 class="anchored" data-anchor-id="appendix-other-findings">Appendix: Other Findings</h2>
+<p>Below, you can find other findings that aren’t related to Double XP, but might be interesting to know.</p>
+<section id="missions" class="level3">
+<h3 class="anchored" data-anchor-id="missions">Missions</h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>missions_df_combined_cleaned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 28,272 × 12
+   Timestamp           PrimaryObjective    SecondaryObjective Complexity Length
+   &lt;dttm&gt;              &lt;fct&gt;               &lt;fct&gt;              &lt;fct&gt;      &lt;fct&gt; 
+ 1 2024-07-01 00:00:00 Point Extraction    Glyphid Eggs       3          2     
+ 2 2024-07-01 00:00:00 Mining Expedition   ApocaBlooms        1          2     
+ 3 2024-07-01 00:00:00 Mining Expedition   Glyphid Eggs       1          1     
+ 4 2024-07-01 00:00:00 Egg Hunt            ApocaBlooms        1          1     
+ 5 2024-07-01 00:00:00 On-Site Refining    Dystrum            2          2     
+ 6 2024-07-01 00:00:00 Deep Scan           Glyphid Eggs       3          2     
+ 7 2024-07-01 00:00:00 Elimination         Fester Fleas       2          2     
+ 8 2024-07-01 00:00:00 Escort Duty         ApocaBlooms        2          2     
+ 9 2024-07-01 00:00:00 Deep Scan           Hollomite          2          1     
+10 2024-07-01 00:00:00 Industrial Sabotage Hollomite          2          2     
+# ℹ 28,262 more rows
+# ℹ 7 more variables: CodeName &lt;chr&gt;, IncludedIn &lt;chr&gt;, id &lt;dbl&gt;,
+#   MissionWarning1 &lt;fct&gt;, MissionWarning2 &lt;fct&gt;, MissionMutator &lt;fct&gt;,
+#   Biome &lt;fct&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>missions_df_other_findings <span class="ot">&lt;-</span> missions_df_combined_cleaned <span class="sc">|&gt;</span> </span>
+<span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">WeekDay =</span> <span class="fu">wday</span>(Timestamp, <span class="at">label=</span><span class="cn">TRUE</span>),</span>
+<span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">Day =</span> <span class="fu">day</span>(Timestamp),</span>
+<span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">Hour =</span> <span class="fu">hour</span>(Timestamp),</span>
+<span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">.after =</span> Timestamp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="biome" class="level4">
+<h4 class="anchored" data-anchor-id="biome">Biome</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb95"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a>missions_df_other_findings <span class="sc">|&gt;</span></span>
+<span id="cb95-2"><a href="#cb95-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Day, Biome, <span class="at">name =</span> <span class="st">'Total_Occurences'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb95-3"><a href="#cb95-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Biome) <span class="sc">|&gt;</span> </span>
+<span id="cb95-4"><a href="#cb95-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Daily_Occurence =</span> <span class="fu">mean</span>(Total_Occurences)) <span class="sc">|&gt;</span> </span>
+<span id="cb95-5"><a href="#cb95-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Daily_Occurence)) <span class="sc">|&gt;</span> </span>
+<span id="cb95-6"><a href="#cb95-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Daily_Occurence, <span class="fu">fct_rev</span>(<span class="fu">fct_infreq</span>(Biome, Daily_Occurence)))) <span class="sc">+</span></span>
+<span id="cb95-7"><a href="#cb95-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb95-8"><a href="#cb95-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Most Common Biomes'</span>, <span class="at">subtitle =</span> <span class="st">'Based on its Mean of Daily Occurences'</span>, <span class="at">x =</span> <span class="st">'Daily Occurence'</span>, <span class="at">y =</span> <span class="st">'Biomes'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-60-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="primary-objective" class="level4">
+<h4 class="anchored" data-anchor-id="primary-objective">Primary Objective</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>missions_df_other_findings <span class="sc">|&gt;</span> </span>
+<span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Day, PrimaryObjective, <span class="at">name =</span> <span class="st">'Total_Occurences'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PrimaryObjective) <span class="sc">|&gt;</span> </span>
+<span id="cb96-4"><a href="#cb96-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Daily_Occurence =</span> <span class="fu">mean</span>(Total_Occurences)) <span class="sc">|&gt;</span> </span>
+<span id="cb96-5"><a href="#cb96-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">fct_infreq</span>(PrimaryObjective, Daily_Occurence), Daily_Occurence)) <span class="sc">+</span></span>
+<span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">str_wrap</span>(x, <span class="at">width =</span> <span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb96-8"><a href="#cb96-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Most Common Primary Objectives'</span>, <span class="at">subtitle =</span> <span class="st">'Based on its Mean of Daily Occurences'</span>, <span class="at">x =</span> <span class="st">'Primary Objective'</span>, <span class="at">y =</span> <span class="st">'Daily Occurence'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-61-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="secondary-objective" class="level4">
+<h4 class="anchored" data-anchor-id="secondary-objective">Secondary Objective</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>missions_df_other_findings <span class="sc">|&gt;</span></span>
+<span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SecondaryObjective =</span> <span class="fu">str_replace</span>(SecondaryObjective, <span class="st">'ApocaBlooms'</span>, <span class="st">'Apoca Bloom'</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Day, SecondaryObjective, <span class="at">name =</span> <span class="st">'Total_Occurences'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb97-4"><a href="#cb97-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(SecondaryObjective) <span class="sc">|&gt;</span> </span>
+<span id="cb97-5"><a href="#cb97-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Daily_Occurence =</span> <span class="fu">mean</span>(Total_Occurences)) <span class="sc">|&gt;</span> </span>
+<span id="cb97-6"><a href="#cb97-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">fct_rev</span>(<span class="fu">fct_infreq</span>(SecondaryObjective, Daily_Occurence)), Daily_Occurence)) <span class="sc">+</span></span>
+<span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">str_wrap</span>(x, <span class="at">width =</span> <span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Most Common Secondary Objectives'</span>, <span class="at">subtitle =</span> <span class="st">'Based on its Mean of Daily Occurences'</span>, <span class="at">x =</span> <span class="st">'Secondary Objective'</span>, <span class="at">y =</span> <span class="st">'Daily Occurence'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-62-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="mission-warnings" class="level4">
+<h4 class="anchored" data-anchor-id="mission-warnings">Mission Warnings</h4>
+<section id="primary-warning" class="level5">
+<h5 class="anchored" data-anchor-id="primary-warning">Primary Warning</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>missions_df_other_findings <span class="sc">|&gt;</span></span>
+<span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(MissionWarning1)) <span class="sc">|&gt;</span> </span>
+<span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Day, MissionWarning1, <span class="at">name =</span> <span class="st">'Total_Occurences'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb98-4"><a href="#cb98-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(MissionWarning1) <span class="sc">|&gt;</span> </span>
+<span id="cb98-5"><a href="#cb98-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Daily_Occurence =</span> <span class="fu">mean</span>(Total_Occurences)) <span class="sc">|&gt;</span> </span>
+<span id="cb98-6"><a href="#cb98-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Daily_Occurence)) <span class="sc">|&gt;</span> </span>
+<span id="cb98-7"><a href="#cb98-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Daily_Occurence, <span class="fu">fct_rev</span>(<span class="fu">fct_infreq</span>(MissionWarning1, Daily_Occurence)))) <span class="sc">+</span></span>
+<span id="cb98-9"><a href="#cb98-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb98-10"><a href="#cb98-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Top Five Most Common Frimary Mission Warnings'</span>, <span class="at">subtitle =</span> <span class="st">'Based on its Mean of Daily Occurences'</span>, <span class="at">x =</span> <span class="st">'Daily Occurence'</span>, <span class="at">y =</span> <span class="st">'Primary Mission Warnings'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-63-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>missions_df_other_findings <span class="sc">|&gt;</span></span>
+<span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(MissionWarning1)) <span class="sc">|&gt;</span> </span>
+<span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Day, MissionWarning1, <span class="at">name =</span> <span class="st">'Total_Occurences'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb99-4"><a href="#cb99-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(MissionWarning1) <span class="sc">|&gt;</span> </span>
+<span id="cb99-5"><a href="#cb99-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">Daily_Occurence =</span> <span class="fu">mean</span>(Total_Occurences)) <span class="sc">|&gt;</span> </span>
+<span id="cb99-6"><a href="#cb99-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Daily_Occurence) <span class="sc">|&gt;</span> </span>
+<span id="cb99-7"><a href="#cb99-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">5</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Daily_Occurence, <span class="fu">fct_infreq</span>(MissionWarning1, Daily_Occurence))) <span class="sc">+</span></span>
+<span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb99-10"><a href="#cb99-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Top Five Rarest Primary Mission Warnings'</span>, <span class="at">subtitle =</span> <span class="st">'Based on its Mean of Daily Occurences'</span>, <span class="at">x =</span> <span class="st">'Daily Occurence'</span>, <span class="at">y =</span> <span class="st">'Primary Mission Warnings'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-64-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="mission-warnings-combinations" class="level4">
+<h4 class="anchored" data-anchor-id="mission-warnings-combinations">Mission Warnings Combinations</h4>
+<section id="top-10" class="level5">
+<h5 class="anchored" data-anchor-id="top-10">Top 10</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>missions_df_other_findings <span class="sc">|&gt;</span> </span>
+<span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(MissionWarning1), <span class="sc">!</span><span class="fu">is.na</span>(MissionWarning2)) <span class="sc">|&gt;</span> </span>
+<span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MissionWarning1, MissionWarning2, <span class="at">name =</span> <span class="st">'Total_Occurence'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Total_Occurence))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 91 × 3
+   MissionWarning1      MissionWarning2      Total_Occurence
+   &lt;fct&gt;                &lt;fct&gt;                          &lt;int&gt;
+ 1 Elite Threat         Regenerative Bugs                 28
+ 2 Duck and Cover       Regenerative Bugs                 27
+ 3 Exploder Infestation Lethal Enemies                    27
+ 4 Duck and Cover       Exploder Infestation              26
+ 5 Elite Threat         Parasites                         25
+ 6 Parasites            Swarmageddon                      25
+ 7 Shield Disruption    Swarmageddon                      24
+ 8 Regenerative Bugs    Swarmageddon                      24
+ 9 Elite Threat         Mactera Plague                    24
+10 Mactera Plague       Parasites                         24
+# ℹ 81 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="lowest-10" class="level5">
+<h5 class="anchored" data-anchor-id="lowest-10">Lowest 10</h5>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>missions_df_other_findings <span class="sc">|&gt;</span> </span>
+<span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(MissionWarning1), <span class="sc">!</span><span class="fu">is.na</span>(MissionWarning2)) <span class="sc">|&gt;</span> </span>
+<span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MissionWarning1, MissionWarning2, <span class="at">name =</span> <span class="st">'Total_Occurence'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Total_Occurence)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 91 × 3
+   MissionWarning1    MissionWarning2      Total_Occurence
+   &lt;fct&gt;              &lt;fct&gt;                          &lt;int&gt;
+ 1 Cave Leech Cluster Haunted Cave                       5
+ 2 Haunted Cave       Rival Presence                     6
+ 3 Haunted Cave       Shield Disruption                  7
+ 4 Haunted Cave       Low Oxygen                         8
+ 5 Ebonite Outbreak   Haunted Cave                       8
+ 6 Duck and Cover     Ebonite Outbreak                   9
+ 7 Elite Threat       Rival Presence                     9
+ 8 Ebonite Outbreak   Rival Presence                     9
+ 9 Ebonite Outbreak   Exploder Infestation               9
+10 Low Oxygen         Mactera Plague                     9
+# ℹ 81 more rows</code></pre>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="daily-deal" class="level3">
+<h3 class="anchored" data-anchor-id="daily-deal">Daily Deal</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb104"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>dailyDeal_df_combined</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 31 × 6
+   ResourceAmount ChangePercent DealType Credits Resource   timestamp          
+            &lt;dbl&gt;         &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt; &lt;chr&gt;      &lt;dttm&gt;             
+ 1            138          57.0 Buy         8908 Enor Pearl 2024-07-01 00:00:00
+ 2            168          68.3 Buy         7982 Enor Pearl 2024-07-02 00:00:00
+ 3             68          49.7 Buy         5130 Croppa     2024-07-03 00:00:00
+ 4             98         266.  Sell       13057 Croppa     2024-07-04 00:00:00
+ 5             95          36.0 Buy         9120 Magnite    2024-07-05 00:00:00
+ 6            130          51.9 Buy         9369 Umanite    2024-07-06 00:00:00
+ 7             87         213.  Sell        9264 Umanite    2024-07-07 00:00:00
+ 8             60          44.7 Buy         4978 Jadiz      2024-07-08 00:00:00
+ 9             55          47.9 Buy         4294 Croppa     2024-07-09 00:00:00
+10             56         152.  Sell        4258 Enor Pearl 2024-07-10 00:00:00
+# ℹ 21 more rows</code></pre>
+</div>
+</div>
+<section id="overall-trend" class="level4">
+<h4 class="anchored" data-anchor-id="overall-trend">Overall Trend</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>dailyDeal_df_combined <span class="sc">|&gt;</span> </span>
+<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(timestamp,Credits, <span class="at">colour =</span> DealType)) <span class="sc">+</span></span>
+<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Trend of Daily Deal over July 2024'</span>, <span class="at">color=</span><span class="st">'Deal Type'</span>, <span class="at">x=</span><span class="st">'Date'</span>, <span class="at">y=</span><span class="st">'Credits Offered'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-68-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="common-resource-on-sale" class="level4">
+<h4 class="anchored" data-anchor-id="common-resource-on-sale">Common Resource on Sale</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>dailyDeal_df_combined <span class="sc">|&gt;</span> </span>
+<span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Resource) <span class="sc">|&gt;</span> </span>
+<span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">fct_infreq</span>(Resource, n), n)) <span class="sc">+</span></span>
+<span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb107-5"><a href="#cb107-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Most Common Resource on Sale'</span>, <span class="at">subtitle =</span> <span class="st">'Based on total occurences over July 2024'</span>, <span class="at">x =</span> <span class="st">'Resource'</span>, <span class="at">y =</span> <span class="st">'Total Occurence'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-69-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="invictus1032/quartopub-blog" data-repo-id="R_kgDOMR7VJw" data-category="Blog Comments (Giscus)" data-category-id="DIC_kwDOMR7VJ84CgsU5" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="preferred_color_scheme">
+<input type="hidden" id="giscus-alt-theme" value="preferred_color_scheme">
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

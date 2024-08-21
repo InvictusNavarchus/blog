@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.53">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="invictus">
+<meta name="dcterms.date" content="2024-08-06">
+<meta name="description" content="tobe-written">
+
+<title>Analyzing Busiest Indonesia’s Train Station: Manggarai – Blog</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-46H31NF5Y2"></script>
+
+<script type="text/plain" cookie-consent="tracking">
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-46H31NF5Y2', { 'anonymize_ip': true});
+</script>
+
+<script type="text/javascript" charset="UTF-8">
+document.addEventListener('DOMContentLoaded', function () {
+cookieconsent.run({
+  "notice_banner_type":"simple",
+  "consent_type":"implied",
+  "palette":"light",
+  "language":"en",
+  "page_load_consent_levels":["strictly-necessary","functionality","tracking","targeting"],
+  "notice_banner_reject_button_hide":false,
+  "preferences_center_close_button_hide":false,
+  "website_name":""
+  ,
+"language":"en"
+  });
+});
+</script> 
+  
+<!-- Default Statcounter code for Invictus Quarto https://invictus.quarto.pub -->
+<script type="text/javascript">
+var sc_project=13016686; 
+var sc_invisible=1; 
+var sc_security="1325b7f6"; 
+</script>
+<script type="text/plain" cookie-consent="tracking">
+src="https://www.statcounter.com/counter/counter.js"
+async></script>
+<noscript></noscript><meta property="og:title" content="Analyzing Busiest Indonesia’s Train Station: Manggarai – Blog">
+<meta property="og:description" content="See how I collect, clean, and analyze Manggarai’s train station dataset">
+<meta property="og:site_name" content="Blog">
+</head><body class="nav-fixed"><div class="statcounter"><a title="Web Analytics
+Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13016686/0/1325b7f6/1/" alt="Web Analytics Made Easy - Statcounter" referrerpolicy="no-referrer-when-downgrade"></a></div>
+<!-- End of Statcounter Code -->
+
+
+<link rel="stylesheet" href="../../styles.css">
+
+
+
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Blog</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#collecting-data" id="toc-collecting-data" class="nav-link" data-scroll-target="#collecting-data">Collecting Data</a></li>
+  <li><a href="#parsing-data" id="toc-parsing-data" class="nav-link" data-scroll-target="#parsing-data">Parsing Data</a></li>
+  <li><a href="#cleaning-data" id="toc-cleaning-data" class="nav-link" data-scroll-target="#cleaning-data">Cleaning Data</a>
+  <ul>
+  <li><a href="#remove-irrelevant-columns" id="toc-remove-irrelevant-columns" class="nav-link" data-scroll-target="#remove-irrelevant-columns">Remove Irrelevant Columns</a></li>
+  <li><a href="#rename-columns" id="toc-rename-columns" class="nav-link" data-scroll-target="#rename-columns">Rename Columns</a></li>
+  <li><a href="#transforming-data" id="toc-transforming-data" class="nav-link" data-scroll-target="#transforming-data">Transforming Data</a></li>
+  <li><a href="#correct-data-types" id="toc-correct-data-types" class="nav-link" data-scroll-target="#correct-data-types">Correct Data Types</a></li>
+  </ul></li>
+  <li><a href="#analyzing-data" id="toc-analyzing-data" class="nav-link" data-scroll-target="#analyzing-data">Analyzing Data</a>
+  <ul>
+  <li><a href="#library" id="toc-library" class="nav-link" data-scroll-target="#library">Library</a></li>
+  <li><a href="#peak-hours" id="toc-peak-hours" class="nav-link" data-scroll-target="#peak-hours">Peak Hours</a>
+  <ul>
+  <li><a href="#bogor-line" id="toc-bogor-line" class="nav-link" data-scroll-target="#bogor-line">Bogor Line</a></li>
+  <li><a href="#cikarang-line" id="toc-cikarang-line" class="nav-link" data-scroll-target="#cikarang-line">Cikarang Line</a></li>
+  <li><a href="#soekarno-hatta-line" id="toc-soekarno-hatta-line" class="nav-link" data-scroll-target="#soekarno-hatta-line">Soekarno-Hatta Line</a></li>
+  <li><a href="#rangkasbitung-line" id="toc-rangkasbitung-line" class="nav-link" data-scroll-target="#rangkasbitung-line">Rangkasbitung Line</a></li>
+  <li><a href="#peak-hours-summary" id="toc-peak-hours-summary" class="nav-link" data-scroll-target="#peak-hours-summary">Peak Hours summary</a></li>
+  </ul></li>
+  <li><a href="#train-intervals" id="toc-train-intervals" class="nav-link" data-scroll-target="#train-intervals">Train Intervals</a></li>
+  </ul></li>
+  <li><a href="#temporary-conclusion-and-recommendation" id="toc-temporary-conclusion-and-recommendation" class="nav-link" data-scroll-target="#temporary-conclusion-and-recommendation">Temporary Conclusion and Recommendation</a>
+  <ul>
+  <li><a href="#peak-hours-1" id="toc-peak-hours-1" class="nav-link" data-scroll-target="#peak-hours-1">Peak Hours</a></li>
+  <li><a href="#train-intervals-1" id="toc-train-intervals-1" class="nav-link" data-scroll-target="#train-intervals-1">Train Intervals</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#follow-up-project" id="toc-follow-up-project" class="nav-link" data-scroll-target="#follow-up-project">Follow Up Project</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Analyzing Busiest Indonesia’s Train Station: Manggarai</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Project</div>
+    <div class="quarto-category">R</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    tobe-written
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>invictus </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 6, 2024</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">August 13, 2024</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+<nav id="TOC-body" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction">Introduction</a></li>
+  <li><a href="#collecting-data" id="toc-collecting-data">Collecting Data</a></li>
+  <li><a href="#parsing-data" id="toc-parsing-data">Parsing Data</a></li>
+  <li><a href="#cleaning-data" id="toc-cleaning-data">Cleaning Data</a>
+  <ul>
+  <li><a href="#remove-irrelevant-columns" id="toc-remove-irrelevant-columns">Remove Irrelevant Columns</a></li>
+  <li><a href="#rename-columns" id="toc-rename-columns">Rename Columns</a></li>
+  <li><a href="#transforming-data" id="toc-transforming-data">Transforming Data</a></li>
+  <li><a href="#correct-data-types" id="toc-correct-data-types">Correct Data Types</a></li>
+  </ul></li>
+  <li><a href="#analyzing-data" id="toc-analyzing-data">Analyzing Data</a>
+  <ul>
+  <li><a href="#library" id="toc-library">Library</a></li>
+  <li><a href="#peak-hours" id="toc-peak-hours">Peak Hours</a>
+  <ul>
+  <li><a href="#bogor-line" id="toc-bogor-line">Bogor Line</a></li>
+  <li><a href="#cikarang-line" id="toc-cikarang-line">Cikarang Line</a></li>
+  <li><a href="#soekarno-hatta-line" id="toc-soekarno-hatta-line">Soekarno-Hatta Line</a></li>
+  <li><a href="#rangkasbitung-line" id="toc-rangkasbitung-line">Rangkasbitung Line</a></li>
+  <li><a href="#peak-hours-summary" id="toc-peak-hours-summary">Peak Hours summary</a></li>
+  </ul></li>
+  <li><a href="#train-intervals" id="toc-train-intervals">Train Intervals</a></li>
+  </ul></li>
+  <li><a href="#temporary-conclusion-and-recommendation" id="toc-temporary-conclusion-and-recommendation">Temporary Conclusion and Recommendation</a>
+  <ul>
+  <li><a href="#peak-hours-1" id="toc-peak-hours-1">Peak Hours</a></li>
+  <li><a href="#train-intervals-1" id="toc-train-intervals-1">Train Intervals</a></li>
+  <li><a href="#conclusion" id="toc-conclusion">Conclusion</a></li>
+  <li><a href="#follow-up-project" id="toc-follow-up-project">Follow Up Project</a></li>
+  </ul></li>
+  </ul>
+</nav>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p><img src="images/manggarai-station.webp" class="img-fluid"></p>
+<p>in Indonesia, especially in Jakarta, train stations are popular methods for transportation. Out of over 50 train stations, the busiest among them is Manggarai, which also act as the main hub for trains from all different routes. If you’re an Indonesian, you know how busy it is during the morning.</p>
+<p>Here is the map of the train route from all stations. <img src="images/rute-krl-01.png" class="img-fluid"> You can see that Manggarai lies at the center of the map, being the hub of all major routes.</p>
+<p>With a full day schedule from 00:00 to 23:00, let’s uncover what interesting insight we could find.</p>
+</section>
+<section id="collecting-data" class="level2">
+<h2 class="anchored" data-anchor-id="collecting-data">Collecting Data</h2>
+<p>There is an official national train company website, <a href="https://commuterline.id/perjalanan-krl/jadwal-kereta">KAI Commuter</a>, where you can query the schedule based on specified departure and destination. The schedule will then be displayed on the page.</p>
+<p><img src="images/query-schedule.png" class="img-fluid"></p>
+<p>We can then scrape the page to collect the data. However, I found something interesting when I opened up the dev tools and go to the network tab</p>
+<p><img src="images/devtool-network-01.png" class="img-fluid"></p>
+<p>You can see it got the data from an api. If you open the request url, you’ll see the full JSON file:</p>
+<p><img src="images/api-jsonfile-01.png" class="img-fluid"></p>
+<p>Unfortunately, the trick no longer works. That was a week ago. Now, if you try the same trick, you’ll get a 401 unauthorized access instead.</p>
+<p><img src="images/unauthorized-access-01.png" class="img-fluid"></p>
+</section>
+<section id="parsing-data" class="level2">
+<h2 class="anchored" data-anchor-id="parsing-data">Parsing Data</h2>
+<p>First, we need to transform them to a data frame format, where each key will be its own column. As usual, let’s load up the weapon, tidyverse!</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(jsonlite)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'jsonlite'
+
+The following object is masked from 'package:purrr':
+
+    flatten</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>jsondata <span class="ot">&lt;-</span> <span class="fu">read_json</span>(<span class="st">'./manggarai-schedule.json'</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>jsondata <span class="ot">&lt;-</span> jsondata<span class="sc">$</span>data</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">schedule =</span> jsondata)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> <span class="fu">unnest_wider</span>(schedule)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="cleaning-data" class="level2">
+<h2 class="anchored" data-anchor-id="cleaning-data">Cleaning Data</h2>
+<section id="remove-irrelevant-columns" class="level3">
+<h3 class="anchored" data-anchor-id="remove-irrelevant-columns">Remove Irrelevant Columns</h3>
+<p>There isn’t any particular objective at hand. I just want to explore the data and find any interesting insights. So, any column might be needed later. However, there are 2 columns that are less likely to be used: train_id and color.</p>
+<p>color is obvious. It was used to differentiate the routes visually on KAI Commuterline. However, I’m thinking for using them here for the same purpose as well when drawing plots. So, let’s keep that for now.</p>
+<p>train_id is just the identifier of each train. It’s not a useful information for regular customers because any train is virtually the same. Nevertheless, I’ll keep that too, as I’m curious if any particular train stand out.</p>
+</section>
+<section id="rename-columns" class="level3">
+<h3 class="anchored" data-anchor-id="rename-columns">Rename Columns</h3>
+<p>It’s good enough it is, with snake_case and quite descriptive names. But we can make it better by changing a few:</p>
+<ol type="1">
+<li>‘ka’ in <code>ka_name</code> stands for ‘Kereta Api’, which means ‘trains’. It looks odd because the rest of the columns use English. So, we can rename it to <code>train_name</code>. Honestly, they don’t feel like names at all, they’re more like lines, so let’s rename them as <code>train_lines</code></li>
+<li>since there is <code>dest_time</code>, we can change <code>dest</code> to <code>dest_city.</code></li>
+<li>we can rename <code>time_est</code> to <code>est_time</code> for better consistency with <code>dest_time</code>. In fact, the word <code>est</code> itself is not quite clear, so we can rename it further as <code>arrival_time</code></li>
+<li>‘destination’ would be much clearer than just ‘dest’, so let’s rename all ‘dest’ to ‘destination’</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "train_id"   "ka_name"    "route_name" "dest"       "time_est"  
+[6] "color"      "dest_time" </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df_renamed <span class="ot">&lt;-</span> df <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">train_line =</span> ka_name,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">destination_city =</span> dest,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">arrival_time =</span> time_est,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">destination_time =</span> dest_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df_renamed <span class="sc">|&gt;</span>  <span class="fu">names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "train_id"         "train_line"       "route_name"       "destination_city"
+[5] "arrival_time"     "color"            "destination_time"</code></pre>
+</div>
+</div>
+</section>
+<section id="transforming-data" class="level3">
+<h3 class="anchored" data-anchor-id="transforming-data">Transforming Data</h3>
+<p>I noticed earlier that the train lines are a bit too long and redundant</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df_renamed <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(train_line, <span class="at">name =</span> <span class="st">'total_train'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 2
+  train_line                                   total_train
+  &lt;chr&gt;                                              &lt;int&gt;
+1 COMMUTER LINE BOGOR                                  302
+2 COMMUTER LINE BST                                     28
+3 COMMUTER LINE CIKARANG                               211
+4 COMMUTER LINE RANGKASBITUNG                            1
+5 DINAS RANGKAIAN KRL (TIDAK ANGKUT PENUMPANG)           3</code></pre>
+</div>
+</div>
+<p>Let’s cut the Commuter Line.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df_renamed <span class="ot">&lt;-</span> df_renamed <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">train_line =</span> <span class="fu">str_remove</span>(train_line, <span class="st">'COMMUTER LINE '</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>DINAS Rangkaian is a special train that most people can’t get in anyway. So let’s remove that.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df_renamed <span class="ot">&lt;-</span> df_renamed <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(train_line <span class="sc">!=</span> <span class="st">"DINAS RANGKAIAN KRL (TIDAK ANGKUT PENUMPANG)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="correct-data-types" class="level3">
+<h3 class="anchored" data-anchor-id="correct-data-types">Correct Data Types</h3>
+<p>All the columns are currently in <code>chr</code> data type. So, we need to fix each one of them.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df_renamed <span class="sc">|&gt;</span> <span class="fu">str</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [542 × 7] (S3: tbl_df/tbl/data.frame)
+ $ train_id        : chr [1:542] "1448B" "5182" "1452B" "5002" ...
+ $ train_line      : chr [1:542] "BOGOR" "CIKARANG" "BOGOR" "CIKARANG" ...
+ $ route_name      : chr [1:542] "JAKARTAKOTA-DEPOK" "ANGKE-CIKARANG" "JAKARTAKOTA-BOGOR" "MANGGARAI-CIKARANG" ...
+ $ destination_city: chr [1:542] "DEPOK" "CIKARANG" "BOGOR" "CIKARANG" ...
+ $ arrival_time    : chr [1:542] "00:01:00" "00:15:00" "00:17:00" "04:00:00" ...
+ $ color           : chr [1:542] "#E30A16" "#0084D8" "#E30A16" "#0084D8" ...
+ $ destination_time: chr [1:542] "00:34:00" "01:05:00" "01:17:00" "04:50:00" ...</code></pre>
+</div>
+</div>
+<ol type="1">
+<li><code>train_id</code>: It contains both numbers and letters, so let’s leave it as <code>chr</code></li>
+<li><code>ka_name</code>: this column contains a limited set of labels, so <code>factor</code> would be more appropriate</li>
+<li><code>route_name</code>, <code>dest</code>: same reason as <code>ka_name</code></li>
+<li><code>time_est</code>, <code>dest_time</code>: date objects. More specifically, a period object from <code>lubridate</code></li>
+<li><code>color</code>: kinda tricky. We know there are millions of possible color combinations. But, we also know the train station only uses around 5 of them. Well, let’s count it first. if there’s truly only few, we’ll convert them to <code>factor</code>.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df_renamed <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(color, <span class="at">name =</span> <span class="st">'total'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+  color   total
+  &lt;chr&gt;   &lt;int&gt;
+1 #0084D8   212
+2 #E30A16   302
+3 #F76114    28</code></pre>
+</div>
+</div>
+<p>Ahh, that’s even less. Alright, <code>factor</code> it is.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df_correct_types <span class="ot">&lt;-</span> df_renamed <span class="sc">|&gt;</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">train_line =</span> <span class="fu">as_factor</span>(train_line),</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">route_name =</span> <span class="fu">as_factor</span>(route_name),</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">destination_city =</span> <span class="fu">as_factor</span>(destination_city),</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">arrival_time =</span> <span class="fu">hms</span>(arrival_time),</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">color =</span> <span class="fu">as_factor</span>(color),</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">destination_time =</span> <span class="fu">hms</span>(destination_time)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>         )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df_correct_types</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 542 × 7
+   train_id train_line route_name            destination_city arrival_time color
+   &lt;chr&gt;    &lt;fct&gt;      &lt;fct&gt;                 &lt;fct&gt;            &lt;Period&gt;     &lt;fct&gt;
+ 1 1448B    BOGOR      JAKARTAKOTA-DEPOK     DEPOK            1M 0S        #E30…
+ 2 5182     CIKARANG   ANGKE-CIKARANG        CIKARANG         15M 0S       #008…
+ 3 1452B    BOGOR      JAKARTAKOTA-BOGOR     BOGOR            17M 0S       #E30…
+ 4 5002     CIKARANG   MANGGARAI-CIKARANG    CIKARANG         4H 0M 0S     #008…
+ 5 5004     CIKARANG   MANGGARAI-BEKASI      BEKASI           4H 10M 0S    #008…
+ 6 5017     CIKARANG   MANGGARAI-KAMPUNGBAN… KAMPUNGBANDAN    4H 10M 0S    #008…
+ 7 5008     CIKARANG   MANGGARAI-CIKARANG    CIKARANG         4H 25M 0S    #008…
+ 8 1000B    BOGOR      MANGGARAI-BOGOR       BOGOR            4H 33M 0S    #E30…
+ 9 5010     CIKARANG   MANGGARAI-BEKASI      BEKASI           4H 36M 0S    #008…
+10 5023     CIKARANG   MANGGARAI-KAMPUNGBAN… KAMPUNGBANDAN    4H 41M 0S    #008…
+# ℹ 532 more rows
+# ℹ 1 more variable: destination_time &lt;Period&gt;</code></pre>
+</div>
+</div>
+<p>Alright, everything looks great. Let’s move on to analysis.</p>
+</section>
+</section>
+<section id="analyzing-data" class="level2">
+<h2 class="anchored" data-anchor-id="analyzing-data">Analyzing Data</h2>
+<p>Since there’s no specific objectives, there’s many insights we could look for.</p>
+<section id="library" class="level3">
+<h3 class="anchored" data-anchor-id="library">Library</h3>
+<p>There’s one library that will be helpful to aid our analysis, <code>ggpmisc.</code> it’ll extend our <code>ggplot</code> quite nicely.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpmisc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: ggpp</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Registered S3 methods overwritten by 'ggpp':
+  method                  from   
+  heightDetails.titleGrob ggplot2
+  widthDetails.titleGrob  ggplot2</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'ggpp'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:ggplot2':
+
+    annotate</code></pre>
+</div>
+</div>
+</section>
+<section id="peak-hours" class="level3">
+<h3 class="anchored" data-anchor-id="peak-hours">Peak Hours</h3>
+<p>The first thing that comes to my mind is finding the peak hours. Knowing this, we can anticipate when is the best time to go to the station.</p>
+<p>Although, the ideal way to deduce this is to have the data of the passengers’ traffic: how many that comes every day and every hour. Nevertheless, we could still infer it based on the amount of trains there are at the moment. It’s logical for the company to increases it as the traffic goes up.</p>
+<p>To get the peak hours, we can count the number of trains per hour and aggregate the sum.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df_peak_hour <span class="ot">&lt;-</span> df_correct_types <span class="sc">|&gt;</span> </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hour =</span> <span class="fu">hour</span>(arrival_time),</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">.after =</span> arrival_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>df_peak_hour <span class="sc">|&gt;</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(hour, <span class="at">name =</span> <span class="st">'total_trains'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 20 × 2
+    hour total_trains
+   &lt;dbl&gt;        &lt;int&gt;
+ 1     0            3
+ 2     4            9
+ 3     5           25
+ 4     6           34
+ 5     7           34
+ 6     8           37
+ 7     9           33
+ 8    10           31
+ 9    11           26
+10    12           28
+11    13           25
+12    14           25
+13    15           31
+14    16           36
+15    17           34
+16    18           32
+17    19           32
+18    20           28
+19    21           24
+20    22           15</code></pre>
+</div>
+</div>
+<p>So, the peak is on hour 7 and 16, with a total of 37 trains.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>df_peak_hour <span class="sc">|&gt;</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(hour, <span class="at">name =</span> <span class="st">'total_trains'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(hour, total_trains)) <span class="sc">+</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can also group it by the lines.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df_peak_hour <span class="sc">|&gt;</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(hour, train_line, <span class="at">name =</span> <span class="st">'total_trains'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(hour, total_trains, <span class="at">color =</span> train_line)) <span class="sc">+</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"BOGOR"</span> <span class="ot">=</span> <span class="st">"red"</span>,</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"BST"</span> <span class="ot">=</span> <span class="st">"blue"</span>,</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"RANGKASBITUNG"</span> <span class="ot">=</span> <span class="st">"green"</span>,</span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"CIKARANG"</span> <span class="ot">=</span> <span class="st">"cyan"</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Add more mappings as needed</span></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Let’s zoom in on each line</p>
+<section id="bogor-line" class="level4">
+<h4 class="anchored" data-anchor-id="bogor-line">Bogor Line</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df_peak_hour <span class="sc">|&gt;</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(hour, train_line, <span class="at">name =</span> <span class="st">'total_train'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(train_line <span class="sc">==</span> <span class="st">'BOGOR'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(hour, total_train)) <span class="sc">+</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">'red'</span>) <span class="sc">+</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_peaks</span>() <span class="sc">+</span></span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_peaks</span>(</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">'text'</span>,</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x.label.fmt =</span> <span class="st">'hour:'</span>, <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x=</span><span class="sc">-</span><span class="fl">1.2</span>, <span class="at">y =</span> <span class="fl">1.2</span>)</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_peaks</span>(<span class="at">geom =</span> <span class="st">'label'</span>, <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">y=</span><span class="fl">1.2</span>)) <span class="sc">+</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Bogor Line'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in sprintf(fmt, x): one argument not used by format 'hour:'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="cikarang-line" class="level4">
+<h4 class="anchored" data-anchor-id="cikarang-line">Cikarang Line</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df_peak_hour <span class="sc">|&gt;</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(hour, train_line, <span class="at">name =</span> <span class="st">'total_train'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(train_line <span class="sc">==</span> <span class="st">'CIKARANG'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(hour, total_train)) <span class="sc">+</span></span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">'cyan'</span>) <span class="sc">+</span></span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_peaks</span>() <span class="sc">+</span></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_peaks</span>(</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">geom =</span> <span class="st">'text'</span>,</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x.label.fmt =</span> <span class="st">'hour:'</span>, <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">x=</span><span class="sc">-</span><span class="fl">1.2</span>, <span class="at">y =</span> <span class="fl">1.2</span>)</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_peaks</span>(<span class="at">geom =</span> <span class="st">'label'</span>, <span class="at">position =</span> <span class="fu">position_nudge</span>(<span class="at">y=</span><span class="fl">1.2</span>)) <span class="sc">+</span></span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Cikarang Line'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in sprintf(fmt, x): one argument not used by format 'hour:'</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="soekarno-hatta-line" class="level4">
+<h4 class="anchored" data-anchor-id="soekarno-hatta-line">Soekarno-Hatta Line</h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>df_peak_hour <span class="sc">|&gt;</span> </span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(hour, train_line, <span class="at">name =</span> <span class="st">'total_train'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(train_line <span class="sc">==</span> <span class="st">'BST'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(hour, total_train)) <span class="sc">+</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color=</span><span class="st">'blue'</span>) <span class="sc">+</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Soekarno-Hatta Line'</span>) <span class="sc">+</span></span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>)) <span class="sc">+</span></span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">23</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Looks like there is no pattern on this line. It’s basically just 1-2 train every hour</p>
+</section>
+<section id="rangkasbitung-line" class="level4">
+<h4 class="anchored" data-anchor-id="rangkasbitung-line">Rangkasbitung Line</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>df_peak_hour <span class="sc">|&gt;</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(train_line <span class="sc">==</span> <span class="st">'RANGKASBITUNG'</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(train_line, arrival_time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+  train_line    arrival_time
+  &lt;fct&gt;         &lt;Period&gt;    
+1 RANGKASBITUNG 14H 40M 0S  </code></pre>
+</div>
+</div>
+<p>This one is a bit special. There is only 1 time out of the whole day when this train arrives. Which is at 14:40. It will go straight to Rangkasbitung after arriving in Tanahabang, where you’d usually transit at Tanahabang to switch train.</p>
+<p>Here is the route again if you forget.</p>
+<p><img src="images/rute-krl-01.png" class="img-fluid"></p>
+</section>
+<section id="peak-hours-summary" class="level4">
+<h4 class="anchored" data-anchor-id="peak-hours-summary">Peak Hours summary</h4>
+<p>The first peaks happen around 06:00 = 07:00, whcih makes sense because that’s when most people are going to work. The socond peaks happen around 16:00-17:00, which is when most people are going home.</p>
+</section>
+</section>
+<section id="train-intervals" class="level3">
+<h3 class="anchored" data-anchor-id="train-intervals">Train Intervals</h3>
+<p>The next useful insight we could find is the interval between the trains. We could obtain this by lagging the <code>arrival_time</code> by 1, and subtract it from the original <code>arrival_time</code> for all rows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>df_train_intervals <span class="ot">&lt;-</span> df_peak_hour <span class="sc">|&gt;</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">arrival_time_lagged =</span> <span class="fu">lag</span>(arrival_time, <span class="at">default =</span> <span class="fu">first</span>(arrival_time)), </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">.after =</span> arrival_time)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>df_train_intervals <span class="ot">&lt;-</span> df_train_intervals <span class="sc">|&gt;</span> </span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">arrival_interval =</span> arrival_time <span class="sc">-</span> arrival_time_lagged,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">.after =</span> arrival_time_lagged)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>df_train_intervals <span class="sc">|&gt;</span> </span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(arrival_time, arrival_time_lagged, arrival_interval)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 542 × 3
+   arrival_time arrival_time_lagged arrival_interval
+   &lt;Period&gt;     &lt;Period&gt;            &lt;Period&gt;        
+ 1 1M 0S        1M 0S               0S              
+ 2 15M 0S       1M 0S               14M 0S          
+ 3 17M 0S       15M 0S              2M 0S           
+ 4 4H 0M 0S     17M 0S              4H -17M 0S      
+ 5 4H 10M 0S    4H 0M 0S            10M 0S          
+ 6 4H 10M 0S    4H 10M 0S           0S              
+ 7 4H 25M 0S    4H 10M 0S           15M 0S          
+ 8 4H 33M 0S    4H 25M 0S           8M 0S           
+ 9 4H 36M 0S    4H 33M 0S           3M 0S           
+10 4H 41M 0S    4H 36M 0S           5M 0S           
+# ℹ 532 more rows</code></pre>
+</div>
+</div>
+<p>Perfect. To make use of this column, we need to convert it to a numerical value, like seconds or minutes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>df_train_intervals <span class="ot">&lt;-</span>  df_train_intervals <span class="sc">|&gt;</span> </span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">arrival_interval =</span> <span class="fu">as.numeric</span>(arrival_interval, <span class="st">'minutes'</span>))</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>df_train_intervals <span class="sc">|&gt;</span> </span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(arrival_time, arrival_time_lagged, arrival_interval)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 542 × 3
+   arrival_time arrival_time_lagged arrival_interval
+   &lt;Period&gt;     &lt;Period&gt;                       &lt;dbl&gt;
+ 1 1M 0S        1M 0S                              0
+ 2 15M 0S       1M 0S                             14
+ 3 17M 0S       15M 0S                             2
+ 4 4H 0M 0S     17M 0S                           223
+ 5 4H 10M 0S    4H 0M 0S                          10
+ 6 4H 10M 0S    4H 10M 0S                          0
+ 7 4H 25M 0S    4H 10M 0S                         15
+ 8 4H 33M 0S    4H 25M 0S                          8
+ 9 4H 36M 0S    4H 33M 0S                          3
+10 4H 41M 0S    4H 36M 0S                          5
+# ℹ 532 more rows</code></pre>
+</div>
+</div>
+<p>Now, we can get to the fun part: analyzing it.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>df_train_intervals <span class="sc">|&gt;</span> </span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(arrival_interval) <span class="sc">|&gt;</span> </span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mean</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.52214</code></pre>
+</div>
+</div>
+<p>On average, there’s a new train every 2.5 minutes. Wow.</p>
+<p>Next, we’ll use <code>group by</code> because combining all routes won’t make much sense unless we want to see how busy the station is, which we already did.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>df_train_intervals <span class="ot">&lt;-</span>  df_train_intervals <span class="sc">|&gt;</span> </span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(train_line) <span class="sc">|&gt;</span> </span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">arrival_time_lagged =</span> <span class="fu">lag</span>(arrival_time, <span class="at">default =</span> <span class="fu">first</span>(arrival_time))) <span class="sc">|&gt;</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">arrival_interval =</span> <span class="fu">as.numeric</span>(arrival_time <span class="sc">-</span> arrival_time_lagged, <span class="st">"minutes"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>df_train_intervals <span class="sc">|&gt;</span> </span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(train_line, arrival_time, arrival_time_lagged, arrival_interval)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 542 × 4
+   train_line arrival_time arrival_time_lagged arrival_interval
+   &lt;fct&gt;      &lt;Period&gt;     &lt;Period&gt;                       &lt;dbl&gt;
+ 1 BOGOR      1M 0S        1M 0S                              0
+ 2 CIKARANG   15M 0S       15M 0S                             0
+ 3 BOGOR      17M 0S       1M 0S                             16
+ 4 CIKARANG   4H 0M 0S     15M 0S                           225
+ 5 CIKARANG   4H 10M 0S    4H 0M 0S                          10
+ 6 CIKARANG   4H 10M 0S    4H 10M 0S                          0
+ 7 CIKARANG   4H 25M 0S    4H 10M 0S                         15
+ 8 BOGOR      4H 33M 0S    17M 0S                           256
+ 9 CIKARANG   4H 36M 0S    4H 25M 0S                         11
+10 CIKARANG   4H 41M 0S    4H 36M 0S                          5
+# ℹ 532 more rows</code></pre>
+</div>
+</div>
+<p>Now, let’s find some insight.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>df_train_intervals <span class="sc">|&gt;</span> </span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(train_line) <span class="sc">|&gt;</span> </span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">arrival_mean =</span> <span class="fu">mean</span>(arrival_interval),</span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">arrival_mad =</span> <span class="fu">mad</span>(arrival_interval))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 4 × 3
+  train_line    arrival_mean arrival_mad
+  &lt;fct&gt;                &lt;dbl&gt;       &lt;dbl&gt;
+1 BOGOR                 4.52        2.97
+2 CIKARANG              6.41        4.45
+3 BST                  35.4         0   
+4 RANGKASBITUNG         0           0   </code></pre>
+</div>
+</div>
+<p>Except for BST and Rangkasbitung, the interval is very short. This means passengers don’t need to worry about getting late, because the next train will soon arrive in less than 10 minutes.</p>
+<p>Unfortunately, we combined all routes from the same line as if they’re the same routes. In reality, one line can be used for many different routes. So it would be more accurate to compute the <code>arrival_mean</code> and <code>arrival_mad</code> for each route, provided that each passenger would only focus on of these routes.</p>
+</section>
+</section>
+<section id="temporary-conclusion-and-recommendation" class="level2">
+<h2 class="anchored" data-anchor-id="temporary-conclusion-and-recommendation">Temporary Conclusion and Recommendation</h2>
+<p>First, let’s sum up what we’ve found so far.</p>
+<section id="peak-hours-1" class="level3">
+<h3 class="anchored" data-anchor-id="peak-hours-1">Peak Hours</h3>
+<p>Highest spikes of train arrivals occur between on 06:00-07:00 and 16:00-17:00, where people are going to work and going home from work, respectively.</p>
+</section>
+<section id="train-intervals-1" class="level3">
+<h3 class="anchored" data-anchor-id="train-intervals-1">Train Intervals</h3>
+<p>On average, new train arrives roughly every 5-10 min.</p>
+</section>
+<section id="conclusion" class="level3">
+<h3 class="anchored" data-anchor-id="conclusion">Conclusion</h3>
+<p>Right now, our findings of <em>Train Intervals</em> isn’t helpful, because we combined all the routes as one. So, <em>Peak Hours</em> is our weapon for now. With this, we can say that if you want to avoid peak hours that are extremely crowded, avoid the peak hours. Conversely, if you don’t want to wait for a long time for the next train, come during peak hours.</p>
+</section>
+<section id="follow-up-project" class="level3">
+<h3 class="anchored" data-anchor-id="follow-up-project">Follow Up Project</h3>
+<p>My current analysis is still inadequate and lack depth. To be honest, I find it hard to write an article while doing EDA at the same time in the same place.</p>
+<p>Next time, I’ll first focus entirely on EDA, exploring all the interesting variables that come to mind without writing any explanations. After that, I’ll do a second post, highlighting the key insights I’ve got from the EDA.</p>
+<p>Let’s export the current dataframe to a csv so I don’t need to clean it from scratch.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>df_peak_hour <span class="sc">|&gt;</span> </span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_csv</span>(<span class="st">'manggarai-station-schedule-2024.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>See you on the next post!</p>
+
+
+</section>
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="invictus1032/quartopub-blog" data-repo-id="R_kgDOMR7VJw" data-category="Blog Comments (Giscus)" data-category-id="DIC_kwDOMR7VJ84CgsU5" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="preferred_color_scheme">
+<input type="hidden" id="giscus-alt-theme" value="preferred_color_scheme">
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+      &nbsp;
+    </div>   
+    <div class="nav-footer-center">
+
+<div class="cookie-consent-footer"><a href="#" id="open_preferences_center">Cookie Preferences</a></div></div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
