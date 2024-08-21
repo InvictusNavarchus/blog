@@ -3,7 +3,7 @@ on:
   push:
     branches:
         - master
-        - 'deploy/github-pages'
+        - 'trigger-workflow'
 
 name: Quarto Publish
 
