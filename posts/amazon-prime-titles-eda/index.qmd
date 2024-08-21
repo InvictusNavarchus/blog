@@ -22,7 +22,6 @@ library(validate)
 df <- read_csv('./amazon_prime_titles.csv')
 ```
 
-
 ## Inspect Dataset
 
 ### Understand the Dataset
@@ -31,10 +30,10 @@ df <- read_csv('./amazon_prime_titles.csv')
 df |> 
   head()
 ```
+
 ```{r}
 df |> tail()
 ```
-
 
 ```{r}
 df |> 
@@ -50,7 +49,6 @@ df |>
   is_linear_sequence()
 ```
 
-
 ### Check Data Quality
 
 #### Missing Values
@@ -59,31 +57,35 @@ df |>
 df |> 
   vis_miss()
 ```
+
 ```{r}
 df |> 
   gg_miss_upset()
 ```
+
 #### Duplicate Rows
 
 ```{r}
 df |> 
   get_dupes()
 ```
+
 ```{r}
 df |> 
   get_dupes(show_id)
 ```
+
 ```{r}
 df |> 
   get_dupes(description)
 ```
+
 ```{r}
 df |> 
   get_dupes(cast) |> 
   filter(!is.na(cast)) |> 
   distinct(cast)
 ```
-
 
 #### Data Constraints
 
@@ -99,14 +101,12 @@ df |>
   count(listed_in)
 ```
 
-
 ##### Possible Null Value
 
 ```{r}
 df |> 
   vis_expect(function(x) nchar(x) < 10)
 ```
-
 
 ```{r}
 nchar_limit <- 10
@@ -139,7 +139,6 @@ df |>
  names()
 ```
 
-
 ```{r}
 df |> 
   select(cast, description) |> 
@@ -161,7 +160,3 @@ df |>
   relocate(description, title) |> 
   filter(nchar(description) < 15)
 ```
-
-
-
-
