@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.53">
+<meta name="generator" content="quarto-1.5.56">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -145,8 +145,10 @@ src="https://www.statcounter.com/counter/counter.js"
 async></script>
 <noscript></noscript><meta property="og:title" content="Case Study: Deep Rock Galactic Missions Data – Blog">
 <meta property="og:description" content="Analyzing Deep Rock Galactic Daily Missions Data Over July 2024">
-<meta property="og:image" content="images/preview.png">
+<meta property="og:image" content="https://invictus1032.github.io/quartopub-blog/posts/drg-missions-dataset/images/preview.png">
 <meta property="og:site_name" content="Blog">
+<meta property="og:image:height" content="375">
+<meta property="og:image:width" content="600">
 </head><body class="nav-fixed"><div class="statcounter"><a title="Web Analytics
 Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13016686/0/1325b7f6/1/" alt="Web Analytics Made Easy - Statcounter" referrerpolicy="no-referrer-when-downgrade"></a></div>
 <!-- End of Statcounter Code -->
@@ -1332,10 +1334,7 @@ dttm (1): timestamp
 <section id="missions" class="level3">
 <h3 class="anchored" data-anchor-id="missions">Missions</h3>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb92"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true" tabindex="-1"></a>missions_df_combined_cleaned</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 28,272 × 12
    Timestamp           PrimaryObjective    SecondaryObjective Complexity Length
@@ -1357,14 +1356,11 @@ dttm (1): timestamp
 </div>
 </div>
 <div class="cell">
-<details class="code-fold">
-<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb94"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true" tabindex="-1"></a>missions_df_other_findings <span class="ot">&lt;-</span> missions_df_combined_cleaned <span class="sc">|&gt;</span> </span>
 <span id="cb94-2"><a href="#cb94-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">WeekDay =</span> <span class="fu">wday</span>(Timestamp, <span class="at">label=</span><span class="cn">TRUE</span>),</span>
 <span id="cb94-3"><a href="#cb94-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">Day =</span> <span class="fu">day</span>(Timestamp),</span>
 <span id="cb94-4"><a href="#cb94-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">Hour =</span> <span class="fu">hour</span>(Timestamp),</span>
 <span id="cb94-5"><a href="#cb94-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">.after =</span> Timestamp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <section id="biome" class="level4">
 <h4 class="anchored" data-anchor-id="biome">Biome</h4>
@@ -1392,6 +1388,8 @@ dttm (1): timestamp
 <section id="primary-objective" class="level4">
 <h4 class="anchored" data-anchor-id="primary-objective">Primary Objective</h4>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb96"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true" tabindex="-1"></a>missions_df_other_findings <span class="sc">|&gt;</span> </span>
 <span id="cb96-2"><a href="#cb96-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Day, PrimaryObjective, <span class="at">name =</span> <span class="st">'Total_Occurences'</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb96-3"><a href="#cb96-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(PrimaryObjective) <span class="sc">|&gt;</span> </span>
@@ -1400,6 +1398,7 @@ dttm (1): timestamp
 <span id="cb96-6"><a href="#cb96-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
 <span id="cb96-7"><a href="#cb96-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">str_wrap</span>(x, <span class="at">width =</span> <span class="dv">5</span>)) <span class="sc">+</span></span>
 <span id="cb96-8"><a href="#cb96-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Most Common Primary Objectives'</span>, <span class="at">subtitle =</span> <span class="st">'Based on its Mean of Daily Occurences'</span>, <span class="at">x =</span> <span class="st">'Primary Objective'</span>, <span class="at">y =</span> <span class="st">'Daily Occurence'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1412,6 +1411,8 @@ dttm (1): timestamp
 <section id="secondary-objective" class="level4">
 <h4 class="anchored" data-anchor-id="secondary-objective">Secondary Objective</h4>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb97"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true" tabindex="-1"></a>missions_df_other_findings <span class="sc">|&gt;</span></span>
 <span id="cb97-2"><a href="#cb97-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SecondaryObjective =</span> <span class="fu">str_replace</span>(SecondaryObjective, <span class="st">'ApocaBlooms'</span>, <span class="st">'Apoca Bloom'</span>)) <span class="sc">|&gt;</span> </span>
 <span id="cb97-3"><a href="#cb97-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Day, SecondaryObjective, <span class="at">name =</span> <span class="st">'Total_Occurences'</span>) <span class="sc">|&gt;</span> </span>
@@ -1421,6 +1422,7 @@ dttm (1): timestamp
 <span id="cb97-7"><a href="#cb97-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
 <span id="cb97-8"><a href="#cb97-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) <span class="fu">str_wrap</span>(x, <span class="at">width =</span> <span class="dv">5</span>)) <span class="sc">+</span></span>
 <span id="cb97-9"><a href="#cb97-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Most Common Secondary Objectives'</span>, <span class="at">subtitle =</span> <span class="st">'Based on its Mean of Daily Occurences'</span>, <span class="at">x =</span> <span class="st">'Secondary Objective'</span>, <span class="at">y =</span> <span class="st">'Daily Occurence'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1435,6 +1437,8 @@ dttm (1): timestamp
 <section id="primary-warning" class="level5">
 <h5 class="anchored" data-anchor-id="primary-warning">Primary Warning</h5>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb98"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true" tabindex="-1"></a>missions_df_other_findings <span class="sc">|&gt;</span></span>
 <span id="cb98-2"><a href="#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(MissionWarning1)) <span class="sc">|&gt;</span> </span>
 <span id="cb98-3"><a href="#cb98-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Day, MissionWarning1, <span class="at">name =</span> <span class="st">'Total_Occurences'</span>) <span class="sc">|&gt;</span> </span>
@@ -1445,6 +1449,7 @@ dttm (1): timestamp
 <span id="cb98-8"><a href="#cb98-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Daily_Occurence, <span class="fu">fct_rev</span>(<span class="fu">fct_infreq</span>(MissionWarning1, Daily_Occurence)))) <span class="sc">+</span></span>
 <span id="cb98-9"><a href="#cb98-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
 <span id="cb98-10"><a href="#cb98-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Top Five Most Common Frimary Mission Warnings'</span>, <span class="at">subtitle =</span> <span class="st">'Based on its Mean of Daily Occurences'</span>, <span class="at">x =</span> <span class="st">'Daily Occurence'</span>, <span class="at">y =</span> <span class="st">'Primary Mission Warnings'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1454,6 +1459,8 @@ dttm (1): timestamp
 </div>
 </div>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb99"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true" tabindex="-1"></a>missions_df_other_findings <span class="sc">|&gt;</span></span>
 <span id="cb99-2"><a href="#cb99-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(MissionWarning1)) <span class="sc">|&gt;</span> </span>
 <span id="cb99-3"><a href="#cb99-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Day, MissionWarning1, <span class="at">name =</span> <span class="st">'Total_Occurences'</span>) <span class="sc">|&gt;</span> </span>
@@ -1464,6 +1471,7 @@ dttm (1): timestamp
 <span id="cb99-8"><a href="#cb99-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(Daily_Occurence, <span class="fu">fct_infreq</span>(MissionWarning1, Daily_Occurence))) <span class="sc">+</span></span>
 <span id="cb99-9"><a href="#cb99-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
 <span id="cb99-10"><a href="#cb99-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Top Five Rarest Primary Mission Warnings'</span>, <span class="at">subtitle =</span> <span class="st">'Based on its Mean of Daily Occurences'</span>, <span class="at">x =</span> <span class="st">'Daily Occurence'</span>, <span class="at">y =</span> <span class="st">'Primary Mission Warnings'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1479,10 +1487,13 @@ dttm (1): timestamp
 <section id="top-10" class="level5">
 <h5 class="anchored" data-anchor-id="top-10">Top 10</h5>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb100"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true" tabindex="-1"></a>missions_df_other_findings <span class="sc">|&gt;</span> </span>
 <span id="cb100-2"><a href="#cb100-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(MissionWarning1), <span class="sc">!</span><span class="fu">is.na</span>(MissionWarning2)) <span class="sc">|&gt;</span> </span>
 <span id="cb100-3"><a href="#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MissionWarning1, MissionWarning2, <span class="at">name =</span> <span class="st">'Total_Occurence'</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb100-4"><a href="#cb100-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Total_Occurence))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 91 × 3
    MissionWarning1      MissionWarning2      Total_Occurence
@@ -1504,10 +1515,13 @@ dttm (1): timestamp
 <section id="lowest-10" class="level5">
 <h5 class="anchored" data-anchor-id="lowest-10">Lowest 10</h5>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb102"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>missions_df_other_findings <span class="sc">|&gt;</span> </span>
 <span id="cb102-2"><a href="#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(MissionWarning1), <span class="sc">!</span><span class="fu">is.na</span>(MissionWarning2)) <span class="sc">|&gt;</span> </span>
 <span id="cb102-3"><a href="#cb102-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(MissionWarning1, MissionWarning2, <span class="at">name =</span> <span class="st">'Total_Occurence'</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb102-4"><a href="#cb102-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Total_Occurence)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 91 × 3
    MissionWarning1    MissionWarning2      Total_Occurence
@@ -1552,10 +1566,13 @@ dttm (1): timestamp
 <section id="overall-trend" class="level4">
 <h4 class="anchored" data-anchor-id="overall-trend">Overall Trend</h4>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb106"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>dailyDeal_df_combined <span class="sc">|&gt;</span> </span>
 <span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(timestamp,Credits, <span class="at">colour =</span> DealType)) <span class="sc">+</span></span>
 <span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
 <span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Trend of Daily Deal over July 2024'</span>, <span class="at">color=</span><span class="st">'Deal Type'</span>, <span class="at">x=</span><span class="st">'Date'</span>, <span class="at">y=</span><span class="st">'Credits Offered'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1568,11 +1585,14 @@ dttm (1): timestamp
 <section id="common-resource-on-sale" class="level4">
 <h4 class="anchored" data-anchor-id="common-resource-on-sale">Common Resource on Sale</h4>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb107"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>dailyDeal_df_combined <span class="sc">|&gt;</span> </span>
 <span id="cb107-2"><a href="#cb107-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Resource) <span class="sc">|&gt;</span> </span>
 <span id="cb107-3"><a href="#cb107-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="fu">fct_infreq</span>(Resource, n), n)) <span class="sc">+</span></span>
 <span id="cb107-4"><a href="#cb107-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
 <span id="cb107-5"><a href="#cb107-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Most Common Resource on Sale'</span>, <span class="at">subtitle =</span> <span class="st">'Based on total occurences over July 2024'</span>, <span class="at">x =</span> <span class="st">'Resource'</span>, <span class="at">y =</span> <span class="st">'Total Occurence'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1824,7 +1844,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
+      var filterRegex = new RegExp("https:\/\/invictus1032\.github\.io\/quartopub-blog\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
