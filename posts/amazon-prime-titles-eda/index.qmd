@@ -160,3 +160,13 @@ df |>
   relocate(description, title) |> 
   filter(nchar(description) < 15)
 ```
+
+##### Cross Check
+
+![](images/cc-description-2.png)
+
+![](images/cc-description-3.png)
+
+![](images/cc-description-4.png)
+
+Source: <https://www.amazon.com/Series-before-1C-onboarding-2/dp/B09942SNJQ>
