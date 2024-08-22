@@ -142,7 +142,7 @@ df |>
 ```{r}
 df |> 
   select(cast, description) |> 
-  filter(nchar(cast) < 8)
+  filter(nchar(cast) < 4)
 ```
 
 ###### Director
@@ -150,7 +150,7 @@ df |>
 ```{r}
 df |> 
   relocate(director, title) |> 
-  filter(nchar(director) < 5)
+  filter(nchar(director) < 3)
 ```
 
 ###### Description
