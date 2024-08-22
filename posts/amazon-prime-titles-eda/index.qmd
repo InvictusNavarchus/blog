@@ -89,6 +89,39 @@ df |>
 
 #### Data Constraints
 
+##### Check Numerical Data
+
+```{r}
+df |> 
+  ggplot(aes(release_year)) +
+  geom_histogram() +
+  labs(title = 'Release Year')
+```
+```{r}
+df |> 
+  mutate(duration = parse_number(duration)) |> 
+  ggplot(aes(duration)) +
+  geom_histogram() +
+  labs(title = 'Duration (in Minute)')
+```
+
+```{r}
+df |> 
+  mutate(duration = parse_number(duration)) |> 
+  ggplot(aes(duration)) +
+  geom_histogram(binwidth = 1) +
+  coord_cartesian(xlim = c(200,700), ylim = c(0,9))
+```
+
+
+```{r}
+df |> 
+  mutate(duration = parse_number(duration)) |> 
+  arrange(desc(duration)) |> 
+  relocate(title, duration, type, description)
+```
+
+
 ##### Check Categorical Data
 
 ```{r}
