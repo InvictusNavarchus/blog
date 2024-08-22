@@ -89,7 +89,7 @@ df |>
 
 #### Data Constraints
 
-#### Check Categorical Data
+##### Check Categorical Data
 
 ```{r}
 df |> 
@@ -101,7 +101,7 @@ df |>
   count(listed_in)
 ```
 
-##### Possible Null Value
+#### Possible Null Value
 
 ```{r}
 df |> 
@@ -124,7 +124,7 @@ cf_nchar <- confront(df_possible_null, v_nchar)
 summary(cf_nchar)
 ```
 
-###### Title
+##### Title
 
 ```{r}
 df |> 
@@ -132,7 +132,7 @@ df |>
   filter(nchar(title) < 3)
 ```
 
-###### Cast
+##### Cast
 
 ```{r}
 df |> 
@@ -145,7 +145,7 @@ df |>
   filter(nchar(cast) < 4)
 ```
 
-###### Director
+##### Director
 
 ```{r}
 df |> 
@@ -153,7 +153,7 @@ df |>
   filter(nchar(director) < 3)
 ```
 
-###### Description
+##### Description
 
 ```{r}
 df |> 
