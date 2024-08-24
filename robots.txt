@@ -1,1 +1,1 @@
-Sitemap: https://InvictusNavarchus.github.io/blog/sitemap.xml
+Sitemap: https://blog.navarchus.id/sitemap.xml
