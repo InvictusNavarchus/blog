@@ -145,7 +145,7 @@ src="https://www.statcounter.com/counter/counter.js"
 async></script>
 <noscript></noscript><meta property="og:title" content="EDA on islam religion growth worldwide – Blog">
 <meta property="og:description" content="Exploring World Religion dataset to uncover the growth of Islam in various countries using R">
-<meta property="og:image" content="https://invictus1032.github.io/blog/posts/islam-growth-worldwide-eda/mosque.png">
+<meta property="og:image" content="https://InvictusNavarchus.github.io/blog/posts/islam-growth-worldwide-eda/mosque.png">
 <meta property="og:site_name" content="Blog">
 <meta property="og:image:height" content="960">
 <meta property="og:image:width" content="1280">
@@ -332,98 +332,7 @@ Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img cl
 
 </header>
 
-<nav id="TOC-body" role="doc-toc">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#setup" id="toc-setup">Setup</a></li>
-  <li><a href="#inspect-dataset" id="toc-inspect-dataset">Inspect Dataset</a>
-  <ul>
-  <li><a href="#understand-the-data" id="toc-understand-the-data">Understand the data</a></li>
-  <li><a href="#check-data-quality" id="toc-check-data-quality">Check Data Quality</a>
-  <ul>
-  <li><a href="#missing-values" id="toc-missing-values">Missing Values</a>
-  <ul>
-  <li><a href="#total-population-columns" id="toc-total-population-columns">Total Population Columns</a></li>
-  <li><a href="#total-percent-columns" id="toc-total-percent-columns">Total Percent Columns</a></li>
-  <li><a href="#population-but-non-total-columns" id="toc-population-but-non-total-columns">Population but Non Total columns</a></li>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#clean-data" id="toc-clean-data">Clean Data</a>
-  <ul>
-  <li><a href="#pick-relevant-columns" id="toc-pick-relevant-columns">Pick relevant columns</a></li>
-  <li><a href="#check-data-type" id="toc-check-data-type">Check Data type</a>
-  <ul>
-  <li><a href="#fix-data-types" id="toc-fix-data-types">Fix Data Types</a></li>
-  </ul></li>
-  <li><a href="#check-duplicate" id="toc-check-duplicate">Check Duplicate</a>
-  <ul>
-  <li><a href="#check-duplicate-year" id="toc-check-duplicate-year">Check duplicate Year</a></li>
-  <li><a href="#remove-duplicate-using-distinct" id="toc-remove-duplicate-using-distinct">Remove duplicate using distinct()</a></li>
-  </ul></li>
-  <li><a href="#normalize-dataframe" id="toc-normalize-dataframe">Normalize Dataframe</a>
-  <ul>
-  <li><a href="#remove-redundant-islam" id="toc-remove-redundant-islam">Remove redundant ‘Islam’</a></li>
-  </ul></li>
-  <li><a href="#check-missing-value" id="toc-check-missing-value">Check Missing Value</a>
-  <ul>
-  <li><a href="#check-zero-distribution-possible-null-value" id="toc-check-zero-distribution-possible-null-value">Check Zero Distribution (Possible Null Value)</a></li>
-  <li><a href="#replace-zero-with-na" id="toc-replace-zero-with-na">Replace zero with NA</a></li>
-  </ul></li>
-  <li><a href="#check-missing-value-second-stage" id="toc-check-missing-value-second-stage">Check Missing Value (Second Stage)</a></li>
-  <li><a href="#check-data-constrains" id="toc-check-data-constrains">Check Data Constrains</a>
-  <ul>
-  <li><a href="#check-country-names" id="toc-check-country-names">Check Country Names</a>
-  <ul>
-  <li><a href="#exact-check" id="toc-exact-check">Exact Check</a></li>
-  <li><a href="#automated-check-by-countrycode-package" id="toc-automated-check-by-countrycode-package">Automated Check by countrycode Package</a></li>
-  <li><a href="#correct-country-names" id="toc-correct-country-names">Correct Country Names</a></li>
-  </ul></li>
-  <li><a href="#check-integers" id="toc-check-integers">Check Integers</a></li>
-  <li><a href="#check-decimals" id="toc-check-decimals">Check Decimals</a></li>
-  </ul></li>
-  <li><a href="#check-record-completeness" id="toc-check-record-completeness">Check Record Completeness</a>
-  <ul>
-  <li><a href="#by-year" id="toc-by-year">By Year</a></li>
-  <li><a href="#by-country" id="toc-by-country">By Country</a></li>
-  <li><a href="#country-per-year" id="toc-country-per-year">Country Per Year</a>
-  <ul>
-  <li><a href="#check-year-gap" id="toc-check-year-gap">Check Year Gap</a></li>
-  <li><a href="#average-starting-year" id="toc-average-starting-year">Average Starting Year</a></li>
-  <li><a href="#average-final-year" id="toc-average-final-year">Average Final Year</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#normalize-dataframe-1" id="toc-normalize-dataframe-1">Normalize Dataframe</a>
-  <ul>
-  <li><a href="#separate-population-from-percent-columns" id="toc-separate-population-from-percent-columns">Separate <code>Population</code> from <code>Percent</code> columns</a></li>
-  </ul></li>
-  <li><a href="#check-sanity" id="toc-check-sanity">Check Sanity</a>
-  <ul>
-  <li><a href="#check-whether-total-value-equals-to-all-the-other-columns-combined" id="toc-check-whether-total-value-equals-to-all-the-other-columns-combined">Check whether Total value equals to all the other columns combined</a>
-  <ul>
-  <li><a href="#population" id="toc-population">Population</a></li>
-  <li><a href="#percent" id="toc-percent">Percent</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#check-distribution" id="toc-check-distribution">Check Distribution</a>
-  <ul>
-  <li><a href="#population-1" id="toc-population-1">Population</a></li>
-  <li><a href="#percent-1" id="toc-percent-1">Percent</a></li>
-  </ul></li>
-  <li><a href="#cleaning-summary" id="toc-cleaning-summary">Cleaning Summary</a>
-  <ul>
-  <li><a href="#verified-values" id="toc-verified-values">Verified Values</a></li>
-  <li><a href="#changes-applied" id="toc-changes-applied">Changes Applied</a></li>
-  <li><a href="#other-findings" id="toc-other-findings">Other findings</a></li>
-  </ul></li>
-  <li><a href="#next-steps" id="toc-next-steps">Next Steps</a>
-  <ul>
-  <li><a href="#export-to-csv-for-further-analysis" id="toc-export-to-csv-for-further-analysis">Export to CSV for further analysis</a></li>
-  </ul></li>
-  </ul></li>
-  </ul>
-</nav>
+
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <div class="cell">
@@ -1767,7 +1676,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/invictus1032\.github\.io\/blog\/");
+      var filterRegex = new RegExp("https:\/\/InvictusNavarchus\.github\.io\/blog\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

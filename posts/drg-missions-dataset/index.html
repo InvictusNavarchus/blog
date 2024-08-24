@@ -145,7 +145,7 @@ src="https://www.statcounter.com/counter/counter.js"
 async></script>
 <noscript></noscript><meta property="og:title" content="Case Study: Deep Rock Galactic Missions Data – Blog">
 <meta property="og:description" content="Analyzing Deep Rock Galactic Daily Missions Data Over July 2024">
-<meta property="og:image" content="https://invictus1032.github.io/blog/posts/drg-missions-dataset/images/preview.png">
+<meta property="og:image" content="https://InvictusNavarchus.github.io/blog/posts/drg-missions-dataset/images/preview.png">
 <meta property="og:site_name" content="Blog">
 <meta property="og:image:height" content="375">
 <meta property="og:image:width" content="600">
@@ -191,7 +191,7 @@ Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img cl
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -306,72 +306,7 @@ Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img cl
 
 </header>
 
-<nav id="TOC-body" role="doc-toc">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#introduction" id="toc-introduction">Introduction</a>
-  <ul>
-  <li><a href="#acknowledgement" id="toc-acknowledgement">Acknowledgement</a></li>
-  <li><a href="#objective" id="toc-objective">Objective</a></li>
-  </ul></li>
-  <li><a href="#collecting-data" id="toc-collecting-data">Collecting Data</a></li>
-  <li><a href="#processing-data" id="toc-processing-data">Processing Data</a>
-  <ul>
-  <li><a href="#parsing-one-json" id="toc-parsing-one-json">Parsing one JSON</a></li>
-  <li><a href="#parsing-multiple-json" id="toc-parsing-multiple-json">Parsing multiple JSON</a></li>
-  <li><a href="#cleaning-data" id="toc-cleaning-data">Cleaning Data</a>
-  <ul>
-  <li><a href="#non-tidy-data" id="toc-non-tidy-data">Non-tidy Data</a></li>
-  <li><a href="#improper-column-names" id="toc-improper-column-names">Improper Column Names</a></li>
-  <li><a href="#irrelevant-data" id="toc-irrelevant-data">Irrelevant Data</a></li>
-  <li><a href="#incorrect-data-types" id="toc-incorrect-data-types">Incorrect Data Types</a></li>
-  <li><a href="#duplicate-data" id="toc-duplicate-data">Duplicate Data</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#analyzing-data" id="toc-analyzing-data">Analyzing Data</a>
-  <ul>
-  <li><a href="#mission-pattern" id="toc-mission-pattern">Mission Pattern</a>
-  <ul>
-  <li><a href="#overall-distribution" id="toc-overall-distribution">Overall Distribution</a></li>
-  <li><a href="#double-xp-pattern" id="toc-double-xp-pattern">Double XP Pattern</a>
-  <ul>
-  <li><a href="#weekly" id="toc-weekly">Weekly</a></li>
-  <li><a href="#daily" id="toc-daily">Daily</a></li>
-  <li><a href="#hourly" id="toc-hourly">Hourly</a></li>
-  </ul></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#summary" id="toc-summary">Summary</a>
-  <ul>
-  <li><a href="#insight-1-double-xp-pattern" id="toc-insight-1-double-xp-pattern">Insight 1: Double XP Pattern</a></li>
-  <li><a href="#insight-2-mutators-occurrences" id="toc-insight-2-mutators-occurrences">Insight 2: Mutators Occurrences</a></li>
-  </ul></li>
-  <li><a href="#appendix-other-findings" id="toc-appendix-other-findings">Appendix: Other Findings</a>
-  <ul>
-  <li><a href="#missions" id="toc-missions">Missions</a>
-  <ul>
-  <li><a href="#biome" id="toc-biome">Biome</a></li>
-  <li><a href="#primary-objective" id="toc-primary-objective">Primary Objective</a></li>
-  <li><a href="#secondary-objective" id="toc-secondary-objective">Secondary Objective</a></li>
-  <li><a href="#mission-warnings" id="toc-mission-warnings">Mission Warnings</a>
-  <ul>
-  <li><a href="#primary-warning" id="toc-primary-warning">Primary Warning</a></li>
-  </ul></li>
-  <li><a href="#mission-warnings-combinations" id="toc-mission-warnings-combinations">Mission Warnings Combinations</a>
-  <ul>
-  <li><a href="#top-10" id="toc-top-10">Top 10</a></li>
-  <li><a href="#lowest-10" id="toc-lowest-10">Lowest 10</a></li>
-  </ul></li>
-  </ul></li>
-  <li><a href="#daily-deal" id="toc-daily-deal">Daily Deal</a>
-  <ul>
-  <li><a href="#overall-trend" id="toc-overall-trend">Overall Trend</a></li>
-  <li><a href="#common-resource-on-sale" id="toc-common-resource-on-sale">Common Resource on Sale</a></li>
-  </ul></li>
-  </ul></li>
-  </ul>
-</nav>
+
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <blockquote class="blockquote">
@@ -1844,7 +1779,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/invictus1032\.github\.io\/blog\/");
+      var filterRegex = new RegExp("https:\/\/InvictusNavarchus\.github\.io\/blog\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
