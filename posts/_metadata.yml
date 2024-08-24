@@ -1,7 +1,8 @@
 author: invictus
 toc: true
 toc-depth: 6
-toc-location: right-body
+toc-location: right
+toc-expand: true
 
 comments:
   giscus: 
