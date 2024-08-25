@@ -97,6 +97,7 @@ df |>
   geom_histogram() +
   labs(title = 'Release Year')
 ```
+
 ```{r}
 df |> 
   mutate(duration = parse_number(duration)) |> 
@@ -113,14 +114,12 @@ df |>
   coord_cartesian(xlim = c(200,700), ylim = c(0,9))
 ```
 
-
 ```{r}
 df |> 
   mutate(duration = parse_number(duration)) |> 
   arrange(desc(duration)) |> 
   relocate(title, duration, type, description)
 ```
-
 
 ##### Check Categorical Data
 
@@ -208,8 +207,7 @@ Source: <https://www.amazon.com/Series-before-1C-onboarding-2/dp/B09942SNJQ>
 
 ##### Numerical Data
 
-![](images/cc-numerical-1.png)
-Source: <https://www.amazon.com/norte-sleep-hours-black-screen/dp/B0799FS2RY>
+![](images/cc-numerical-1.png) Source: <https://www.amazon.com/norte-sleep-hours-black-screen/dp/B0799FS2RY>
 
 ## Summary of Preliminary Data Inspection
 
