@@ -210,3 +210,15 @@ Source: <https://www.amazon.com/Series-before-1C-onboarding-2/dp/B09942SNJQ>
 
 ![](images/cc-numerical-1.png)
 Source: <https://www.amazon.com/norte-sleep-hours-black-screen/dp/B0799FS2RY>
+
+## Summary of Preliminary Data Inspection
+
+-   No duplicate rows
+
+-   19% of missing values. 98% of them came from `date_added`. Which normally isn't published anyway.
+
+-   Found nearly 100 suspicious values such as '1', '2', 'test', and 'test title' across `cast`, `director`, and `description`. They were cross-checked and were found on Amazon Prime's website, which indicate a 'fake' title posted for the purpose of testing.
+
+-   Outliers such as unusually long movie length are confirmed to exist on Amazon Prime.
+
+-   `duration` data type depends on the title `type`. `TV Show` uses season and `Movie` uses minute
