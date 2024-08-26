@@ -255,10 +255,8 @@ df |>
 
 ```{r}
 df_correct_types <- df_renamed_column |> mutate(
-  show_id = as.integer(parse_number(show_id)),
+  id = as.integer(parse_number(id)),
   type = as_factor(type),
-  country = as_factor(country),
-  date_added = mdy(date_added),
   release_year = as.integer(release_year),
   duration = parse_number(duration)
 )
@@ -301,7 +299,7 @@ df_pivot_long_by_cast |>
 
 ```{r}
 df_pivot_wide_by_genre <- df_correct_types |> 
-  select(show_id, title, director, release_year, genre) |> 
+  select(id, title, director, release_year, genre) |> 
   mutate(genre = strsplit(genre, ', ')) |> 
   unnest_longer(genre) |> 
   pivot_wider(names_from = genre,
