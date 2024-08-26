@@ -295,6 +295,11 @@ df_pivot_long_by_cast |>
   head(10)
 ```
 
+```{r}
+df_pivot_long_by_cast |> 
+  write_csv('amazon_prime_titles_pivot_long_by_cast.csv')
+```
+
 ### Pivot dataset to wide by Genre
 
 ```{r}
@@ -310,4 +315,9 @@ df_pivot_wide_by_genre <- df_correct_types |>
 
 df_pivot_wide_by_genre |> 
   names()
+```
+
+```{r}
+df_pivot_wide_by_genre |> 
+  write_csv('amazon_prime_titles_pivot_wide_by_genre.csv')
 ```
