@@ -223,10 +223,25 @@ Source: <https://www.amazon.com/Series-before-1C-onboarding-2/dp/B09942SNJQ>
 
 ## Clean Data
 
+### Remove columns with too many missing values
+
+```{r}
+df |> 
+  names()
+```
+
+```{r}
+df_removed_columns <- df |> 
+  select(-country, -date_added)
+
+df_removed_columns |> 
+  names()
+```
+
 ### Rename Column
 
 ```{r}
-df_renamed_column <- df |> 
+df_renamed_column <- df_removed_columns |> 
   rename(genre = listed_in,
          id = show_id)
 ```
