@@ -227,7 +227,8 @@ Source: <https://www.amazon.com/Series-before-1C-onboarding-2/dp/B09942SNJQ>
 
 ```{r}
 df_renamed_column <- df |> 
-  rename(genre = listed_in)
+  rename(genre = listed_in,
+         id = show_id)
 ```
 
 ### Correct data types
