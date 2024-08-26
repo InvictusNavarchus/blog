@@ -238,7 +238,7 @@ df_removed_columns |>
   names()
 ```
 
-### Rename Columns
+### Rename columns
 
 ```{r}
 df_renamed_column <- df_removed_columns |> 
