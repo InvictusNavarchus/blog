@@ -330,6 +330,6 @@ df_pivot_wide_by_genre |>
 
 ### Tableau Links
 
-General Analysis (using cleaned csv): <https://public.tableau.com/app/profile/invictus.navarchus/viz/AnalyzingMoviesandTVShowsonAmazonPrimeTitles/ProportionofMovievsTVShow>
+-   [General Analysis](https://public.tableau.com/app/profile/invictus.navarchus/viz/AnalyzingMoviesandTVShowsonAmazonPrimeTitles/ProportionofMovievsTVShow) (using cleaned csv):
 
-Genre Analysis (using pivot by genre csv): <https://public.tableau.com/app/profile/invictus.navarchus/viz/AnalyzingMovieTVShowGenresonAmazonPrime/GenreDistribution>
+-   [Genre Analysis](https://public.tableau.com/app/profile/invictus.navarchus/viz/AnalyzingMovieTVShowGenresonAmazonPrime/GenreDistribution) (using pivot by genre csv):
