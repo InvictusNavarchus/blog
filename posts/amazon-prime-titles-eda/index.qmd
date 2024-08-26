@@ -334,4 +334,6 @@ df_pivot_wide_by_genre |>
 
     ![](images/tableau-dashboard-1.png)
 
--   [Genre Analysis](https://public.tableau.com/app/profile/invictus.navarchus/viz/AnalyzingMovieTVShowGenresonAmazonPrime/GenreDistribution) (using pivot by genre csv):
+-   [Genre Analysis](https://public.tableau.com/app/profile/invictus.navarchus/viz/AnalyzingMovieTVShowGenresonAmazonPrime/Dashboard1) (using pivot by genre csv):
+
+![](images/tableau-dashboard-2.png)
