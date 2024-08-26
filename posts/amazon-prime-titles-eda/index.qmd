@@ -1,6 +1,8 @@
 ---
 title: EDA on Amazon Prime Movies and TV Shows
 description: Exploratory Data Analysis on Amazon Prime Titles
+date: 2024-08-26:16:23:00
+categories: [Case Study, R, Tableau]
 ---
 
 ## Setup
