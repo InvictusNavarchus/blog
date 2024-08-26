@@ -321,3 +321,11 @@ df_pivot_wide_by_genre |>
 df_pivot_wide_by_genre |> 
   write_csv('amazon_prime_titles_pivot_wide_by_genre.csv')
 ```
+
+## Analyze Data
+
+### Tableau Links
+
+General Analysis (using cleaned csv): <https://public.tableau.com/app/profile/invictus.navarchus/viz/AnalyzingMoviesandTVShowsonAmazonPrimeTitles/ProportionofMovievsTVShow>
+
+Genre Analysis (using pivot by genre csv): <https://public.tableau.com/app/profile/invictus.navarchus/viz/AnalyzingMovieTVShowGenresonAmazonPrime/GenreDistribution>
