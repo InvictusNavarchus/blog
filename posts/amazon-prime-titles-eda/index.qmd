@@ -247,3 +247,53 @@ df_correct_types <- df_renamed_column |> mutate(
   duration = parse_number(duration)
 )
 ```
+
+## Transform Data
+
+### Pivot dataset to long format by Genre
+
+```{r}
+df_pivot_long_by_genre <- df_correct_types |> 
+  mutate(genre = str_split(genre, ', ')) |> 
+  unnest_longer(genre) |> 
+  write_csv('amazon_prime_titles_pivot_long_by_genre.csv')
+
+df_pivot_long_by_genre |>
+  pull(genre) |> 
+  head(10)
+```
+
+```{r}
+df_pivot_long_by_genre |> 
+  write_csv('amazon_prime_titles_pivot_long_by_genre.csv')
+```
+
+### Pivot dataset to long format by Cast
+
+```{r}
+df_pivot_long_by_cast <-  df_correct_types |> 
+  mutate(cast = str_split(cast, ', ')) |> 
+  unnest_longer(cast) |> 
+  write_csv('amazon_prime_titles_pivot_long_by_cast.csv')
+
+df_pivot_long_by_cast |> 
+  pull(cast) |> 
+  head(10)
+```
+
+### Pivot dataset to wide by Genre
+
+```{r}
+df_pivot_wide_by_genre <- df_correct_types |> 
+  select(show_id, title, director, release_year, genre) |> 
+  mutate(genre = strsplit(genre, ', ')) |> 
+  unnest_longer(genre) |> 
+  pivot_wider(names_from = genre,
+              values_from = genre,
+              values_fn = ~ !is.na(.),
+              values_fill = FALSE,
+              names_prefix = 'is_')
+
+df_pivot_wide_by_genre |> 
+  names()
+```
