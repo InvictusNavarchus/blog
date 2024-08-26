@@ -1,0 +1,334 @@
+---
+title: EDA on Amazon Prime Movies and TV Shows
+description: Exploratory Data Analysis on Amazon Prime Titles
+date: 2024-08-26:16:23:00
+categories: [Case Study, R, Tableau]
+draft: false
+---
+
+## Setup
+
+### Library
+
+```{r}
+library(tidyverse)
+library(naniar)
+library(visdat)
+library(DataExplorer)
+library(janitor)
+library(validate)
+```
+
+### Dataframe
+
+```{r}
+df <- read_csv('./amazon_prime_titles.csv')
+```
+
+## Inspect Dataset
+
+### Understand the Dataset
+
+```{r}
+df |> 
+  head()
+```
+
+```{r}
+df |> tail()
+```
+
+```{r}
+df |> 
+  glimpse()
+```
+
+#### What's a show_id?
+
+```{r}
+df |> 
+  mutate(show_id = parse_number(show_id)) |>
+  pull(show_id) |> 
+  is_linear_sequence()
+```
+
+### Check Data Quality
+
+#### Missing Values
+
+```{r}
+df |> 
+  vis_miss()
+```
+
+```{r}
+df |> 
+  gg_miss_upset()
+```
+
+#### Duplicate Rows
+
+```{r}
+df |> 
+  get_dupes()
+```
+
+```{r}
+df |> 
+  get_dupes(show_id)
+```
+
+```{r}
+df |> 
+  get_dupes(description)
+```
+
+```{r}
+df |> 
+  get_dupes(cast) |> 
+  filter(!is.na(cast)) |> 
+  distinct(cast)
+```
+
+#### Data Constraints
+
+##### Check Numerical Data
+
+```{r}
+df |> 
+  ggplot(aes(release_year)) +
+  geom_histogram() +
+  labs(title = 'Release Year')
+```
+
+```{r}
+df |> 
+  mutate(duration = parse_number(duration)) |> 
+  ggplot(aes(duration)) +
+  geom_histogram() +
+  labs(title = 'Duration (in Minute)')
+```
+
+```{r}
+df |> 
+  mutate(duration = parse_number(duration)) |> 
+  ggplot(aes(duration)) +
+  geom_histogram(binwidth = 1) +
+  coord_cartesian(xlim = c(200,700), ylim = c(0,9))
+```
+
+```{r}
+df |> 
+  mutate(duration = parse_number(duration)) |> 
+  arrange(desc(duration)) |> 
+  relocate(title, duration, type, description)
+```
+
+##### Check Categorical Data
+
+```{r}
+df |> 
+  count(type)
+```
+
+```{r}
+df |> 
+  count(listed_in)
+```
+
+#### Possible Null Value
+
+```{r}
+df |> 
+  vis_expect(function(x) nchar(x) < 10)
+```
+
+```{r}
+nchar_limit <- 10
+df_possible_null <- df |>
+  select(title, cast, description, director)
+
+v_nchar <- validator(
+ title = nchar(title) > nchar_limit,
+ cast =  nchar(cast) > nchar_limit,
+ director = nchar(director) > nchar_limit,
+ description = nchar(description) > nchar_limit
+)
+
+cf_nchar <- confront(df_possible_null, v_nchar)
+summary(cf_nchar)
+```
+
+##### Title
+
+```{r}
+df |> 
+  select(release_year, type:director, description) |> 
+  filter(nchar(title) < 3)
+```
+
+##### Cast
+
+```{r}
+df |> 
+ names()
+```
+
+```{r}
+df |> 
+  select(cast, description) |> 
+  filter(nchar(cast) < 4)
+```
+
+##### Director
+
+```{r}
+df |> 
+  relocate(director, title) |> 
+  filter(nchar(director) < 3)
+```
+
+##### Description
+
+```{r}
+df |> 
+  relocate(description, title) |> 
+  filter(nchar(description) < 15)
+```
+
+#### Cross Check
+
+##### Categorical Data
+
+![](images/cc-description-2.png)
+
+![](images/cc-description-3.png)
+
+![](images/cc-description-4.png)
+
+Source: <https://www.amazon.com/Series-before-1C-onboarding-2/dp/B09942SNJQ>
+
+##### Numerical Data
+
+![](images/cc-numerical-1.png) Source: <https://www.amazon.com/norte-sleep-hours-black-screen/dp/B0799FS2RY>
+
+## Summary of Preliminary Data Inspection
+
+-   No duplicate rows
+
+-   19% of missing values. 98% of them came from `date_added`. Which normally isn't published anyway.
+
+-   Found nearly 100 suspicious values such as '1', '2', 'test', and 'test title' across `cast`, `director`, and `description`. They were cross-checked and were found on Amazon Prime's website, which indicate a 'fake' title posted for the purpose of testing.
+
+-   Outliers such as unusually long movie length are confirmed to exist on Amazon Prime.
+
+-   `duration` data type depends on the title `type`. `TV Show` uses season and `Movie` uses minute
+
+## Clean Data
+
+### Remove columns with too many missing values
+
+```{r}
+df |> 
+  names()
+```
+
+```{r}
+df_removed_columns <- df |> 
+  select(-country, -date_added)
+
+df_removed_columns |> 
+  names()
+```
+
+### Rename columns
+
+```{r}
+df_renamed_column <- df_removed_columns |> 
+  rename(genre = listed_in,
+         id = show_id)
+```
+
+### Correct data types
+
+```{r}
+df |> 
+  glimpse()
+```
+
+```{r}
+df_correct_types <- df_renamed_column |> mutate(
+  id = as.integer(parse_number(id)),
+  type = as_factor(type),
+  release_year = as.integer(release_year),
+  duration = parse_number(duration)
+)
+```
+
+## Transform Data
+
+### Pivot dataset to long format by Genre
+
+```{r}
+df_pivot_long_by_genre <- df_correct_types |> 
+  mutate(genre = str_split(genre, ', ')) |> 
+  unnest_longer(genre) |> 
+  write_csv('amazon_prime_titles_pivot_long_by_genre.csv')
+
+df_pivot_long_by_genre |>
+  pull(genre) |> 
+  head(10)
+```
+
+```{r}
+df_pivot_long_by_genre |> 
+  write_csv('amazon_prime_titles_pivot_long_by_genre.csv')
+```
+
+### Pivot dataset to long format by Cast
+
+```{r}
+df_pivot_long_by_cast <-  df_correct_types |> 
+  mutate(cast = str_split(cast, ', ')) |> 
+  unnest_longer(cast) |> 
+  write_csv('amazon_prime_titles_pivot_long_by_cast.csv')
+
+df_pivot_long_by_cast |> 
+  pull(cast) |> 
+  head(10)
+```
+
+```{r}
+df_pivot_long_by_cast |> 
+  write_csv('amazon_prime_titles_pivot_long_by_cast.csv')
+```
+
+### Pivot dataset to wide by Genre
+
+```{r}
+df_pivot_wide_by_genre <- df_correct_types |> 
+  select(id, title, director, release_year, genre) |> 
+  mutate(genre = strsplit(genre, ', ')) |> 
+  unnest_longer(genre) |> 
+  pivot_wider(names_from = genre,
+              values_from = genre,
+              values_fn = ~ !is.na(.),
+              values_fill = FALSE,
+              names_prefix = 'is_')
+
+df_pivot_wide_by_genre |> 
+  names()
+```
+
+```{r}
+df_pivot_wide_by_genre |> 
+  write_csv('amazon_prime_titles_pivot_wide_by_genre.csv')
+```
+
+## Analyze Data
+
+### Tableau Links
+
+General Analysis (using cleaned csv): <https://public.tableau.com/app/profile/invictus.navarchus/viz/AnalyzingMoviesandTVShowsonAmazonPrimeTitles/ProportionofMovievsTVShow>
+
+Genre Analysis (using pivot by genre csv): <https://public.tableau.com/app/profile/invictus.navarchus/viz/AnalyzingMovieTVShowGenresonAmazonPrime/GenreDistribution>
