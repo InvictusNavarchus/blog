@@ -123,7 +123,7 @@
     "href": "posts/amazon-prime-titles-eda/index.html#analyze-data",
     "title": "EDA on Amazon Prime Movies and TV Shows",
     "section": "Analyze Data",
-    "text": "Analyze Data\n\nTableau Links\nGeneral Analysis (using cleaned csv): https://public.tableau.com/app/profile/invictus.navarchus/viz/AnalyzingMoviesandTVShowsonAmazonPrimeTitles/ProportionofMovievsTVShow\nGenre Analysis (using pivot by genre csv): https://public.tableau.com/app/profile/invictus.navarchus/viz/AnalyzingMovieTVShowGenresonAmazonPrime/GenreDistribution"
+    "text": "Analyze Data\n\nTableau Links\n\nGeneral Analysis (using cleaned csv):\nGenre Analysis (using pivot by genre csv):"
   },
   {
     "objectID": "posts/analyzing-manggarai-train-station/index.html",
