@@ -38,7 +38,9 @@ df_renamed_columns <- df |>
   )
 ```
 
-### Check data quality
+## Check data quality
+
+### Missing Data
 
 ```{r}
 df_renamed_columns |> 
@@ -46,10 +48,11 @@ df_renamed_columns |>
   vis_miss()
 ```
 
+### Duplicate Data
+
 ```{r}
 df_renamed_columns |> 
   get_dupes(id)
 ```
-
 
 
