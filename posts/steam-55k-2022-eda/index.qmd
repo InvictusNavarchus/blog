@@ -55,4 +55,24 @@ df_renamed_columns |>
   get_dupes(id)
 ```
 
+### Data Constraints
+
+```{r}
+df_renamed_columns |> 
+  glimpse()
+```
+
+#### Categorical
+
+```{r}
+df_renamed_columns |> 
+  distinct(owners)
+```
+
+#### Numerical
+
+```{r}
+descr(df_renamed_columns, stats = c('min', 'mean', 'max'))
+```
+
 
