@@ -1,0 +1,17 @@
+---
+title: Exploratory Data Analysis on Steam 2022 Dataset
+description: Exploring a Dataset that contains all 55.000+ games on Steam in 2024 using R and Tableau
+link-dataset: https://www.kaggle.com/datasets/tristan581/all-55000-games-on-steam-november-2022
+---
+
+## Setup
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+df <- read_delim('./steam_games.csv', delim = ';')
+```
+
+
