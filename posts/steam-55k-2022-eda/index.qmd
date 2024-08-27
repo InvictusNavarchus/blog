@@ -8,10 +8,48 @@ link-dataset: https://www.kaggle.com/datasets/tristan581/all-55000-games-on-stea
 
 ```{r}
 library(tidyverse)
+library(naniar)
+library(DataExplorer)
+library(summarytools)
+library(janitor)
 ```
 
 ```{r}
 df <- read_delim('./steam_games.csv', delim = ';')
 ```
+
+## Inspect Dataest
+
+### Understand data
+
+```{r}
+df |> 
+  glimpse()
+```
+### Rename columns
+
+```{r}
+df_renamed_columns <- df |> 
+  clean_names() |> 
+  rename(
+    id = app_id,
+    description = short_description,
+    concurrent_users = ccu
+  )
+```
+
+### Check data quality
+
+```{r}
+df_renamed_columns |> 
+  slice_sample(n = 10000) |> 
+  vis_miss()
+```
+
+```{r}
+df_renamed_columns |> 
+  get_dupes(id)
+```
+
 
 
