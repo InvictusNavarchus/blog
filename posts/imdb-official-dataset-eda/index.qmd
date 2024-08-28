@@ -1,0 +1,10 @@
+---
+title: Exploratory Data Analysis on IMDB Datasets
+description: EDA on IMDB datasets using R
+link-dataset: https://developer.imdb.com/non-commercial-datasets/
+---
+
+```{r}
+library(tidyverse)
+```
+
