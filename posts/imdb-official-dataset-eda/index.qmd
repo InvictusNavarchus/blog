@@ -4,9 +4,12 @@ description: EDA on IMDB datasets using R
 link-dataset: https://developer.imdb.com/non-commercial-datasets/
 ---
 
+## Setup
+
 ```{r}
 library(tidyverse)
 library(summarytools)
+library(janitor)
 ```
 
 ## Birth and Death Years
@@ -19,7 +22,6 @@ df <- read_csv('~/birthYear.csv', col_types = list(col_integer(), col_integer())
 df
 ```
 
-
 ```{r}
 df |> 
   nrow()
@@ -30,7 +32,6 @@ df |>
   filter(birthYear < 1500)
 ```
 
-
 ```{r}
 df |> 
   ggplot(aes(birthYear)) +
@@ -39,11 +40,53 @@ df |>
   coord_cartesian(ylim = c(0,50), clip = 'off') +
   labs(title = 'Birth Year Demographic of nearly 4.000.000 Actors Recorded on IMDB', subtitle = '55 actors were born before 1500' )
 ```
+
 ```{r}
 ggsave('actors_years.png')
 ```
 
+## Title Ratings
 
+```{r}
+df_title_ratings <- read_csv('~/Documents/database/ratings.csv')
+```
 
+```{r}
+df_title_ratings_parsed <- df_title_ratings |> 
+  mutate(tconst = parse_number(tconst))
+```
+
+### Check Distribution
+
+```{r}
+df_title_ratings_parsed |> 
+  slice_sample(n = 1000) |> 
+  ggplot(aes(tconst)) +
+  geom_bar()
+```
+
+```{r}
+df_title_ratings_parsed_vector <- df_title_ratings_parsed |> pull(tconst)
+```
+
+### Check Duplicate
+
+```{r}
+df_title_ratings_parsed_vector |> 
+  length()
+```
+```{r}
+df_title_ratings_parsed_vector |> 
+  unique() |> 
+  length()
+```
+
+### Check NA
+
+```{r}
+df_title_ratings_parsed_vector |> 
+  is.na() |> 
+  sum()
+```
 
 
