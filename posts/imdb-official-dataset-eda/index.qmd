@@ -6,5 +6,44 @@ link-dataset: https://developer.imdb.com/non-commercial-datasets/
 
 ```{r}
 library(tidyverse)
+library(summarytools)
 ```
+
+## Birth and Death Years
+
+```{r}
+df <- read_csv('~/birthYear.csv', col_types = list(col_integer(), col_integer()))
+```
+
+```{r}
+df
+```
+
+
+```{r}
+df |> 
+  nrow()
+```
+
+```{r}
+df |> 
+  filter(birthYear < 1500)
+```
+
+
+```{r}
+df |> 
+  ggplot(aes(birthYear)) +
+  geom_histogram() +
+  # ylim(c(0,10)) +
+  coord_cartesian(ylim = c(0,50), clip = 'off') +
+  labs(title = 'Birth Year Demographic of nearly 4.000.000 Actors Recorded on IMDB', subtitle = '55 actors were born before 1500' )
+```
+```{r}
+ggsave('actors_years.png')
+```
+
+
+
+
 
