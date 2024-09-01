@@ -10,6 +10,7 @@ link-dataset: https://developer.imdb.com/non-commercial-datasets/
 library(tidyverse)
 library(summarytools)
 library(janitor)
+library(scales)
 ```
 
 ## Birth and Death Years
@@ -60,10 +61,18 @@ df_title_ratings_parsed <- df_title_ratings |>
 
 ```{r}
 df_title_ratings_parsed |> 
-  slice_sample(n = 1000) |> 
   ggplot(aes(tconst)) +
-  geom_bar()
+  geom_histogram(binwidth = 1000000) +
+  scale_x_continuous(labels = comma) +
+  scale_y_continuous(labels = comma) +
+  labs(title = 'Histogram of tconst distribution')
 ```
+
+```{r}
+ggsave('tconst_distribution.png', height = 4)
+```
+
+
 
 ```{r}
 df_title_ratings_parsed_vector <- df_title_ratings_parsed |> pull(tconst)
