@@ -79,4 +79,39 @@ df |>
   ggplot(aes(startYear)) +
   geom_histogram()
 ```
+#### Genre
+
+```{r}
+df <- df |> 
+  mutate(genres = fct_rev(fct_infreq(genres)))
+```
+
+
+```{r}
+df |> 
+  count(genres) |> 
+  arrange(desc(n)) |>
+  slice_head(n = 10) |> 
+  ggplot(aes(n, genres)) +
+  geom_col()
+```
+
+
+```{r}
+df_unnested_genre <- df |> 
+  mutate(genres = str_split(genres, ',')) |> 
+  unnest_longer(genres) |> 
+  mutate(genres = fct_rev(fct_infreq(genres)))
+```
+
+
+```{r}
+df_unnested_genre |> 
+  count(genres) |> 
+  arrange(desc(n)) |> 
+  slice_head(n = 10) |> 
+  ggplot(aes(genres, n)) +
+  geom_col() +
+  coord_flip()
+```
 
