@@ -13,7 +13,7 @@ library(DataExplorer)
 library(scales)
 ```
 ```{r}
-df <- read_csv('~/Documents/dataset/imdb_original_extracted/top_10_000_movies.csv', na = '\\N')
+df <- read_csv('top_10_000_movies.csv', na = '\\N')
 ```
 ## Clean Data
 
