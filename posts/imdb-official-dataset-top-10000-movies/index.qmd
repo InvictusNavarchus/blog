@@ -62,9 +62,15 @@ df |>
 
 ```{r}
 df |> 
-  ggplot(aes(numVotes)) +
-  geom_histogram() +
-  scale_x_continuous(labels = comma)
+  pull(numVotes) |> 
+  cut(breaks = seq(1, 3000000, 100000), dig.lab = 50, right = FALSE, include.lowest = TRUE) |> 
+  tabyl() |> 
+  as.tibble() |> 
+  rename(range = 1) |> 
+  mutate(percent = label_percent(accuracy=0.001)(percent)) |> 
+  select(-valid_percent)
+  # mutate(percent = label_percent(accuracy=0.01)(percent))
+  # mutate(range = format(range, big.mark = ','))
 ```
 ```{r}
 df |> 
