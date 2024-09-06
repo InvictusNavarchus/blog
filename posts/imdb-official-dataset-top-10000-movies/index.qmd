@@ -67,14 +67,6 @@ df |>
 ```{r}
 df |> 
   ggplot(aes(runtimeMinutes)) +
-  geom_histogram(binwidth = 40, boundary = 0) +
-  scale_x_continuous(breaks = seq(0, 600, 40))
-```
-
-
-```{r}
-df |> 
-  ggplot(aes(runtimeMinutes)) +
   geom_histogram() +
   ylim(0,20)
 ```
@@ -140,4 +132,36 @@ df_unnested_genre |>
   geom_col() +
   coord_flip()
 ```
+## Analyze Data
+
+### Most Common Runtime Range
+
+```{r}
+df |> 
+  ggplot(aes(runtimeMinutes)) +
+  geom_histogram(binwidth = 40, boundary = 0) +
+  scale_x_continuous(breaks = seq(0, 240, 40))
+```
+```{r}
+df |> 
+  pull(runtimeMinutes) |> 
+  cut(breaks = seq(1, 600, 40), dig.lab = 50) |> 
+  tabyl() |> 
+  as.tibble() |> 
+  rename(range = 1) |> 
+  mutate(percent = label_percent(accuracy=0.01)(percent)) |> 
+  select(-valid_percent)
+```
+
+### Most Common Genre Combinations
+
+```{r}
+df |> 
+  count(genres) |> 
+  arrange(desc(n)) |>
+  slice_head(n = 10) |> 
+  ggplot(aes(n, genres)) +
+  geom_col()
+```
+
 
