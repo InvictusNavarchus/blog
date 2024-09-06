@@ -159,9 +159,12 @@ df |>
 df |> 
   count(genres) |> 
   arrange(desc(n)) |>
+  mutate(is_top3 = ifelse(row_number() <= 3, "Top 3", "Others")) |>  # Flag top 5
   slice_head(n = 10) |> 
-  ggplot(aes(n, genres)) +
-  geom_col()
+  ggplot(aes(n, genres, fill = is_top3)) +  # Use fill aesthetic to differentiate
+  geom_col() +
+  scale_fill_manual(values = c("Top 3" = "#FFA07A", "Others" = "grey")) +  # Highlight top 5
+  theme_minimal() +
+  labs(fill = "Group")  # Add legend
 ```
-
 
