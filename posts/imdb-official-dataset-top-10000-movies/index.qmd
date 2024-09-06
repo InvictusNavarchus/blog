@@ -168,3 +168,17 @@ df |>
   labs(fill = "Group")  # Add legend
 ```
 
+### Most Common Individual Genres
+
+```{r}
+df_unnested_genre |> 
+  count(genres) |> 
+  arrange(desc(n)) |> 
+  slice_head(n = 10) |> 
+  mutate(rank = if_else(row_number() <= 3, 'Top_3', 'Others')) |> 
+  ggplot(aes(genres, n, fill = rank)) +
+  geom_col() +
+  scale_fill_manual(values = c('Top_3' = '#FFA07A', 'Others' = 'grey')) +
+  coord_flip()
+```
+
