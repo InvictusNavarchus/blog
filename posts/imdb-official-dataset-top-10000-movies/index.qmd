@@ -43,7 +43,9 @@ df |>
   scale_x_continuous(breaks = seq(0, 240, 40)) +
   scale_fill_manual(values = c("FALSE" = "grey", "TRUE" = "red"),
                     labels = c("FALSE" = "Other Intervals", "TRUE" = "Most Frequent Runtime Interval")) +
-  labs(fill = "") +
+  labs(fill = "",
+       title =  "Most Common Movie Duration",
+       subtitle = '73% of Movies are between 80-120 minutes long') +
   theme(legend.position = "bottom")
 ```
 
@@ -70,7 +72,9 @@ df |>
   geom_col() +
   scale_fill_manual(values = c("Top 3" = "#FFA07A", "Others" = "grey")) +  # Highlight top 5
   theme_minimal() +
-  labs(fill = "Group")  # Add legend
+  labs(fill = "Group",
+       title = 'Most Common Genre Combinations',
+       subtitle = 'Each movie can has multiple genres.\nThe most common combinations are Comedy + Drama + Romance,\nfollowed by Drama, and Comedy + Drama')  # Add legend
 ```
 
 ### Most Common Individual Genres
@@ -84,7 +88,9 @@ df_unnested_genre |>
   ggplot(aes(genres, n, fill = rank)) +
   geom_col() +
   scale_fill_manual(values = c('Top_3' = '#FFA07A', 'Others' = 'grey')) +
-  coord_flip()
+  coord_flip() +
+  labs(title = 'Most Common Individual Genres',
+       subtitle = 'If we count each genre individually. This is what we get.\nThe top three genres are Drama, Comedy, and Action')
 ```
 
 ## Recommendations
