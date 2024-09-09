@@ -1,0 +1,19 @@
+---
+title: Finding the common characteristics among Top 10,000 movies of all time
+---
+
+# Executive Summary
+
+## Objective
+
+## Methodology
+
+### Data Collection
+
+### Data Cleaning
+
+### Data Analysis
+
+## Results
+
+## Recommendations
