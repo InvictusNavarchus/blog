@@ -33,4 +33,58 @@ The analysis is also performed using R in RStudio, with the help of `tidyverse` 
 
 ## Results
 
+### Most Common Runtime Range
+
+```{r}
+df |> 
+  ggplot(aes(runtimeMinutes)) +
+  geom_histogram(aes(fill = runtimeMinutes >= 80 & runtimeMinutes <= 120), 
+                 binwidth = 40, boundary = 0) +
+  scale_x_continuous(breaks = seq(0, 240, 40)) +
+  scale_fill_manual(values = c("FALSE" = "grey", "TRUE" = "red"),
+                    labels = c("FALSE" = "Other Intervals", "TRUE" = "Most Frequent Runtime Interval")) +
+  labs(fill = "") +
+  theme(legend.position = "bottom")
+```
+
+```{r}
+df |> 
+  pull(runtimeMinutes) |> 
+  cut(breaks = seq(1, 600, 40), dig.lab = 50) |> 
+  tabyl() |> 
+  as.tibble() |> 
+  rename(range = 1) |> 
+  mutate(percent = label_percent(accuracy=0.01)(percent)) |> 
+  select(-valid_percent)
+```
+
+### Most Common Genre Combinations
+
+```{r}
+df |> 
+  count(genres) |> 
+  arrange(desc(n)) |>
+  mutate(is_top3 = ifelse(row_number() <= 3, "Top 3", "Others")) |>  # Flag top 5
+  slice_head(n = 10) |> 
+  ggplot(aes(n, genres, fill = is_top3)) +  # Use fill aesthetic to differentiate
+  geom_col() +
+  scale_fill_manual(values = c("Top 3" = "#FFA07A", "Others" = "grey")) +  # Highlight top 5
+  theme_minimal() +
+  labs(fill = "Group")  # Add legend
+```
+
+### Most Common Individual Genres
+
+```{r}
+df_unnested_genre |> 
+  count(genres) |> 
+  arrange(desc(n)) |> 
+  slice_head(n = 10) |> 
+  mutate(rank = if_else(row_number() <= 3, 'Top_3', 'Others')) |> 
+  ggplot(aes(genres, n, fill = rank)) +
+  geom_col() +
+  scale_fill_manual(values = c('Top_3' = '#FFA07A', 'Others' = 'grey')) +
+  coord_flip()
+```
+
 ## Recommendations
