@@ -33,7 +33,7 @@ The analysis is also performed using R in RStudio, with the help of `tidyverse` 
 
 ## Results
 
-### Most Common Runtime Range
+### Most Common Movie Duration
 
 ```{r}
 df |> 
@@ -77,7 +77,7 @@ df |>
        subtitle = 'Each movie can has multiple genres.\nThe most common combinations are Comedy + Drama + Romance,\nfollowed by Drama, and Comedy + Drama')  # Add legend
 ```
 
-### Most Common Individual Genres
+### Most Common Genres
 
 ```{r}
 df_unnested_genre |> 
