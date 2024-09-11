@@ -1,8 +1,4 @@
 ---
-title: Finding the common characteristics among Top 10,000 movies of all time
----
-
----
 title: Analyzing Top 10.000 Most Popular Movies on IMDB
 description: Finding the common characteristics among Top 10.000 movies of all time
 ---
