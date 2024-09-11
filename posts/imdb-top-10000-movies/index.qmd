@@ -36,7 +36,14 @@ The analysis is also performed using R in RStudio, with the help of `tidyverse` 
 ## Results
 
 ```{r}
-library(ggplot2)
+#| output: false
+
+library(tidyverse)
+df <- read_csv('top_10_000_movies.csv', na = '\\N')
+df_unnested_genre <- df |> 
+  mutate(genres = str_split(genres, ',')) |> 
+  unnest_longer(genres) |> 
+  mutate(genres = fct_rev(fct_infreq(genres)))
 ```
 
 ### Most Common Movie Duration
