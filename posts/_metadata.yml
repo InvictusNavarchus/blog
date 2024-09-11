@@ -3,6 +3,7 @@ toc: true
 toc-depth: 6
 toc-location: right
 toc-expand: true
+page-navigation: true
 
 comments:
   giscus: 
