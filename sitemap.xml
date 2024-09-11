@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://blog.navarchus.id/posts/drg-missions-dataset/index.html</loc>
-    <lastmod>2024-08-26T11:16:01.303Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.navarchus.id/posts/setting-up-web-analytics/index.html</loc>
-    <lastmod>2024-08-26T11:16:01.327Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.navarchus.id/posts/amazon-prime-titles-eda/index.html</loc>
-    <lastmod>2024-08-26T11:16:01.279Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.navarchus.id/posts/analyzing-manggarai-train-station/index.html</loc>
-    <lastmod>2024-08-26T11:16:01.283Z</lastmod>
+    <loc>https://blog.navarchus.id/posts/g4ds-getting-started/index.html</loc>
+    <lastmod>2024-09-11T10:11:10.612Z</lastmod>
   </url>
   <url>
     <loc>https://blog.navarchus.id/posts/smartpath-customer-data/index.html</loc>
-    <lastmod>2024-08-26T11:16:01.327Z</lastmod>
+    <lastmod>2024-09-11T10:11:10.616Z</lastmod>
   </url>
   <url>
-    <loc>https://blog.navarchus.id/about.html</loc>
-    <lastmod>2024-08-26T11:16:01.183Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.navarchus.id/index.html</loc>
-    <lastmod>2024-08-26T11:16:01.183Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.navarchus.id/posts/g4ds-getting-started-part-2/index.html</loc>
-    <lastmod>2024-08-26T11:16:01.319Z</lastmod>
-  </url>
-  <url>
-    <loc>https://blog.navarchus.id/posts/islam-growth-worldwide-eda/index.html</loc>
-    <lastmod>2024-08-26T11:16:01.327Z</lastmod>
+    <loc>https://blog.navarchus.id/posts/setting-up-web-analytics/index.html</loc>
+    <lastmod>2024-09-11T10:11:10.616Z</lastmod>
   </url>
   <url>
     <loc>https://blog.navarchus.id/posts/revou-damc-sales/index.html</loc>
-    <lastmod>2024-08-26T11:16:01.327Z</lastmod>
+    <lastmod>2024-09-11T10:11:10.616Z</lastmod>
   </url>
   <url>
-    <loc>https://blog.navarchus.id/posts/g4ds-getting-started/index.html</loc>
-    <lastmod>2024-08-26T11:16:01.323Z</lastmod>
+    <loc>https://blog.navarchus.id/posts/drg-missions-dataset/index.html</loc>
+    <lastmod>2024-09-11T10:11:10.588Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.navarchus.id/index.html</loc>
+    <lastmod>2024-09-11T10:11:10.472Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.navarchus.id/about.html</loc>
+    <lastmod>2024-09-11T10:11:10.468Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.navarchus.id/posts/analyzing-manggarai-train-station/index.html</loc>
+    <lastmod>2024-09-11T10:11:10.572Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.navarchus.id/posts/amazon-prime-titles-eda/index.html</loc>
+    <lastmod>2024-09-11T10:11:10.568Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.navarchus.id/posts/islam-growth-worldwide-eda/index.html</loc>
+    <lastmod>2024-09-11T10:11:10.612Z</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.navarchus.id/posts/g4ds-getting-started-part-2/index.html</loc>
+    <lastmod>2024-09-11T10:11:10.608Z</lastmod>
   </url>
 </urlset>
