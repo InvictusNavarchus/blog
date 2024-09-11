@@ -11,25 +11,25 @@ categories: [Project, SQL, R]
 
 ## Objective
 
-The goal of this analysis is to find **common characteristics** among the **most popular movies**. These characteristics would be helpful to potential **movie producers** who wants to identify trends and patterns that contribute to a film's success.
+The goal of this analysis is to find **common characteristics** among the **most popular movies**. These characteristics would be helpful to potential **movie producers** who want to identify trends and patterns that contribute to a film's success.
 
 ## Methodology
 
 ### Data Collection
 
-The data was collected from [IMDB Non-Commercial Dataset](https://developer.imdb.com/non-commercial-datasets/), which are freely available to the public.
+The data was collected from the [IMDB Non-Commercial Dataset](https://developer.imdb.com/non-commercial-datasets/), which is freely available to the public.
 
 ### Data Cleaning
 
-The dataset is given as a list of `.tsv` files. To process that, I setup a local SQLite database with appropriate tables and imported the `.tsv` into them.
+The dataset is given as a list of `.tsv` files. To process that, I set up a local SQLite database with appropriate tables and imported the `.tsv` into them.
 
-The dataset contains a comprehensive amount of data, with a total of 39 columns that are spread across of 7 tables. For this analysis, I selected 2 tables that are most relevant and joined them together: `title.basics` and `title.ratings.`
+The dataset contains a comprehensive amount of data, with a total of 39 columns that are spread across 7 tables. For this analysis, I selected 2 tables that are most relevant and joined them together: `title.basics` and `title.ratings.`
 
-To get the most popular movies, I sorted the movies descendingly based on the number of votes, as it should be positively correlated with the amount of people that watched the movie.
+To get the most popular movies, I sorted the movies in descending order based on the number of votes, as it should be positively correlated with the amount of people that watched the movie.
 
-Finally, I took the top 10.000 rows and export them into a `.csv` file.
+Finally, I took the top 10.000 rows and exported them into a `.csv` file.
 
-The `csv` file is then loaded into R to check for data quality and for further analysis. The data is already clean. The data reflects what the live site shows, with 0,01% null values, no duplicates, no misspellings, and so on.
+The `csv` file is then loaded into R to check for data quality and for further analysis. The data is already clean. The data reflects what the live site shows, with 0.01% null values, no duplicates, no misspellings, and so on.
 
 ### Data Analysis
 
