@@ -35,6 +35,10 @@ The analysis is also performed using R in RStudio, with the help of `tidyverse` 
 
 ## Results
 
+```{r}
+library(ggplot2)
+```
+
 ### Most Common Movie Duration
 
 ```{r}
