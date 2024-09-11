@@ -2,6 +2,11 @@
 title: Finding the common characteristics among Top 10,000 movies of all time
 ---
 
+---
+title: Analyzing Top 10.000 Most Popular Movies on IMDB
+description: Finding the common characteristics among Top 10.000 movies of all time
+---
+
 ## Setup
 
 ### Library
@@ -21,12 +26,12 @@ library(scales)
 update_geom_defaults("bar", list(fill = 'grey', color = 'black'))
 ```
 
-
 ### Dataset
 
 ```{r}
 df <- read_csv('top_10_000_movies.csv', na = '\\N')
 ```
+
 ## Clean Data
 
 ```{r}
@@ -39,6 +44,7 @@ df
 df |> 
   vis_miss()
 ```
+
 ### Check Numeric Distribution
 
 #### Overall
@@ -47,6 +53,7 @@ df |>
 df |> 
   plot_histogram(ncol = 1)
 ```
+
 #### Average Rating
 
 ```{r}
@@ -70,6 +77,7 @@ df |>
   geom_histogram() +
   ylim(0,20)
 ```
+
 #### Num Votes
 
 ```{r}
@@ -84,6 +92,7 @@ df |>
   # mutate(percent = label_percent(accuracy=0.01)(percent))
   # mutate(range = format(range, big.mark = ','))
 ```
+
 ```{r}
 df |> 
   ggplot(aes(numVotes)) +
@@ -97,13 +106,13 @@ df |>
   ggplot(aes(startYear)) +
   geom_histogram()
 ```
+
 #### Genre
 
 ```{r}
 df <- df |> 
   mutate(genres = fct_rev(fct_infreq(genres)))
 ```
-
 
 ```{r}
 df |> 
@@ -114,14 +123,12 @@ df |>
   geom_col()
 ```
 
-
 ```{r}
 df_unnested_genre <- df |> 
   mutate(genres = str_split(genres, ',')) |> 
   unnest_longer(genres) |> 
   mutate(genres = fct_rev(fct_infreq(genres)))
 ```
-
 
 ```{r}
 df_unnested_genre |> 
@@ -132,6 +139,7 @@ df_unnested_genre |>
   geom_col() +
   coord_flip()
 ```
+
 ## Analyze Data
 
 ### Most Common Runtime Range
@@ -147,7 +155,6 @@ df |>
   labs(fill = "") +
   theme(legend.position = "bottom")
 ```
-
 
 ```{r}
 df |> 
@@ -188,4 +195,3 @@ df_unnested_genre |>
   scale_fill_manual(values = c('Top_' = '#FFA07A', 'Others' = 'grey')) +
   coord_flip()
 ```
-
