@@ -3,6 +3,7 @@ title: Analyzing Top 10.000 Most Popular Movies on IMDB
 description: Finding the common characteristics among Top 10.000 movies of all time
 execute: 
   echo: false
+image: images/IMDB_Logo_2016.png
 ---
 
 # Executive Summary
