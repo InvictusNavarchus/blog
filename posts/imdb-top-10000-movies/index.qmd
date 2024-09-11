@@ -1,5 +1,5 @@
 ---
-title: Analyzing Top 10.000 Most Popular Movies on IMDB
+title: Analyzing Top 10.000 Most Popular Movies on IMDb
 description: Finding the common characteristics among Top 10.000 movies of all time
 execute: 
   echo: false
@@ -17,7 +17,7 @@ The goal of this analysis is to find **common characteristics** among the **most
 
 ### Data Collection
 
-The data was collected from the [IMDB Non-Commercial Dataset](https://developer.imdb.com/non-commercial-datasets/), which is freely available to the public.
+The data was collected from the [IMDb Non-Commercial Dataset](https://developer.imdb.com/non-commercial-datasets/), which is freely available to the public.
 
 ### Data Cleaning
 
