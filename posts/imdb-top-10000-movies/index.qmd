@@ -2,6 +2,7 @@
 title: Analyzing Top 10.000 Most Popular Movies on IMDB
 description: Finding the common characteristics among Top 10.000 movies of all time
 execute: 
+  eval: false
   echo: false
 ---
 
@@ -23,7 +24,7 @@ The dataset is given as a list of `.tsv` files. To process that, I setup a local
 
 The dataset contains a comprehensive amount of data, with a total of 39 columns that are spread across of 7 tables. For this analysis, I selected 2 tables that are most relevant and joined them together: `title.basics` and `title.ratings.`
 
-To get the most popular movies, I sorted the movies descendingly based on the number of votes, as it should be positively correlated with the amount of people that watched the movie.
+To get the most popular movies, I sorted the movies descendingly ╭─invictus\@OptiPlex3280 in repo: blobased on the number of votes, as it should be positively correlated with the amount of people that watched the movie.
 
 Finally, I took the top 10.000 rows and export them into a `.csv` file.
 
