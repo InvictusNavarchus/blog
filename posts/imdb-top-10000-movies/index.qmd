@@ -97,8 +97,8 @@ df_unnested_genre |>
 
 ## Recommendations
 
-1.  Aim for a runtime between 80-120 minutes: The data shows that 73% of the most popular movies fall within this range. This suggests audiences prefer movies of moderate length.
+1.  **Aim for a runtime between 80-120 minutes**: The data shows that 73% of the most popular movies fall within this range. This suggests audiences prefer movies of moderate length.
 
-2.  Focus on key genre combinations: Consider producing movies that combine Comedy, Drama, and Romance, as this was the most common genre combination. Alternatively, pure Drama movies or Comedy-Drama combinations were also highly popular.
+2.  **Focus on key genre combinations**: Consider producing movies that combine Comedy, Drama, and Romance, as this was the most common genre combination. Alternatively, pure Drama movies or Comedy-Drama combinations were also highly popular.
 
-3.  Prioritize Drama, Comedy, and Action genres: When considering individual genres, these three were the most common among popular movies. Producers might want to ensure their projects incorporate at least one of these genres.
+3.  **Prioritize Drama, Comedy, and Action genres**: When considering individual genres, these three were the most common among popular movies. Producers might want to ensure their projects incorporate at least one of these genres.
