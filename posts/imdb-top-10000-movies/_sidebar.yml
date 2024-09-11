@@ -4,3 +4,5 @@ contents:
     href: posts/imdb-top-10000-movies/index.qmd
   - text: "Exploratory Data Analysis (EDA) with R"
     href: posts/imdb-top-10000-movies/EDA_R.qmd
+  - text: 'Exploratory Data Analysis (EDA) with SQL'
+    href: posts/imdb-top-10000-movies/EDA_SQL.qmd

@@ -1,0 +1,133 @@
+# EDA with SQL
+
+## Exploring Data
+
+``` sql
+-- url title example
+-- https://www.imdb.com/title/tt0177484/
+```
+
+``` sql
+-- preview titles
+select * from title_basics tb 
+```
+
+``` sql
+-- count of titles: 9,123,039
+select count(*) from title_basics tb
+```
+
+``` sql
+-- count of each titleType
+--| titleType      | count     | percentage |
+--|---------------|-----------|------------|
+--| tvEpisode     | 6,967,265 | 76.37%     |
+--| short         | 832,301   | 9.12%      |
+--| movie         | 590,707   | 6.47%      |
+--| video         | 251,682   | 2.76%      |
+--| tvSeries      | 225,012   | 2.47%      |
+--| tvMovie       | 127,122   | 1.39%      |
+--| tvMiniSeries  | 46,600    | 0.51%      |
+--| tvSpecial     | 41,436    | 0.45%      |
+--| videoGame     | 32,570    | 0.36%      |
+--| tvShort       | 8,343     | 0.09%      |
+--| tvPilot       | 1         | 0.00%      |
+SELECT titleType,
+    COUNT(*) as count,
+    ROUND((COUNT(*) * 100.0 / 9123039), 2)
+    as percentage
+FROM title_basics tb
+GROUP BY titleType
+ORDER BY count DESC;
+```
+
+``` sql
+-- count title in title_ratings: 1,470,769
+select count(*) from title_ratings tr;
+```
+
+``` sql
+-- count of title that has ratings: 1,236,363
+select count(*)
+from title_basics tb 
+join title_ratings tr 
+    on tb.tconst = tr.tconst;
+```
+
+``` sql
+-- find missing titles
+-- found tt0187178 that redirects to tt0177484 which exists in tb
+-- found tt0253688, tt0253697 that actually exist with matching rating
+select * from title_ratings tr 
+left join title_basics tb 
+    on tr.tconst = tb.tconst 
+where tb.tconst is null
+```
+
+``` sql
+-- movie counts: 590,707
+select count(*) from title_basics tb 
+where titleType = 'movie';
+```
+
+``` sql
+--newest movies
+select * from title_basics tb 
+where titleType = 'movie' and startYear != '\N'
+order by startYear desc 
+```
+
+``` sql
+--oldest movies
+select * from title_basics tb 
+where titleType = 'movie' and startYear != '\N'
+order by startYear
+```
+
+``` sql
+-- movie that has ratings: 279,122      
+select count(*)
+from title_basics tb 
+join title_ratings tr 
+    on tb.tconst = tr.tconst 
+where tb.titleType = 'movie';
+```
+
+``` sql
+-- check sample size for analysis target:
+--- Top 10.000 Movies based on Num Votes and Ratings
+----- Filter release year too?
+
+----- based on numVotes
+select * 
+from title_basics tb 
+inner join title_ratings tr 
+    on tb.tconst = tr.tconst 
+where titleType = 'movie'
+order by tr.numVotes desc
+limit 10000
+```
+
+``` sql
+----- sort by numVotes & average must be 6.8 or higher
+select * 
+from title_basics tb 
+inner join title_ratings tr 
+    on tb.tconst = tr.tconst 
+where titleType = 'movie' and averageRating >= 7.0
+order by tr.numVotes desc
+limit 10000
+```
+
+## Extracting Data
+
+``` sql
+-- join title basics with title ratings for finding most popoular movies ordered by number of votes
+select tb.tconst, primaryTitle, genres, startYear, runtimeMinutes, averageRating, numVotes
+from title_basics tb 
+inner join title_ratings tr 
+	on tb.tconst = tr.tconst
+where titleType = 'movie'
+order by numVotes desc
+limit 10000	
+```
