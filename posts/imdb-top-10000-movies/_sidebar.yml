@@ -1,0 +1,6 @@
+id: imdb-top-10000-movies
+contents:
+  - text: "Executive Summary"
+    href: posts/imdb-top-10000-movies/index.qmd
+  - text: "Exploratory Data Analysis (EDA) with R"
+    href: posts/imdb-top-10000-movies/EDA_R.qmd
