@@ -65,6 +65,7 @@ df |>
        subtitle = '73% of Movies are between 80-120 minutes long') +
   theme(legend.position = "bottom")
 ```
+The most popular movies have *moderate* duration, which is *80-120 minutes*, and very few of them are below 80 minutes. This suggests that most audience prefer movies with *long enough* duration to build depth, characters, plots, and other aspects; But not *too long.*
 
 ### Most Common Genre Combinations
 
@@ -80,8 +81,9 @@ df |>
   theme_minimal() +
   labs(fill = "Group",
        title = 'Most Common Genre Combinations',
-       subtitle = 'Each movie can has multiple genres.\nThe most common combinations are Comedy + Drama + Romance,\nfollowed by Drama, and Comedy + Drama')  # Add legend
+       subtitle = 'Comedy + Drama + Romance becomes number #1 combination')
 ```
+Each movie can have multiple genres. The most popular ones are the one that has Drama, Comedy, and Romance altogether. This suggests that audience prefer movies that are *easy to relate*.
 
 ### Most Common Genres
 
@@ -96,8 +98,10 @@ df_unnested_genre |>
   scale_fill_manual(values = c('Top_3' = '#FFA07A', 'Others' = 'grey')) +
   coord_flip() +
   labs(title = 'Most Common Individual Genres',
-       subtitle = 'If we count each genre individually. This is what we get.\nThe top three genres are Drama, Comedy, and Action')
+       subtitle = 'The top three genres are Drama, Comedy, and Action')
 ```
+
+If we count each genre separately, we'll see that *Drama* dominated the genre competition across top 10.000 movies. A possible explanation is because it's one of the most *flexible* element. It can be applied to any kind of movies, and will relate to anyone across times and cultures.
 
 ## Recommendations
 
