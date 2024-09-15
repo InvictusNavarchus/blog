@@ -1,0 +1,10 @@
+id: imdb-top-10000-movies
+contents:
+  - text: "Executive Summary"
+    href: posts/imdb-top-10000-movies/index.qmd
+  - section: 'Source Code'
+    contents:
+    - text: 'Exploratory Data Analysis (EDA) with SQL'
+      href: posts/imdb-top-10000-movies/EDA_SQL.qmd
+    - text: "Exploratory Data Analysis (EDA) with R"
+      href: posts/imdb-top-10000-movies/EDA_R.qmd
