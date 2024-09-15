@@ -62,7 +62,9 @@ df |>
                     labels = c("FALSE" = "Other Durations", "TRUE" = "Most Common Durations")) +
   labs(fill = "",
        title =  "Most Common Movie Duration",
-       subtitle = '73% of Movies are between 80-120 minutes long') +
+       subtitle = '73% of Movies are between 80-120 minutes long',
+       x = 'Movie Duration',
+       y = 'Total Movies') +
   theme(legend.position = "bottom")
 ```
 The most popular movies have *moderate* duration, which is *80-120 minutes*, and very few of them are below 80 minutes. This suggests that most audience prefer movies with *long enough* duration to build depth, characters, plots, and other aspects; But not *too long.*
@@ -80,9 +82,11 @@ df |>
   geom_text(aes(label = ifelse(is_top3 == "Top 3", n, "")), hjust = 1.5) +
   scale_fill_manual(values = c("Top 3" = "#FFA07A", "Others" = "grey")) +  # Highlight top 5
   theme_minimal() +
-  labs(fill = "Group",
+  labs(fill = "Rank",
        title = 'Most Common Genre Combinations',
-       subtitle = 'Comedy + Drama + Romance becomes number #1 combination')
+       subtitle = 'Comedy + Drama + Romance becomes number #1 combination',
+       x = 'Total Movies',
+       y = 'Genres')
 ```
 Each movie can have multiple genres. The most popular ones are the one that has Drama, Comedy, and Romance altogether. This suggests that audience prefer movies that are *easy to relate*.
 
@@ -93,14 +97,16 @@ df_unnested_genre |>
   count(genres) |> 
   arrange(desc(n)) |> 
   slice_head(n = 10) |> 
-  mutate(rank = if_else(row_number() <= 3, 'Top_3', 'Others')) |> 
-  ggplot(aes(genres, n, fill = rank)) +
+  mutate(Rank = if_else(row_number() <= 3, 'Top 3', 'Others')) |> 
+  ggplot(aes(genres, n, fill = Rank)) +
   geom_col() +
-  geom_text(aes(label = ifelse(rank == "Top_3", n, "")), hjust = 1.5) +
-  scale_fill_manual(values = c('Top_3' = '#FFA07A', 'Others' = 'grey')) +
+  geom_text(aes(label = ifelse(Rank == "Top 3", n, "")), hjust = 1.5) +
+  scale_fill_manual(values = c('Top 3' = '#FFA07A', 'Others' = 'grey')) +
   coord_flip() +
   labs(title = 'Most Common Individual Genres',
-       subtitle = 'The top three genres are Drama, Comedy, and Action')
+       subtitle = 'The top three genres are Drama, Comedy, and Action',
+       y = 'Total Movies',
+       x = 'Genres')
 ```
 
 If we count each genre separately, we'll see that *Drama* dominated the genre competition across top 10.000 movies. A possible explanation is because it's one of the most *flexible* element. It can be applied to any kind of movies, and will relate to anyone across times and cultures.
