@@ -16,6 +16,9 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Merge _sidebar.yml into _quarto.yml
+        uses: InvictusNavarchus/action-quarto-merge-sidebar-yaml@v1.0.4
+
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
