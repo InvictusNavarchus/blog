@@ -77,6 +77,7 @@ df |>
   slice_head(n = 10) |> 
   ggplot(aes(n, genres, fill = is_top3)) +  # Use fill aesthetic to differentiate
   geom_col() +
+  geom_text(aes(label = ifelse(is_top3 == "Top 3", n, "")), hjust = 1.5) +
   scale_fill_manual(values = c("Top 3" = "#FFA07A", "Others" = "grey")) +  # Highlight top 5
   theme_minimal() +
   labs(fill = "Group",
@@ -95,6 +96,7 @@ df_unnested_genre |>
   mutate(rank = if_else(row_number() <= 3, 'Top_3', 'Others')) |> 
   ggplot(aes(genres, n, fill = rank)) +
   geom_col() +
+  geom_text(aes(label = ifelse(rank == "Top_3", n, "")), hjust = 1.5) +
   scale_fill_manual(values = c('Top_3' = '#FFA07A', 'Others' = 'grey')) +
   coord_flip() +
   labs(title = 'Most Common Individual Genres',
