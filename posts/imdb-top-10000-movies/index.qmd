@@ -5,6 +5,8 @@ execute:
   echo: false
 image: images/IMDB_Logo_2016.png
 categories: [Project, SQL, R]
+date: 2024-09-15:19:51:00
+draft: false
 ---
 
 # Executive Summary
