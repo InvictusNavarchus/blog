@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="invictus">
+<meta name="dcterms.date" content="2024-09-15">
+<meta name="description" content="Finding the common characteristics among Top 10.000 movies of all time">
 
-<title>Blog</title>
+<title>Analyzing Top 10.000 Most Popular Movies on IMDb – Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,28 +26,26 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,35 +73,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-46H31NF5Y2"></script>
 
 <script type="text/plain" cookie-consent="tracking">
@@ -137,47 +109,18 @@ var sc_security="1325b7f6";
 <script type="text/plain" cookie-consent="tracking">
 src="https://www.statcounter.com/counter/counter.js"
 async></script>
-<noscript></noscript><meta property="og:title" content="Blog">
-<meta property="og:description" content="">
-<meta property="og:image" content="https://blog.navarchus.id/posts/drg-missions-dataset/images/preview.png">
+<noscript></noscript><meta property="og:title" content="Analyzing Top 10.000 Most Popular Movies on IMDb – Blog">
+<meta property="og:description" content="Finding the common characteristics among Top 10.000 movies of all time">
+<meta property="og:image" content="https://blog.navarchus.id/posts/imdb-top-10000-movies/images/IMDB_Logo_2016.png">
 <meta property="og:site_name" content="Blog">
-<meta property="og:image:height" content="375">
-<meta property="og:image:width" content="600">
+<meta property="og:image:height" content="290">
+<meta property="og:image:width" content="575">
 </head><body class="nav-fixed"><div class="statcounter"><a title="Web Analytics
 Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13016686/0/1325b7f6/1/" alt="Web Analytics Made Easy - Statcounter" referrerpolicy="no-referrer-when-downgrade"></a></div>
 <!-- End of Statcounter Code -->
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 
 
 
@@ -187,7 +130,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Blog</span>
     </a>
   </div>
@@ -198,7 +141,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -214,21 +157,65 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(10)</span></div><div class="category" data-category="Book Walkthrough">Book Walkthrough <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Case Study">Case Study <span class="quarto-category-count">(3)</span></div><div class="category" data-category="EDA">EDA <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Fictional Project">Fictional Project <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Project">Project <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(9)</span></div><div class="category" data-category="SQL">SQL <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Tableau">Tableau <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a>
+  <ul>
+  <li><a href="#objective" id="toc-objective" class="nav-link" data-scroll-target="#objective">Objective</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a>
+  <ul>
+  <li><a href="#data-collection" id="toc-data-collection" class="nav-link" data-scroll-target="#data-collection">Data Collection</a></li>
+  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">Data Cleaning</a></li>
+  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis">Data Analysis</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
+  <ul>
+  <li><a href="#most-common-movie-duration" id="toc-most-common-movie-duration" class="nav-link" data-scroll-target="#most-common-movie-duration">Most Common Movie Duration</a></li>
+  <li><a href="#most-common-genre-combinations" id="toc-most-common-genre-combinations" class="nav-link" data-scroll-target="#most-common-genre-combinations">Most Common Genre Combinations</a></li>
+  <li><a href="#most-common-genres" id="toc-most-common-genres" class="nav-link" data-scroll-target="#most-common-genres">Most Common Genres</a></li>
+  </ul></li>
+  <li><a href="#recommendations" id="toc-recommendations" class="nav-link" data-scroll-target="#recommendations">Recommendations</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Blog</h1>
-</div>
+<h1 class="title">Analyzing Top 10.000 Most Popular Movies on IMDb</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Project</div>
+    <div class="quarto-category">SQL</div>
+    <div class="quarto-category">R</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    Finding the common characteristics among Top 10.000 movies of all time
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>invictus </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 15, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -238,376 +225,86 @@ window.Quarto = {
 </header>
 
 
-<p>Hello, welcome to my blog. This blog will showcase my learning projects as well as my journey as a data analyst. Feel free to look around.</p>
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<section id="objective" class="level2">
+<h2 class="anchored" data-anchor-id="objective">Objective</h2>
+<p>The goal of this analysis is to find <strong>common characteristics</strong> among the <strong>most popular movies</strong>. These characteristics would be helpful to potential <strong>movie producers</strong> who want to identify trends and patterns that contribute to a film’s success.</p>
+</section>
+<section id="methodology" class="level2">
+<h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
+<section id="data-collection" class="level3">
+<h3 class="anchored" data-anchor-id="data-collection">Data Collection</h3>
+<p>The data was collected from the <a href="https://developer.imdb.com/non-commercial-datasets/">IMDb Non-Commercial Dataset</a>, which is freely available to the public.</p>
+</section>
+<section id="data-cleaning" class="level3">
+<h3 class="anchored" data-anchor-id="data-cleaning">Data Cleaning</h3>
+<p>The dataset is given as a list of <code>.tsv</code> files. To process that, I set up a local SQLite database with appropriate tables and imported the <code>.tsv</code> into them.</p>
+<p>The dataset contains a comprehensive amount of data, with a total of 39 columns that are spread across 7 tables. For this analysis, I selected 2 tables that are most relevant and joined them together: <code>title.basics</code> and <code>title.ratings.</code></p>
+<p>To get the most popular movies, I sorted the movies in descending order based on the number of votes, as it should be positively correlated with the amount of people that watched the movie.</p>
+<p>Finally, I took the top 10.000 rows and exported them into a <code>.csv</code> file.</p>
+<p>The <code>csv</code> file is then loaded into R to check for data quality and for further analysis. The data is already clean. The data reflects what the live site shows, with 0.01% null values, no duplicates, no misspellings, and so on.</p>
+</section>
+<section id="data-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="data-analysis">Data Analysis</h3>
+<p>The analysis is also performed using R in RStudio, with the help of <code>tidyverse</code> libraries such as <code>dplyr</code> and <code>ggplot2.</code> The majority of the analysis is identifying relationships among the number of votes and the potential key variables using statistics and visualization.</p>
+</section>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<section id="most-common-movie-duration" class="level3">
+<h3 class="anchored" data-anchor-id="most-common-movie-duration">Most Common Movie Duration</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The most popular movies have <em>moderate</em> duration, which is <em>80-120 minutes</em>, and very few of them are below 80 minutes. This suggests that most audience prefer movies with <em>long enough</em> duration to build depth, characters, plots, and other aspects; But not <em>too long.</em></p>
+</section>
+<section id="most-common-genre-combinations" class="level3">
+<h3 class="anchored" data-anchor-id="most-common-genre-combinations">Most Common Genre Combinations</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Each movie can have multiple genres. The most popular ones are the one that has Drama, Comedy, and Romance altogether. This suggests that audience prefer movies that are <em>easy to relate</em>.</p>
+</section>
+<section id="most-common-genres" class="level3">
+<h3 class="anchored" data-anchor-id="most-common-genres">Most Common Genres</h3>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>If we count each genre separately, we’ll see that <em>Drama</em> dominated the genre competition across top 10.000 movies. A possible explanation is because it’s one of the most <em>flexible</em> element. It can be applied to any kind of movies, and will relate to anyone across times and cultures.</p>
+</section>
+</section>
+<section id="recommendations" class="level2">
+<h2 class="anchored" data-anchor-id="recommendations">Recommendations</h2>
+<ol type="1">
+<li><p><strong>Aim for a movie duration between 80-120 minutes</strong>: The data shows that 73% of the most popular movies fall within this range. This suggests audiences prefer movies of moderate length.</p></li>
+<li><p><strong>Focus on key genre combinations</strong>: Consider producing movies that combine Comedy, Drama, and Romance, as this was the most common genre combination. Alternatively, pure Drama movies or Comedy-Drama combinations were also highly popular.</p></li>
+<li><p><strong>Prioritize Drama, Comedy, and Action genres</strong>: When considering individual genres, these three were the most common among popular movies. Producers might want to ensure their projects incorporate at least one of these genres.</p></li>
+</ol>
 
 
+</section>
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Project,SQL,R" data-listing-date-sort="1726429860000" data-listing-file-modified-sort="1726407219733" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="882">
-<div class="thumbnail">
-<p><a href="./posts/imdb-top-10000-movies/index.html" class="no-external"></a></p><a href="./posts/imdb-top-10000-movies/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/imdb-top-10000-movies/images/IMDB_Logo_2016.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/imdb-top-10000-movies/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/imdb-top-10000-movies/index.html" class="no-external">Analyzing Top 10.000 Most Popular Movies on IMDb</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/imdb-top-10000-movies/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Project'); return false;">
-Project
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('SQL'); return false;">
-SQL
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/imdb-top-10000-movies/index.html" class="no-external">Finding the common characteristics among Top 10.000 movies of all time</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/imdb-top-10000-movies/index.html" class="no-external">
-<div class="listing-date">
-Sep 15, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="Case Study,R,Tableau" data-listing-date-sort="1724689380000" data-listing-file-modified-sort="1726407219689" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="652">
-<div class="thumbnail">
-<p><a href="./posts/amazon-prime-titles-eda/index.html" class="no-external"></a></p><a href="./posts/amazon-prime-titles-eda/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/amazon-prime-titles-eda/images/primevideo-logo.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/amazon-prime-titles-eda/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/amazon-prime-titles-eda/index.html" class="no-external">EDA on Amazon Prime Movies and TV Shows</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/amazon-prime-titles-eda/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Case Study'); return false;">
-Case Study
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Tableau'); return false;">
-Tableau
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/amazon-prime-titles-eda/index.html" class="no-external">Exploratory Data Analysis on Amazon Prime Titles</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/amazon-prime-titles-eda/index.html" class="no-external">
-<div class="listing-date">
-Aug 26, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="EDA,R" data-listing-date-sort="1723615680000" data-listing-file-modified-sort="1726407219741" data-listing-date-modified-sort="1724153100000" data-listing-reading-time-sort="7" data-listing-word-count-sort="1204">
-<div class="thumbnail">
-<p><a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external"></a></p><a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/islam-growth-worldwide-eda/mosque.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external">EDA on islam religion growth worldwide</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('EDA'); return false;">
-EDA
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external">Exploring World Religion dataset to uncover the growth of Islam in various countries using R</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external">
-<div class="listing-date">
-Aug 14, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="Case Study,R" data-listing-date-sort="1722978000000" data-listing-file-modified-sort="1726407219697" data-listing-date-modified-sort="1723564320000" data-listing-reading-time-sort="10" data-listing-word-count-sort="1869">
-<div class="thumbnail">
-<p><a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external"></a></p><a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/analyzing-manggarai-train-station/images/manggarai-station.webp"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external">Analyzing Busiest Indonesia’s Train Station: Manggarai</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Case Study'); return false;">
-Case Study
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external">See how I collect, clean, and analyze Manggarai’s train station dataset</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external">
-<div class="listing-date">
-Aug 6, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="Case Study,R" data-listing-date-sort="1722416280000" data-listing-file-modified-sort="1726407219713" data-listing-date-modified-sort="1722860460000" data-listing-reading-time-sort="18" data-listing-word-count-sort="3567">
-<div class="thumbnail">
-<p><a href="./posts/drg-missions-dataset/index.html" class="no-external"></a></p><a href="./posts/drg-missions-dataset/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/drg-missions-dataset/images/preview.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/drg-missions-dataset/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/drg-missions-dataset/index.html" class="no-external">Case Study: Deep Rock Galactic Missions Data</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/drg-missions-dataset/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Case Study'); return false;">
-Case Study
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/drg-missions-dataset/index.html" class="no-external">Analyzing Deep Rock Galactic Daily Missions Data Over July 2024</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/drg-missions-dataset/index.html" class="no-external">
-<div class="listing-date">
-Jul 31, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="Fictional Project,R" data-listing-date-sort="1721837100000" data-listing-file-modified-sort="1726407219741" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1527">
-<div class="thumbnail">
-<p><a href="./posts/revou-damc-sales/index.html" class="no-external"></a></p><a href="./posts/revou-damc-sales/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/revou-damc-sales/index_files/figure-html/unnamed-chunk-10-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/revou-damc-sales/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/revou-damc-sales/index.html" class="no-external">Case Study: RevoU DAMC Certification (July 22)</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/revou-damc-sales/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Fictional Project'); return false;">
-Fictional Project
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/revou-damc-sales/index.html" class="no-external">See how I tackle RevoU DAMC’s Certification Case Study using R</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/revou-damc-sales/index.html" class="no-external">
-<div class="listing-date">
-Jul 24, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-categories="Book Walkthrough,R" data-listing-date-sort="1721174400000" data-listing-file-modified-sort="1726407219733" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="880">
-<div class="thumbnail">
-<p><a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external"></a></p><a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/g4ds-getting-started-part-2/index_files/figure-html/unnamed-chunk-4-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external">Working through G4DS: Getting Started - Part 2</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Book Walkthrough'); return false;">
-Book Walkthrough
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external">Follow along while I go through this book for the first time</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external">
-<div class="listing-date">
-Jul 17, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="7" data-listing-date-sort="1721001600000" data-listing-file-modified-sort="1726407219741" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="473">
-<div class="thumbnail">
-<p><a href="./posts/setting-up-web-analytics/index.html" class="no-external"></a></p><a href="./posts/setting-up-web-analytics/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/setting-up-web-analytics/images/Screenshot_20240715_162845.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/setting-up-web-analytics/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/setting-up-web-analytics/index.html" class="no-external">Setting Up Web Analytics</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/setting-up-web-analytics/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/setting-up-web-analytics/index.html" class="no-external">Setting up Google Analytics and Statscounter on this site</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/setting-up-web-analytics/index.html" class="no-external">
-<div class="listing-date">
-Jul 15, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="8" data-categories="Book Walkthrough,R" data-listing-date-sort="1720483200000" data-listing-file-modified-sort="1726407219733" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1673">
-<div class="thumbnail">
-<p><a href="./posts/g4ds-getting-started/index.html" class="no-external"></a></p><a href="./posts/g4ds-getting-started/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/g4ds-getting-started/images/1_screenshot_dataset.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/g4ds-getting-started/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/g4ds-getting-started/index.html" class="no-external">Working through G4DS: Getting Started - Part 1</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/g4ds-getting-started/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Book Walkthrough'); return false;">
-Book Walkthrough
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/g4ds-getting-started/index.html" class="no-external">This is the first post on this series. I will go over the book and give genuine commentary as I follow the tutorial.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/g4ds-getting-started/index.html" class="no-external">
-<div class="listing-date">
-Jul 9, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="9" data-categories="Fictional Project,R" data-listing-date-sort="1720051200000" data-listing-file-modified-sort="1726407219745" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="502">
-<div class="thumbnail">
-<p><a href="./posts/smartpath-customer-data/index.html" class="no-external"></a></p><a href="./posts/smartpath-customer-data/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/smartpath-customer-data/index_files/figure-html/unnamed-chunk-10-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/smartpath-customer-data/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/smartpath-customer-data/index.html" class="no-external">SmartPath - Customer Data</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/smartpath-customer-data/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Fictional Project'); return false;">
-Fictional Project
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/smartpath-customer-data/index.html" class="no-external">Exploring the fictional dataset Customer Data, provided during SmartPath Data Analyst Bootcamp</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/smartpath-customer-data/index.html" class="no-external">
-<div class="listing-date">
-Jul 4, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1172,6 +869,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<script src="https://giscus.app/client.js" data-repo="invictusnavarchus/blog" data-repo-id="R_kgDOMR7VJw" data-category="Blog Comments (Giscus)" data-category-id="DIC_kwDOMR7VJ84CgsU5" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="preferred_color_scheme">
+<input type="hidden" id="giscus-alt-theme" value="preferred_color_scheme">
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">

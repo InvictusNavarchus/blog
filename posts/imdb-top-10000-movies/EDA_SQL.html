@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="invictus">
+<meta name="description" content="Finding the common characteristics among Top 10.000 movies of all time">
 
-<title>Blog</title>
+<title>Analyzing Top 10.000 Most Popular Movies on IMDB – Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,31 +22,63 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,35 +106,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-46H31NF5Y2"></script>
 
 <script type="text/plain" cookie-consent="tracking">
@@ -137,47 +142,15 @@ var sc_security="1325b7f6";
 <script type="text/plain" cookie-consent="tracking">
 src="https://www.statcounter.com/counter/counter.js"
 async></script>
-<noscript></noscript><meta property="og:title" content="Blog">
-<meta property="og:description" content="">
-<meta property="og:image" content="https://blog.navarchus.id/posts/drg-missions-dataset/images/preview.png">
+<noscript></noscript><meta property="og:title" content="Analyzing Top 10.000 Most Popular Movies on IMDB – Blog">
+<meta property="og:description" content="Finding the common characteristics among Top 10.000 movies of all time">
 <meta property="og:site_name" content="Blog">
-<meta property="og:image:height" content="375">
-<meta property="og:image:width" content="600">
 </head><body class="nav-fixed"><div class="statcounter"><a title="Web Analytics
 Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13016686/0/1325b7f6/1/" alt="Web Analytics Made Easy - Statcounter" referrerpolicy="no-referrer-when-downgrade"></a></div>
 <!-- End of Statcounter Code -->
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 
 
 
@@ -187,7 +160,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Blog</span>
     </a>
   </div>
@@ -198,7 +171,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -214,20 +187,41 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(10)</span></div><div class="category" data-category="Book Walkthrough">Book Walkthrough <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Case Study">Case Study <span class="quarto-category-count">(3)</span></div><div class="category" data-category="EDA">EDA <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Fictional Project">Fictional Project <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Project">Project <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(9)</span></div><div class="category" data-category="SQL">SQL <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Tableau">Tableau <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#eda-with-sql" id="toc-eda-with-sql" class="nav-link active" data-scroll-target="#eda-with-sql">EDA with SQL</a>
+  <ul>
+  <li><a href="#exploring-data" id="toc-exploring-data" class="nav-link" data-scroll-target="#exploring-data">Exploring Data</a></li>
+  <li><a href="#extracting-data" id="toc-extracting-data" class="nav-link" data-scroll-target="#extracting-data">Extracting Data</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Blog</h1>
+<h1 class="title">Analyzing Top 10.000 Most Popular Movies on IMDB</h1>
 </div>
 
+<div>
+  <div class="description">
+    Finding the common characteristics among Top 10.000 movies of all time
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>invictus </p>
+          </div>
+  </div>
     
   
     
@@ -238,376 +232,105 @@ window.Quarto = {
 </header>
 
 
-<p>Hello, welcome to my blog. This blog will showcase my learning projects as well as my journey as a data analyst. Feel free to look around.</p>
+<section id="eda-with-sql" class="level1">
+<h1>EDA with SQL</h1>
+<section id="exploring-data" class="level2">
+<h2 class="anchored" data-anchor-id="exploring-data">Exploring Data</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- url title example</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- https://www.imdb.com/title/tt0177484/</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- preview titles</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> title_basics tb </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- count of titles: 9,123,039</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">from</span> title_basics tb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- count of each titleType</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">--| titleType      | count     | percentage |</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">--|---------------|-----------|------------|</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">--| tvEpisode     | 6,967,265 | 76.37%     |</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">--| short         | 832,301   | 9.12%      |</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">--| movie         | 590,707   | 6.47%      |</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">--| video         | 251,682   | 2.76%      |</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">--| tvSeries      | 225,012   | 2.47%      |</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">--| tvMovie       | 127,122   | 1.39%      |</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">--| tvMiniSeries  | 46,600    | 0.51%      |</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">--| tvSpecial     | 41,436    | 0.45%      |</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co">--| videoGame     | 32,570    | 0.36%      |</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co">--| tvShort       | 8,343     | 0.09%      |</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="co">--| tvPilot       | 1         | 0.00%      |</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> titleType,</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">as</span> <span class="fu">count</span>,</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ROUND</span>((<span class="fu">COUNT</span>(<span class="op">*</span>) <span class="op">*</span> <span class="fl">100.0</span> <span class="op">/</span> <span class="dv">9123039</span>), <span class="dv">2</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">as</span> percentage</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> title_basics tb</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> titleType</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="fu">count</span> <span class="kw">DESC</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- count title in title_ratings: 1,470,769</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">from</span> title_ratings tr;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- count of title that has ratings: 1,236,363</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="fu">count</span>(<span class="op">*</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> title_basics tb </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="kw">join</span> title_ratings tr </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">on</span> tb.tconst <span class="op">=</span> tr.tconst;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- find missing titles</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">-- found tt0187178 that redirects to tt0177484 which exists in tb</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">-- found tt0253688, tt0253697 that actually exist with matching rating</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> title_ratings tr </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="kw">left</span> <span class="kw">join</span> title_basics tb </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">on</span> tr.tconst <span class="op">=</span> tb.tconst </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> tb.tconst <span class="kw">is</span> <span class="kw">null</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- movie counts: 590,707</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="fu">count</span>(<span class="op">*</span>) <span class="kw">from</span> title_basics tb </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> titleType <span class="op">=</span> <span class="st">'movie'</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">--newest movies</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> title_basics tb </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> titleType <span class="op">=</span> <span class="st">'movie'</span> <span class="kw">and</span> startYear <span class="op">!=</span> <span class="st">'\N'</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="kw">order</span> <span class="kw">by</span> startYear <span class="kw">desc</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">--oldest movies</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> <span class="kw">from</span> title_basics tb </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> titleType <span class="op">=</span> <span class="st">'movie'</span> <span class="kw">and</span> startYear <span class="op">!=</span> <span class="st">'\N'</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">order</span> <span class="kw">by</span> startYear</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- movie that has ratings: 279,122      </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="fu">count</span>(<span class="op">*</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> title_basics tb </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="kw">join</span> title_ratings tr </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">on</span> tb.tconst <span class="op">=</span> tr.tconst </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> tb.titleType <span class="op">=</span> <span class="st">'movie'</span>;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- check sample size for analysis target:</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">--- Top 10.000 Movies based on Num Votes and Ratings</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">----- Filter release year too?</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">----- based on numVotes</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> title_basics tb </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="kw">inner</span> <span class="kw">join</span> title_ratings tr </span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">on</span> tb.tconst <span class="op">=</span> tr.tconst </span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> titleType <span class="op">=</span> <span class="st">'movie'</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="kw">order</span> <span class="kw">by</span> tr.numVotes <span class="kw">desc</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="kw">limit</span> <span class="dv">10000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">----- sort by numVotes &amp; average must be 6.8 or higher</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> <span class="op">*</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> title_basics tb </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="kw">inner</span> <span class="kw">join</span> title_ratings tr </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">on</span> tb.tconst <span class="op">=</span> tr.tconst </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> titleType <span class="op">=</span> <span class="st">'movie'</span> <span class="kw">and</span> averageRating <span class="op">&gt;=</span> <span class="fl">7.0</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="kw">order</span> <span class="kw">by</span> tr.numVotes <span class="kw">desc</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="kw">limit</span> <span class="dv">10000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="extracting-data" class="level2">
+<h2 class="anchored" data-anchor-id="extracting-data">Extracting Data</h2>
+<div class="sourceCode" id="cb14"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- join title basics with title ratings for finding most popoular movies ordered by number of votes</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">select</span> tb.tconst, primaryTitle, genres, startYear, runtimeMinutes, averageRating, numVotes</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="kw">from</span> title_basics tb </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="kw">inner</span> <span class="kw">join</span> title_ratings tr </span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">on</span> tb.tconst <span class="op">=</span> tr.tconst</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="kw">where</span> titleType <span class="op">=</span> <span class="st">'movie'</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="kw">order</span> <span class="kw">by</span> numVotes <span class="kw">desc</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="kw">limit</span> <span class="dv">10000</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
+</section>
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Project,SQL,R" data-listing-date-sort="1726429860000" data-listing-file-modified-sort="1726407219733" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="882">
-<div class="thumbnail">
-<p><a href="./posts/imdb-top-10000-movies/index.html" class="no-external"></a></p><a href="./posts/imdb-top-10000-movies/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/imdb-top-10000-movies/images/IMDB_Logo_2016.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/imdb-top-10000-movies/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/imdb-top-10000-movies/index.html" class="no-external">Analyzing Top 10.000 Most Popular Movies on IMDb</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/imdb-top-10000-movies/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Project'); return false;">
-Project
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('SQL'); return false;">
-SQL
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/imdb-top-10000-movies/index.html" class="no-external">Finding the common characteristics among Top 10.000 movies of all time</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/imdb-top-10000-movies/index.html" class="no-external">
-<div class="listing-date">
-Sep 15, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="Case Study,R,Tableau" data-listing-date-sort="1724689380000" data-listing-file-modified-sort="1726407219689" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="652">
-<div class="thumbnail">
-<p><a href="./posts/amazon-prime-titles-eda/index.html" class="no-external"></a></p><a href="./posts/amazon-prime-titles-eda/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/amazon-prime-titles-eda/images/primevideo-logo.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/amazon-prime-titles-eda/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/amazon-prime-titles-eda/index.html" class="no-external">EDA on Amazon Prime Movies and TV Shows</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/amazon-prime-titles-eda/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Case Study'); return false;">
-Case Study
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Tableau'); return false;">
-Tableau
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/amazon-prime-titles-eda/index.html" class="no-external">Exploratory Data Analysis on Amazon Prime Titles</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/amazon-prime-titles-eda/index.html" class="no-external">
-<div class="listing-date">
-Aug 26, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="EDA,R" data-listing-date-sort="1723615680000" data-listing-file-modified-sort="1726407219741" data-listing-date-modified-sort="1724153100000" data-listing-reading-time-sort="7" data-listing-word-count-sort="1204">
-<div class="thumbnail">
-<p><a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external"></a></p><a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/islam-growth-worldwide-eda/mosque.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external">EDA on islam religion growth worldwide</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('EDA'); return false;">
-EDA
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external">Exploring World Religion dataset to uncover the growth of Islam in various countries using R</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external">
-<div class="listing-date">
-Aug 14, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="Case Study,R" data-listing-date-sort="1722978000000" data-listing-file-modified-sort="1726407219697" data-listing-date-modified-sort="1723564320000" data-listing-reading-time-sort="10" data-listing-word-count-sort="1869">
-<div class="thumbnail">
-<p><a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external"></a></p><a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/analyzing-manggarai-train-station/images/manggarai-station.webp"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external">Analyzing Busiest Indonesia’s Train Station: Manggarai</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Case Study'); return false;">
-Case Study
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external">See how I collect, clean, and analyze Manggarai’s train station dataset</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external">
-<div class="listing-date">
-Aug 6, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="Case Study,R" data-listing-date-sort="1722416280000" data-listing-file-modified-sort="1726407219713" data-listing-date-modified-sort="1722860460000" data-listing-reading-time-sort="18" data-listing-word-count-sort="3567">
-<div class="thumbnail">
-<p><a href="./posts/drg-missions-dataset/index.html" class="no-external"></a></p><a href="./posts/drg-missions-dataset/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/drg-missions-dataset/images/preview.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/drg-missions-dataset/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/drg-missions-dataset/index.html" class="no-external">Case Study: Deep Rock Galactic Missions Data</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/drg-missions-dataset/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Case Study'); return false;">
-Case Study
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/drg-missions-dataset/index.html" class="no-external">Analyzing Deep Rock Galactic Daily Missions Data Over July 2024</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/drg-missions-dataset/index.html" class="no-external">
-<div class="listing-date">
-Jul 31, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="Fictional Project,R" data-listing-date-sort="1721837100000" data-listing-file-modified-sort="1726407219741" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1527">
-<div class="thumbnail">
-<p><a href="./posts/revou-damc-sales/index.html" class="no-external"></a></p><a href="./posts/revou-damc-sales/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/revou-damc-sales/index_files/figure-html/unnamed-chunk-10-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/revou-damc-sales/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/revou-damc-sales/index.html" class="no-external">Case Study: RevoU DAMC Certification (July 22)</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/revou-damc-sales/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Fictional Project'); return false;">
-Fictional Project
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/revou-damc-sales/index.html" class="no-external">See how I tackle RevoU DAMC’s Certification Case Study using R</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/revou-damc-sales/index.html" class="no-external">
-<div class="listing-date">
-Jul 24, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-categories="Book Walkthrough,R" data-listing-date-sort="1721174400000" data-listing-file-modified-sort="1726407219733" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="880">
-<div class="thumbnail">
-<p><a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external"></a></p><a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/g4ds-getting-started-part-2/index_files/figure-html/unnamed-chunk-4-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external">Working through G4DS: Getting Started - Part 2</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Book Walkthrough'); return false;">
-Book Walkthrough
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external">Follow along while I go through this book for the first time</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external">
-<div class="listing-date">
-Jul 17, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="7" data-listing-date-sort="1721001600000" data-listing-file-modified-sort="1726407219741" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="473">
-<div class="thumbnail">
-<p><a href="./posts/setting-up-web-analytics/index.html" class="no-external"></a></p><a href="./posts/setting-up-web-analytics/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/setting-up-web-analytics/images/Screenshot_20240715_162845.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/setting-up-web-analytics/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/setting-up-web-analytics/index.html" class="no-external">Setting Up Web Analytics</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/setting-up-web-analytics/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/setting-up-web-analytics/index.html" class="no-external">Setting up Google Analytics and Statscounter on this site</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/setting-up-web-analytics/index.html" class="no-external">
-<div class="listing-date">
-Jul 15, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="8" data-categories="Book Walkthrough,R" data-listing-date-sort="1720483200000" data-listing-file-modified-sort="1726407219733" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1673">
-<div class="thumbnail">
-<p><a href="./posts/g4ds-getting-started/index.html" class="no-external"></a></p><a href="./posts/g4ds-getting-started/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/g4ds-getting-started/images/1_screenshot_dataset.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/g4ds-getting-started/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/g4ds-getting-started/index.html" class="no-external">Working through G4DS: Getting Started - Part 1</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/g4ds-getting-started/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Book Walkthrough'); return false;">
-Book Walkthrough
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/g4ds-getting-started/index.html" class="no-external">This is the first post on this series. I will go over the book and give genuine commentary as I follow the tutorial.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/g4ds-getting-started/index.html" class="no-external">
-<div class="listing-date">
-Jul 9, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="9" data-categories="Fictional Project,R" data-listing-date-sort="1720051200000" data-listing-file-modified-sort="1726407219745" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="502">
-<div class="thumbnail">
-<p><a href="./posts/smartpath-customer-data/index.html" class="no-external"></a></p><a href="./posts/smartpath-customer-data/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/smartpath-customer-data/index_files/figure-html/unnamed-chunk-10-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/smartpath-customer-data/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/smartpath-customer-data/index.html" class="no-external">SmartPath - Customer Data</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/smartpath-customer-data/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Fictional Project'); return false;">
-Fictional Project
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/smartpath-customer-data/index.html" class="no-external">Exploring the fictional dataset Customer Data, provided during SmartPath Data Analyst Bootcamp</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/smartpath-customer-data/index.html" class="no-external">
-<div class="listing-date">
-Jul 4, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1172,6 +895,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<script src="https://giscus.app/client.js" data-repo="invictusnavarchus/blog" data-repo-id="R_kgDOMR7VJw" data-category="Blog Comments (Giscus)" data-category-id="DIC_kwDOMR7VJ84CgsU5" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="preferred_color_scheme">
+<input type="hidden" id="giscus-alt-theme" value="preferred_color_scheme">
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
