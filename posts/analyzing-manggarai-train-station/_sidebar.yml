@@ -1,0 +1,8 @@
+id: analyzing-manggarai-train-station
+contents:
+  - text: "Executive Summary"
+    href: posts/analyzing-manggarai-train-station/index.qmd
+  - section: 'Source Code'
+    contents:
+    - text: "Exploratory Data Analysis (EDA) with R"
+      href: posts/analyzing-manggarai-train-station/EDA_R.qmd
