@@ -19,15 +19,15 @@ Manggarai is the largest train station in Indonesia, a hub for trains from all r
 
 ### Data Collection
 
-The data is collected by querying the API behind the train company official website, [KAI Commuter](https://commuterline.id/perjalanan-krl/jadwal-kereta), using Python.
+The data was collected by querying the API behind the train company official website, [KAI Commuter](https://commuterline.id/perjalanan-krl/jadwal-kereta), using Python.
 
 ### Data Processing
 
-The data is converted into a rectangular format, a csv file, using R. The column names are translated into English and further renamed for clarity.
+The data was transformed into a rectangular format and saved as a CSV file using R.. The column names are translated into English for accessibility and further renamed for clarity.
 
 ### Data Analysis
 
-The analysis is performed using R to produce statistical calculations and create visualizations.
+The analysis was conducted using R to perform statistical calculations and create visualizations.
 
 ## Key Insights
 
@@ -39,10 +39,10 @@ There are significantly more trains at around 06:00 - 08:00 in the morning and 1
 
 ## Recommended Actions for Passengers
 
-1.  If you prefer convenience and want to avoid rush hours, it's best to avoid coming to the station at 06:00 - 08:00 in the morning
-2.  Conversely, if you don't mind the crowd and don't want to wait long for a train to arrive, it's best to come during rush hours.
+1.  If you prefer convenience and want to avoid rush hours, it's best to avoid the station between 06:00 - 08:00 in the morning and 16:00 - 17:00 in the afternoon.
+2.  Conversely, if you don't mind the crowd and don't want to wait long for a train to arrive, it's best to come these rush hours.
 
 ## Caveats and Limitations
 
-1.  The rush hours are inferred from the amount of trains that arrive, which may not accurately represent the situation. Nevertheless, I believe the reasoning is solid enough because the most viable reasons why there are more trains are due to there are many amount of people.
-2.  The recommended actions assume that people go to Manggarai station directly. However, most people come to Manggarai through other train stations, which mean they have less control on when they arrive to Manggarai. Fortunately, due to how train speed is usually consistent, people can easily predict their arrival time to Manggarai based on the departure time for their nearest stations.
+1.  The rush hours are inferred from the amount of trains that arrive, which may not accurately represent the situation. However, the reasoning is solid because the increased number of trains likely corresponds to higher passenger volumes.
+2.  The recommended actions assume that people go to Manggarai station directly. However, most people come to Manggarai through other train stations, which mean they have less control over their arrival time. Fortunately, due to the generally consistent train speeds, people can predict their arrival time at Manggarai based on the departure time from their nearest stations.
