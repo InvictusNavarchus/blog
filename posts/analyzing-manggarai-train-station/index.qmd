@@ -35,7 +35,7 @@ The analysis was conducted using R to perform statistical calculations and creat
 
 There are significantly more trains at around 06:00 - 08:00 in the morning and 16:00-17:00 in the afternoon, than in other times, indicating rush hours
 
-![](images/clipboard-3595990669.png)
+![](images/key-insight-1.png)
 
 ## Recommended Actions for Passengers
 
