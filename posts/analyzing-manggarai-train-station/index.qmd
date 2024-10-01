@@ -1,0 +1,48 @@
+---
+title: Analyzing Manggarai Train Schedule
+description: Finding the most optimal time for passengers to commute
+execute:
+  echo: false
+image: images/manggarai-station.webp
+categories: [Project, Python, R]
+date: 2024-10-01T:09:54:00
+draft: false
+---
+
+# Executive Summary
+
+## Background and Objective
+
+Manggarai is the largest train station in Indonesia, a hub for trains from all routes to transit in. This project aims to find the most optimal time for train passengers to go to the station.
+
+## Methodology
+
+### Data Collection
+
+The data is collected by querying the API behind the train company official website, [KAI Commuter](https://commuterline.id/perjalanan-krl/jadwal-kereta), using Python.
+
+### Data Processing
+
+The data is converted into a rectangular format, a csv file, using R. The column names are translated into English and further renamed for clarity.
+
+### Data Analysis
+
+The analysis is performed using R to produce statistical calculations and create visualizations.
+
+## Key Insights
+
+### Rush hours
+
+There are significantly more trains at around 06:00 - 08:00 in the morning and 16:00-17:00 in the afternoon, than in other times, indicating rush hours
+
+![](images/clipboard-3595990669.png)
+
+## Recommended Actions for Passengers
+
+1.  If you prefer convenience and want to avoid rush hours, it's best to avoid coming to the station at 06:00 - 08:00 in the morning
+2.  Conversely, if you don't mind the crowd and don't want to wait long for a train to arrive, it's best to come during rush hours.
+
+## Caveats and Limitations
+
+1.  The rush hours are inferred from the amount of trains that arrive, which may not accurately represent the situation. Nevertheless, I believe the reasoning is solid enough because the most viable reasons why there are more trains are due to there are many amount of people.
+2.  The recommended actions assume that people go to Manggarai station directly. However, most people come to Manggarai through other train stations, which mean they have less control on when they arrive to Manggarai. Fortunately, due to how train speed is usually consistent, people can easily predict their arrival time to Manggarai based on the departure time for their nearest stations.
