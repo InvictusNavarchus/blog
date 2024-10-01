@@ -2,9 +2,9 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/amazon-prime-titles-eda/index.html",
       "/posts/analyzing-manggarai-train-station/index.html",
       "/posts/imdb-top-10000-movies/index.html",
+      "/posts/amazon-prime-titles-eda/index.html",
       "/posts/islam-growth-worldwide-eda/index.html",
       "/posts/drg-missions-dataset/index.html",
       "/posts/revou-damc-sales/index.html",
