@@ -1,5 +1,5 @@
 ---
-title: Analyzing Manggarai Train Schedule
+title: Analyzing Indonesia's Busiest Train Station: Manggarai
 description: Finding the most optimal time for passengers to commute
 execute:
   echo: false

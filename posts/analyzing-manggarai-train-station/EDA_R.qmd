@@ -1,5 +1,5 @@
 ---
-title: "Analyzing Busiest Indonesia's Train Station: Manggarai"
+title: "Analyzing Indonesia's Busiest Train Station: Manggarai"
 description: See how I collect, clean, and analyze Manggarai's train station dataset
 date: 2024-08-06:21:00:00
 date-modified: 2024-08-13:15:52:00
