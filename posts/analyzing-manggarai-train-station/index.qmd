@@ -5,7 +5,7 @@ execute:
   echo: false
 image: images/manggarai-station.webp
 categories: [Project, Python, R]
-date: 2024-10-01T:09:54:00
+date: 2024-10-01:09:54:00
 draft: false
 ---
 
