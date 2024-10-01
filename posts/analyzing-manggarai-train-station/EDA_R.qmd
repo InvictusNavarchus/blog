@@ -7,15 +7,15 @@ categories: [Case Study, R]
 draft: false
 ---
 
+# EDA with R
+
 ## Introduction
 
 ![](images/manggarai-station.webp)
 
 in Indonesia, especially in Jakarta, train stations are popular methods for transportation. Out of over 50 train stations, the busiest among them is Manggarai, which also act as the main hub for trains from all different routes. If you're an Indonesian, you know how busy it is during the morning.
 
-Here is the map of the train route from all stations.
-![](images/rute-krl-01.png)
-You can see that Manggarai lies at the center of the map, being the hub of all major routes. 
+Here is the map of the train route from all stations. ![](images/rute-krl-01.png) You can see that Manggarai lies at the center of the map, being the hub of all major routes.
 
 With a full day schedule from 00:00 to 23:00, let's uncover what interesting insight we could find.
 
