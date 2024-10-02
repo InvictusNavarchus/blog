@@ -1,3 +1,5 @@
+## Setup
+
 ```{r}
 library(tidyverse)
 library(janitor)
@@ -24,24 +26,97 @@ df_student_gen_24 <- read_csv('student_list_generation_24.csv')
 
 ## Inspect Data
 
+```{r}
+df_student_gen_23
+```
+```{r}
+df_student_gen_23 |> 
+  glimpse()
+```
+
+```{r}
+df_student_gen_24
+```
+```{r}
+df_student_gen_24 |> 
+  glimpse()
+```
+
+
 ### Understand Data
 
 ```{r}
-df
+
 ```
 
 ### Check Data Quality
 
+#### Duplicate
+
+```{r}
+df_student_gen_23 |> 
+  get_dupes(Nama, NPM)
+```
+```{r}
+df_student_gen_24 |> 
+  get_dupes(Nama, NPM)
+```
 #### Missing Data
 
 ```{r}
-df |> 
+df_student_gen_23 |> 
+  vis_miss()
+```
+
+```{r}
+df_student_gen_24 |> 
   vis_miss()
 ```
 
 #### Inconsistency
 
+```{r}
+df_student_gen_23
+```
+
+###### Class
+
+```{r}
+df_student_gen_23 |> 
+  mutate(class_length = str_length(`Kelas Baru`)) |> 
+  count(class_length)
+```
+
+
+```{r}
+df_student_gen_24 |> 
+    mutate(class_length = str_length(Kelas)) |> 
+    count(class_length)
+```
+
+```{r}
+df_student_gen_24 |> 
+  distinct(Keterangan)
+```
+
+
+```{r}
+df_student_gen_24 |> 
+  mutate(Keterangan_split = str_split(Keterangan, '-| ')) |> 
+  mutate(Keterangan_length = map_int(Keterangan_split, length)) |> 
+  count(Keterangan_length)
+```
+
 #### Inaccuracy
+
+### Data Quality Summary
+
+1. 4 Duplicate Rows
+2. No Missing Values
+3. Most classes follow 5 letter pattern, in addition to several special classes that vary
+4. Most class description follow a consistent pattern, in addition to several special classes
+
+Further Action: dedicated page for cleaning the data
 
 ## Analyze Data
 
