@@ -1,0 +1,49 @@
+```{r}
+library(tidyverse)
+library(janitor)
+library(naniar)
+library(scales)
+library(summarytools)
+library(DataExplorer)
+library(explore)
+library(corrr)
+```
+
+### Options
+
+```{r}
+options(scipen = 999)
+```
+
+### Load Data
+
+```{r}
+df_student_gen_23 <- read_csv('student_list_generation_23.csv')
+df_student_gen_24 <- read_csv('student_list_generation_24.csv')
+```
+
+## Inspect Data
+
+### Understand Data
+
+```{r}
+df
+```
+
+### Check Data Quality
+
+#### Missing Data
+
+```{r}
+df |> 
+  vis_miss()
+```
+
+#### Inconsistency
+
+#### Inaccuracy
+
+## Analyze Data
+
+### Correlation
+
