@@ -1,0 +1,21 @@
+# Clean Data
+
+## Setup
+
+### Library
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(naniar)
+library(scales)
+library(summarytools)
+library(DataExplorer)
+library(corrr)
+```
+
+### Options
+
+```{r}
+options(scipen = 999)
+```
