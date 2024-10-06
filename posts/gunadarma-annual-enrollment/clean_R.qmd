@@ -238,4 +238,18 @@ df_student_gen_23_add_major <- df_student_gen_23_split_classcode |>
 ```
 
 
+### Add generation_year column to both dataset
+
+```{r}
+df_student_gen_23_add_gen_year <- df_student_gen_23_add_major |> 
+  mutate(generation_year = 2023)
+```
+
+```{r}
+df_student_gen_24_parse_sarmag_add_gen_year <-  df_student_gen_24_parse_sarmag_add_branch |> 
+  mutate(generation_year = 2024)
+```
+
+
+
 
