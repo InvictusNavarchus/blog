@@ -164,5 +164,27 @@ df_student_gen_24_sarmag |>
   write_csv('sarmag.csv')
 ```
 
+### Parse SarMag Special Info
+
+```{r}
+df_student_gen_24_parse_sarmag <- df_student_gen_24_split_info |> separate_wider_regex(
+    additional_info,
+    patterns = c(
+      "SarMag S1 ",
+      major_s1 = "[^-]+",
+      " - S2 ",
+      major_s2 = ".+"
+    ),
+    too_few = 'align_start',
+    cols_remove = FALSE
+  )
+```
+
+### Merge major into major_s1
+
+```{r}
+df_student_gen_24_parse_sarmag |> 
+   mutate(major_s1 = if_else(is.na(major_s1) | major_s1 == "NA", major, major_s1))
+```
 
 
