@@ -194,6 +194,16 @@ df_student_gen_24_parse_sarmag_fixed_typo <- df_student_gen_24_parse_sarmag |>
   mutate(major = if_else(major == 'SistemInformasi', 'Sistem Informasi', major))
 ```
 
+#### add SarMag Branch
+
+```{r}
+df_student_gen_24_parse_sarmag_add_branch <- df_student_gen_24_parse_sarmag_fixed_typo |> 
+  mutate(branch = if_else(str_detect(degree, 'SarMag'), 'Jakarta', branch))
+```
+
+
+
+
 
 
 
