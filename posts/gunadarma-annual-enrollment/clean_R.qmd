@@ -201,6 +201,29 @@ df_student_gen_24_parse_sarmag_add_branch <- df_student_gen_24_parse_sarmag_fixe
   mutate(branch = if_else(str_detect(degree, 'SarMag'), 'Jakarta', branch))
 ```
 
+## Combine Dataset
+
+### Review Gen 23 Dataset
+
+```{r}
+df_student_gen_23_split_classcode
+```
+
+### Extract Major Codes from Gen 24 Dataset 
+
+```{r}
+df_major_code <- df_student_gen_24_parse_sarmag_add_branch |> 
+  distinct(major_code, major) |>
+  drop_na()
+```
+
+#### Check Duplicates
+
+```{r}
+df_major_code |> 
+  get_dupes(major_code)
+```
+
 
 
 
