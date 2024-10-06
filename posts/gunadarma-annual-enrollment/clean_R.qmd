@@ -180,7 +180,7 @@ df_student_gen_24_parse_sarmag <- df_student_gen_24_split_info |> separate_wider
   )
 ```
 
-### Merge major into major_s1
+#### Merge major into major_s1
 
 ```{r}
 df_student_gen_24_parse_sarmag <- df_student_gen_24_parse_sarmag |> 
