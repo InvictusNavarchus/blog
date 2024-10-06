@@ -63,7 +63,7 @@ df_student_gen_23_renamed <- df_student_gen_23_relevant_columns |>
 ### Split Class Code
 
 ```{r}
-df_student_gen_23_renamed |> 
+df_student_gen_23_split_classcode <- df_student_gen_23_renamed |> 
   separate_wider_regex(class_code,
                        patterns =  c(year_code = '\\d+', major_code = '[A-Z]+', class_number= '\\d+'),
                        too_few = 'align_start',
