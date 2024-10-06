@@ -69,3 +69,36 @@ df_student_gen_23_renamed |>
                        too_few = 'align_start',
                        cols_remove = FALSE)
 ```
+
+## Student Gen 24
+
+```{r}
+df_student_gen_24 <- read_csv('student_list_generation_24.csv')
+```
+```{r}
+df_student_gen_24
+```
+### Check Duplicates
+
+```{r}
+df_student_gen_24 |> 
+  get_dupes(NPM)
+```
+### Remove Irrelevant Columns
+
+```{r}
+df_student_gen_24_relevant_columns <- df_student_gen_24 |> 
+  select(NPM, Kelas, Keterangan)
+```
+
+### Rename Columns
+
+```{r}
+df_student_gen_24_renamed <- df_student_gen_24_relevant_columns |> 
+  rename(student_id = NPM, class_code = Kelas, additional_info = Keterangan)
+```
+
+```{r}
+df_student_gen_24_renamed
+```
+
