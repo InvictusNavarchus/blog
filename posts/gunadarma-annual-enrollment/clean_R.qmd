@@ -147,6 +147,22 @@ df_student_gen_24_split_info <-  df_student_gen_24_split_class |>
   )
 ```
 
+### Investigate SarMag
+
+```{r}
+df_student_gen_24_split_info
+```
+
+```{r}
+df_student_gen_24_sarmag <- df_student_gen_24_split_info |> 
+  filter(degree == 'SarMag S1')
+```
+
+```{r}
+df_student_gen_24_sarmag |> 
+  select(degree:additional_info) |> 
+  write_csv('sarmag.csv')
+```
 
 
 
