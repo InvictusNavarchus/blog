@@ -122,3 +122,31 @@ df_student_gen_24_split_class |>
   filter(is.na(year_code))
 ```
 
+### Split Additional Info
+
+```{r}
+df_student_gen_24_split_class |> 
+  select(additional_info) |> 
+  write_csv('additional_info.csv')
+```
+
+```{r}
+df_student_gen_24_split_info <-  df_student_gen_24_split_class |> 
+  separate_wider_regex(additional_info,
+      patterns = c(
+          degree = "(?:S1|D3|SarMag S1)",
+          "(?:\\s?-?\\s?)",
+          major = "(?:.+?)(?=\\s+(?:Pagi|Sore|Malam))",
+          "(?:\\s+)",
+          shift = "(?:Pagi|Sore|Malam)",
+          "(?:\\s+)",
+          branch = "(?:.+)"
+      ),
+      too_few = 'align_start',
+      cols_remove = FALSE
+  )
+```
+
+
+
+
