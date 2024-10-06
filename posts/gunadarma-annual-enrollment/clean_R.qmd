@@ -19,3 +19,53 @@ library(corrr)
 ```{r}
 options(scipen = 999)
 ```
+
+## Student Gen 23
+
+```{r}
+df_student_gen_23 <- read_csv('student_list_generation_23.csv')
+```
+
+### Remove Duplicates
+
+```{r}
+df_student_gen_23 |> 
+  get_dupes(NPM, Nama)
+```
+
+```{r}
+df_student_gen_23_unique <- df_student_gen_23 |> 
+  distinct(NPM, Nama, .keep_all = TRUE)
+```
+
+```{r}
+df_student_gen_23_unique
+```
+
+### Remove Irrelevant Columns
+
+```{r}
+df_student_gen_23_relevant_columns <- df_student_gen_23_unique |> 
+  select(NPM, `Kelas Baru`)
+```
+
+```{r}
+df_student_gen_23_relevant_columns
+```
+
+### Rename Columns
+
+```{r}
+df_student_gen_23_renamed <- df_student_gen_23_relevant_columns |> 
+  rename(student_id = NPM, class_code = `Kelas Baru`)
+```
+
+### Split Class Code
+
+```{r}
+df_student_gen_23_renamed |> 
+  separate_wider_regex(class_code,
+                       patterns =  c(year_code = '\\d+', major_code = '[A-Z]+', class_number= '\\d+'),
+                       too_few = 'align_start',
+                       cols_remove = FALSE)
+```
