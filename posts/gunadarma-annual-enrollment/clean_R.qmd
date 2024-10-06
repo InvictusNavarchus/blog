@@ -191,7 +191,8 @@ df_student_gen_24_parse_sarmag <- df_student_gen_24_parse_sarmag |>
 
 ```{r}
 df_student_gen_24_parse_sarmag_fixed_typo <- df_student_gen_24_parse_sarmag |> 
-  mutate(major = if_else(major == 'SistemInformasi', 'Sistem Informasi', major))
+  mutate(major = if_else(major == 'SistemInformasi', 'Sistem Informasi', major)) |> 
+  mutate(major = if_else(major == "Arsitektur", "Teknik Arsitektur", major))
 ```
 
 #### add SarMag Branch
