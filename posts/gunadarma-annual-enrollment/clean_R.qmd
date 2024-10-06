@@ -233,10 +233,9 @@ df_major_code |>
 ### Integrate Major Code Dataset to Gen 24 Dataset
 
 ```{r}
-df_student_gen_23_split_classcode |> 
+df_student_gen_23_add_major <- df_student_gen_23_split_classcode |> 
   left_join(df_major_code, by = 'major_code')
 ```
-
 
 
 
