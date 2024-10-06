@@ -187,6 +187,15 @@ df_student_gen_24_parse_sarmag <- df_student_gen_24_parse_sarmag |>
    mutate(major = if_else(is.na(major), major_s1, major))
 ```
 
+#### Fix Typo
+
+```{r}
+df_student_gen_24_parse_sarmag_fixed_typo <- df_student_gen_24_parse_sarmag |> 
+  mutate(major = if_else(major == 'SistemInformasi', 'Sistem Informasi', major))
+```
+
+
+
 
 
 
