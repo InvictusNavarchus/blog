@@ -184,7 +184,7 @@ df_student_gen_24_parse_sarmag <- df_student_gen_24_split_info |> separate_wider
 
 ```{r}
 df_student_gen_24_parse_sarmag |> 
-   mutate(major_s1 = if_else(is.na(major_s1) | major_s1 == "NA", major, major_s1))
+   mutate(major = if_else(is.na(major), major_s1, major))
 ```
 
 
