@@ -218,6 +218,11 @@ df_major_code <- df_student_gen_24_parse_sarmag_add_branch |>
   drop_na()
 ```
 
+```{r}
+df_major_code
+```
+
+
 #### Check Duplicates
 
 ```{r}
@@ -225,10 +230,12 @@ df_major_code |>
   get_dupes(major_code)
 ```
 
+### Integrate Major Code Dataset to Gen 24 Dataset
 
-
-
-
+```{r}
+df_student_gen_23_split_classcode |> 
+  left_join(df_major_code, by = 'major_code')
+```
 
 
 
