@@ -102,3 +102,23 @@ df_student_gen_24_renamed <- df_student_gen_24_relevant_columns |>
 df_student_gen_24_renamed
 ```
 
+### Split Class Code
+
+```{r}
+df_student_gen_24_split_class <-  df_student_gen_24_renamed |> 
+  separate_wider_regex(class_code,
+                       patterns = c(year_code = '\\d+',
+                                    major_code = '[A-Z]+',
+                                    class_number = '\\d+'),
+                       too_few = 'align_start',
+                       cols_remove = FALSE)
+```
+
+#### Check Invalid Class Code
+
+```{r}
+df_student_gen_24_split_class |> 
+  select(year_code, class_code) |> 
+  filter(is.na(year_code))
+```
+
