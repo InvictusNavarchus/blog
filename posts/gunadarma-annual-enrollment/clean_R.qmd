@@ -262,3 +262,21 @@ df_combined_dataset |>
   glimpse()
 ```
 
+### Final Cleanup
+
+#### Remove unnecessary columns
+
+```{r}
+df_combined_dataset_removed_columns <- df_combined_dataset |> 
+  select(-(major_s1:additional_info))
+```
+
+#### Slight Degree Value Change
+
+```{r}
+df_combined_dataset_change_degree <- df_combined_dataset_removed_columns |> 
+  mutate(degree = if_else(degree == "SarMag S1", "SarMag", degree))
+```
+
+
+
