@@ -287,3 +287,11 @@ df_combined_dataset_fix_unknown_major <- df_combined_dataset_change_degree |>
   ))
 ```
 
+## Export Cleaned Data
+
+```{r}
+df_combined_dataset_fix_unknown_major |> 
+  write_csv('combined_cleaned_dataset.csv')
+```
+
+
