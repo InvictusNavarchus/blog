@@ -129,4 +129,40 @@ df_combined_cleaned <- read_csv('combined_cleaned_dataset.csv')
 
 ## Analyze Data
 
+```{r}
+df_combined_cleaned |> 
+  filter(is.na(major))
+```
+
+### Major Enrollment by Generation Year
+
+```{r}
+df_major_enrollment <-  df_combined_cleaned |> 
+  count(major, generation_year) |>
+  pivot_wider(names_from = generation_year, values_from = n) |> 
+  mutate(change = `2024` - `2023`)
+```
+
+```{r}
+df_major_enrollment |> 
+  arrange(desc(change))
+```
+```{r}
+df_major_enrollment <- df_major_enrollment |> 
+  mutate(major = as.factor(major)) |> 
+  mutate(major = fct_reorder(major, `2024`))
+
+df_major_enrollment |> 
+  ggplot() + 
+  geom_col(aes(`2024`, major, fill = 'red')) +
+  geom_col(aes(`2023`, major))
+```
+
+```{r}
+df_major_enrollment |> 
+  ggplot(aes(change, fct_reorder(major, change))) +
+  geom_col()
+```
+
+
 ### Correlation
