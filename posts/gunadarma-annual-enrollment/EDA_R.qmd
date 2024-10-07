@@ -155,13 +155,23 @@ df_major_enrollment <- df_major_enrollment |>
 df_major_enrollment |> 
   ggplot() + 
   geom_col(aes(`2024`, major, fill = 'red')) +
-  geom_col(aes(`2023`, major))
+  geom_col(aes(`2023`, major)) +
+  labs(title = 'Comparing Gunadarma Enrollment Rate from 2023 to 2024',
+       x = 'Total Students')
 ```
 
 ```{r}
 df_major_enrollment |> 
   ggplot(aes(change, fct_reorder(major, change))) +
-  geom_col()
+  geom_col() +
+  labs(
+    title = 'Total Student Difference from 2023 to 2024'
+    ,x = 'Student Difference',
+    y = 'Major'
+    )
+```
+```{r}
+ggsave('annual_enrollment.png')
 ```
 
 
