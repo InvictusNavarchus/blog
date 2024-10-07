@@ -119,6 +119,14 @@ df_student_gen_24 |>
 
 Further Action: dedicated page for cleaning the data
 
+## Clean Data
+
+The data is cleaned on ![Clean R](clean_R.html)
+
+```{r}
+df_combined_cleaned <- read_csv('combined_cleaned_dataset.csv')
+```
+
 ## Analyze Data
 
 ### Correlation
