@@ -280,7 +280,10 @@ df_combined_dataset_change_degree <- df_combined_dataset_removed_columns |>
 
 ```{r}
 df_combined_dataset_fix_unknown_major <- df_combined_dataset_change_degree |>
-  mutate(major = if_else(major_code == 'HD', 'Profesi Kedokteran', major)) |>
-  mutate(major = if_else(major_code == 'HE', 'Profesi Bidan', major))
+  mutate(major = case_when(
+    major_code == 'HD' ~ 'Profesi Kedokteran',
+    major_code == 'HE' ~ 'Profesi Bidan',
+    TRUE ~ major  # This will keep the original value for all other cases, including NA
+  ))
 ```
 
