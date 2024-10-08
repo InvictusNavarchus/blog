@@ -63,4 +63,16 @@ Link:
 
 ## Results
 
+### Top Three Majors with Largest Increase
+
+![](images/clipboard-771025618.png)
+
+![](images/clipboard-2742344892.png)
+
+1.  Management major has the most improvement over other majors, having nearly 200 more students compared to other majors, with Communication and Accountant follow closely behind.
+2.  Meanwhile, Computer Science has the most decrease over other majors, having over 100 less students.
+
 ## Recommendations
+
+1.  Further research should be conducted to explore the factors affecting the rise of management major, and factors affecting the reduce in computer science.
+2.  Students and Lecturers are great source of information. Including them in further research such as giving surveys and conducting interviews would be a great way to aid analysis.
