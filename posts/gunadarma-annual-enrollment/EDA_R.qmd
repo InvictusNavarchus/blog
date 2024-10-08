@@ -1,0 +1,182 @@
+## Setup
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(naniar)
+library(scales)
+library(summarytools)
+library(DataExplorer)
+library(explore)
+library(corrr)
+```
+
+### Options
+
+```{r}
+options(scipen = 999)
+```
+
+### Load Data
+
+```{r}
+df_student_gen_23 <- read_csv('student_list_generation_23.csv')
+df_student_gen_24 <- read_csv('student_list_generation_24.csv')
+```
+
+## Inspect Data
+
+```{r}
+df_student_gen_23
+```
+
+```{r}
+df_student_gen_23 |> 
+  glimpse()
+```
+
+```{r}
+df_student_gen_24
+```
+
+```{r}
+df_student_gen_24 |> 
+  glimpse()
+```
+
+### Understand Data
+
+```{r}
+
+```
+
+### Check Data Quality
+
+#### Duplicate
+
+```{r}
+df_student_gen_23 |> 
+  get_dupes(Nama, NPM)
+```
+
+```{r}
+df_student_gen_24 |> 
+  get_dupes(Nama, NPM)
+```
+
+#### Missing Data
+
+```{r}
+df_student_gen_23 |> 
+  vis_miss()
+```
+
+```{r}
+df_student_gen_24 |> 
+  vis_miss()
+```
+
+#### Inconsistency
+
+```{r}
+df_student_gen_23
+```
+
+###### Class
+
+```{r}
+df_student_gen_23 |> 
+  mutate(class_length = str_length(`Kelas Baru`)) |> 
+  count(class_length)
+```
+
+```{r}
+df_student_gen_24 |> 
+    mutate(class_length = str_length(Kelas)) |> 
+    count(class_length)
+```
+
+```{r}
+df_student_gen_24 |> 
+  distinct(Keterangan)
+```
+
+```{r}
+df_student_gen_24 |> 
+  mutate(Keterangan_split = str_split(Keterangan, '-| ')) |> 
+  mutate(Keterangan_length = map_int(Keterangan_split, length)) |> 
+  count(Keterangan_length)
+```
+
+#### Inaccuracy
+
+### Data Quality Summary
+
+1.  4 Duplicate Rows
+2.  No Missing Values
+3.  Most classes follow 5 letter pattern, in addition to several special classes that vary
+4.  Most class description follow a consistent pattern, in addition to several special classes
+
+Further Action: dedicated page for cleaning the data
+
+## Clean Data
+
+The data is cleaned on ![Clean R](clean_R.html)
+
+```{r}
+df_combined_cleaned <- read_csv('combined_cleaned_dataset.csv')
+```
+
+## Analyze Data
+
+```{r}
+df_combined_cleaned |> 
+  filter(is.na(major))
+```
+
+### Major Enrollment by Generation Year
+
+```{r}
+df_major_enrollment <-  df_combined_cleaned |> 
+  count(major, generation_year) |>
+  pivot_wider(names_from = generation_year, values_from = n) |> 
+  mutate(change = `2024` - `2023`)
+```
+
+```{r}
+df_major_enrollment |> 
+  arrange(desc(change))
+```
+```{r}
+df_major_enrollment <- df_major_enrollment |> 
+  mutate(major = as.factor(major)) |> 
+  mutate(major = fct_reorder(major, `2024`))
+
+df_major_enrollment |> 
+  ggplot() + 
+  geom_col(aes(x = `2024`, y = major, fill = "2024")) +
+  geom_col(aes(x = `2023`, y = major, fill = "2023")) +
+  scale_fill_manual(name = "Year",
+                    values = c("2024" = "lightblue", "2023" = "#4d4d4d")) +
+  labs(title = "Comparing Gunadarma Enrollment Rate from 2023 to 2024",
+       x = "Total Students",
+       y = "Major")
+
+```
+
+```{r}
+df_major_enrollment |> 
+  ggplot(aes(change, fct_reorder(major, change))) +
+  geom_col() +
+  labs(
+    title = 'Total Student Difference from 2023 to 2024'
+    ,x = 'Student Difference',
+    y = 'Major'
+    )
+```
+```{r}
+ggsave('annual_enrollment_2.png')
+```
+
+
+### Correlation
