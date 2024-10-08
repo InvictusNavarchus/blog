@@ -45,7 +45,7 @@ Tools used: `Python`
 
 ### Data Cleaning
 
-The Freshmen and Sophomores' data have slightly different columns, but not tidy enough for data analysis. Therefore, cleaning efforts were made to extrapolate information from existing columns such as `major`, `branch` , and `generation_year`. Complete report on data cleaning can be found [here](cleaning_R.html)
+The Freshmen and Sophomores' data have slightly different columns, but not tidy enough for data analysis. Therefore, cleaning efforts were made to extrapolate information from existing columns such as `major`, `branch` , and `generation_year`. Complete report on data cleaning can be found [here](clean_R.html)
 
 Tools used: `R`
 
