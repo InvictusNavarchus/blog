@@ -13,13 +13,53 @@ draft: true
 
 ## Background and Objective
 
+Gunadarma University is one of the largest private University in Indonesia, having over 40.000 active students annually across 5 major cities. This project aims to analyze enrollment performance by comparing this year (2024) to last year (2023) enrollment data.
+
 ## Methodology
 
 ### Data Collection
 
+The data is collected by scraping student's class assignment information from Gunadarma's official website, [https://baak.gunadarma.ac.id/](https://baak.gunadarma.ac.id/#). The freshmen data were obtained by from <https://baak.gunadarma.ac.id/cariMhsBaru/>, while the sophomores were obtained from <https://baak.gunadarma.ac.id/cariKelasBaru/>. The scraping is performed by querying each letter from A-Z as the name initials.
+
+Tools used: `Python`
+
+### Dataset Sample
+
+#### Freshmen
+
+|        |              |             |          |           |                                               |
+|------------|------------|------------|------------|------------|------------|
+| **No** | **No Pend.** | **Nama**    | **NPM**  | **Kelas** | **Keterangan**                                |
+| 1      | I241962      | XXX XXX XXX | 10824001 | 1MA01     | S1-Ilmu Komunikasi Pagi Depok                 |
+| 2      | I244822      | XXX XXX XXX | 20624001 | 1SB01     | S1-Pariwisata Pagi Depok                      |
+| 3      | I243593      | XXX XXX XXX | 20224001 | 1EB19     | SarMag S1 Akuntansi - S2 Manajemen Sistem Inf |
+
+#### Sophomores
+
+|        |          |             |                |                |
+|--------|----------|-------------|----------------|----------------|
+| **No** | **NPM**  | **Nama**    | **Kelas Lama** | **Kelas Baru** |
+| 1      | 60223026 | XXX XXX XXX | 1EC01          | 2EC01          |
+| 2      | 10123014 | XXX XXX XXX | 1KA01          | 2KA10          |
+| 3      | 10223027 | XXX XXX XXX | 1EA01          | 2EA04          |
+
 ### Data Cleaning
 
+The Freshmen and Sophomores' data have slightly different columns, but not tidy enough for data analysis. Therefore, cleaning efforts were made to extrapolate information from existing columns such as `major`, `branch` , and `generation_year`. Complete report on data cleaning can be found [here](cleaning_R.html)
+
+Tools used: `R`
+
 ### Data Analysis
+
+The freshmen data has more data to analyze such as `branch`, and `shift`. However, for the purpose of this project, the analysis is focused on comparing enrollment rate from 2023 to 2024 by comparing the amount of students that enroll in each major.
+
+Tools used: `R`, `Tableau`
+
+Link:
+
+-   [EDA with R](EDA_R.html)
+
+-   [EDA with Tableau](https://public.tableau.com/app/profile/navarchus/viz/Gunadarma2023-2024Enrollment/Major)
 
 ## Results
 
