@@ -1,0 +1,26 @@
+---
+title: Analyzing Gunadarma Annual Enrollment Rate
+description: Finding the difference between 2024 and 2023 total students
+execute: 
+  echo: false
+image: images/gunadarma_logo.png
+categories: [Project, Python, R, Tableau]
+date: 2024-10-08:19:30:00
+draft: true
+---
+
+# Executive Summary
+
+## Objective
+
+## Methodology
+
+### Data Collection
+
+### Data Cleaning
+
+### Data Analysis
+
+## Results
+
+## Recommendations
