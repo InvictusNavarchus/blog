@@ -5,8 +5,8 @@ execute:
   echo: false
 image: images/gunadarma_logo.png
 categories: [Project, Python, R, Tableau]
-date: 2024-10-08:19:30:00
-draft: true
+date: 2024-10-08:08:01
+draft: false
 ---
 
 # Executive Summary
