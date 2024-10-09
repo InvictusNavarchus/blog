@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/gunadarma-annual-enrollment/index.html",
       "/posts/analyzing-manggarai-train-station/index.html",
       "/posts/imdb-top-10000-movies/index.html",
       "/posts/amazon-prime-titles-eda/index.html",

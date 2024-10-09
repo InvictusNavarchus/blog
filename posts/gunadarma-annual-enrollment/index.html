@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="invictus">
+<meta name="dcterms.date" content="2024-10-08">
+<meta name="description" content="Finding the difference between 2024 and 2023 total students">
 
-<title>Blog</title>
+<title>Analyzing Gunadarma Annual Enrollment Rate – Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,28 +26,27 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/cookie-consent/cookie-consent.js"></script>
-<link href="site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../posts/gunadarma-annual-enrollment/clean_R.html" rel="next">
+<script src="../../site_libs/cookie-consent/cookie-consent.js"></script>
+<link href="../../site_libs/cookie-consent/cookie-consent.css" rel="stylesheet">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -72,35 +74,6 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-46H31NF5Y2"></script>
 
 <script type="text/plain" cookie-consent="tracking">
@@ -137,47 +110,18 @@ var sc_security="1325b7f6";
 <script type="text/plain" cookie-consent="tracking">
 src="https://www.statcounter.com/counter/counter.js"
 async></script>
-<noscript></noscript><meta property="og:title" content="Blog">
-<meta property="og:description" content="">
-<meta property="og:image" content="https://blog.navarchus.id/posts/drg-missions-dataset/images/preview.png">
+<noscript></noscript><meta property="og:title" content="Analyzing Gunadarma Annual Enrollment Rate – Blog">
+<meta property="og:description" content="Finding the difference between 2024 and 2023 total students">
+<meta property="og:image" content="https://blog.navarchus.id/posts/gunadarma-annual-enrollment/images/gunadarma_logo.png">
 <meta property="og:site_name" content="Blog">
-<meta property="og:image:height" content="375">
-<meta property="og:image:width" content="600">
-</head><body class="nav-fixed"><div class="statcounter"><a title="Web Analytics
+<meta property="og:image:height" content="571">
+<meta property="og:image:width" content="552">
+</head><body class="nav-sidebar floating nav-fixed"><div class="statcounter"><a title="Web Analytics
 Made Easy - Statcounter" href="https://statcounter.com/" target="_blank"><img class="statcounter" src="https://c.statcounter.com/13016686/0/1325b7f6/1/" alt="Web Analytics Made Easy - Statcounter" referrerpolicy="no-referrer-when-downgrade"></a></div>
 <!-- End of Statcounter Code -->
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 
 
 
@@ -187,7 +131,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Blog</span>
     </a>
   </div>
@@ -198,7 +142,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -208,27 +152,121 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../posts/gunadarma-annual-enrollment/index.html">Executive Summary</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/gunadarma-annual-enrollment/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Executive Summary</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Source Code</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/gunadarma-annual-enrollment/clean_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cleaning Data with R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../posts/gunadarma-annual-enrollment/EDA_R.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Exploratory Data Analysis (EDA) with R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(11)</span></div><div class="category" data-category="Book Walkthrough">Book Walkthrough <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Case Study">Case Study <span class="quarto-category-count">(2)</span></div><div class="category" data-category="EDA">EDA <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Fictional Project">Fictional Project <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Project">Project <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(2)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(10)</span></div><div class="category" data-category="SQL">SQL <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Tableau">Tableau <span class="quarto-category-count">(2)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#executive-summary" id="toc-executive-summary" class="nav-link active" data-scroll-target="#executive-summary">Executive Summary</a>
+  <ul>
+  <li><a href="#background-and-objective" id="toc-background-and-objective" class="nav-link" data-scroll-target="#background-and-objective">Background and Objective</a></li>
+  <li><a href="#methodology" id="toc-methodology" class="nav-link" data-scroll-target="#methodology">Methodology</a>
+  <ul>
+  <li><a href="#data-collection" id="toc-data-collection" class="nav-link" data-scroll-target="#data-collection">Data Collection</a></li>
+  <li><a href="#dataset-sample" id="toc-dataset-sample" class="nav-link" data-scroll-target="#dataset-sample">Dataset Sample</a>
+  <ul>
+  <li><a href="#freshmen" id="toc-freshmen" class="nav-link" data-scroll-target="#freshmen">Freshmen</a></li>
+  <li><a href="#sophomores" id="toc-sophomores" class="nav-link" data-scroll-target="#sophomores">Sophomores</a></li>
+  </ul></li>
+  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">Data Cleaning</a></li>
+  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis">Data Analysis</a></li>
+  </ul></li>
+  <li><a href="#results" id="toc-results" class="nav-link" data-scroll-target="#results">Results</a>
+  <ul>
+  <li><a href="#top-three-majors-with-largest-increase" id="toc-top-three-majors-with-largest-increase" class="nav-link" data-scroll-target="#top-three-majors-with-largest-increase">Top Three Majors with Largest Increase</a></li>
+  </ul></li>
+  <li><a href="#recommendations" id="toc-recommendations" class="nav-link" data-scroll-target="#recommendations">Recommendations</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Blog</h1>
-</div>
+<h1 class="title">Analyzing Gunadarma Annual Enrollment Rate</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Project</div>
+    <div class="quarto-category">Python</div>
+    <div class="quarto-category">R</div>
+    <div class="quarto-category">Tableau</div>
+  </div>
+  </div>
 
+<div>
+  <div class="description">
+    Finding the difference between 2024 and 2023 total students
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>invictus </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 8, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -238,421 +276,144 @@ window.Quarto = {
 </header>
 
 
-<p>Hello, welcome to my blog. This blog will showcase my learning projects as well as my journey as a data analyst. Feel free to look around.</p>
+<section id="executive-summary" class="level1">
+<h1>Executive Summary</h1>
+<section id="background-and-objective" class="level2">
+<h2 class="anchored" data-anchor-id="background-and-objective">Background and Objective</h2>
+<p>Gunadarma University is one of the largest private University in Indonesia, having over 40.000 active students annually across 5 major cities. This project aims to analyze enrollment performance by comparing this year (2024) to last year (2023) enrollment data.</p>
+</section>
+<section id="methodology" class="level2">
+<h2 class="anchored" data-anchor-id="methodology">Methodology</h2>
+<section id="data-collection" class="level3">
+<h3 class="anchored" data-anchor-id="data-collection">Data Collection</h3>
+<p>The data is collected by scraping student’s class assignment information from Gunadarma’s official website, <a href="https://baak.gunadarma.ac.id/#">https://baak.gunadarma.ac.id/</a>. The freshmen data were obtained by from <a href="https://baak.gunadarma.ac.id/cariMhsBaru/" class="uri">https://baak.gunadarma.ac.id/cariMhsBaru/</a>, while the sophomores were obtained from <a href="https://baak.gunadarma.ac.id/cariKelasBaru/" class="uri">https://baak.gunadarma.ac.id/cariKelasBaru/</a>. The scraping is performed by querying each letter from A-Z as the name initials.</p>
+<p>Tools used: <code>Python</code></p>
+</section>
+<section id="dataset-sample" class="level3">
+<h3 class="anchored" data-anchor-id="dataset-sample">Dataset Sample</h3>
+<section id="freshmen" class="level4">
+<h4 class="anchored" data-anchor-id="freshmen">Freshmen</h4>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>No</strong></td>
+<td><strong>No Pend.</strong></td>
+<td><strong>Nama</strong></td>
+<td><strong>NPM</strong></td>
+<td><strong>Kelas</strong></td>
+<td><strong>Keterangan</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>I241962</td>
+<td>XXX XXX XXX</td>
+<td>10824001</td>
+<td>1MA01</td>
+<td>S1-Ilmu Komunikasi Pagi Depok</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>I244822</td>
+<td>XXX XXX XXX</td>
+<td>20624001</td>
+<td>1SB01</td>
+<td>S1-Pariwisata Pagi Depok</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>I243593</td>
+<td>XXX XXX XXX</td>
+<td>20224001</td>
+<td>1EB19</td>
+<td>SarMag S1 Akuntansi - S2 Manajemen Sistem Inf</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sophomores" class="level4">
+<h4 class="anchored" data-anchor-id="sophomores">Sophomores</h4>
+<table class="caption-top table">
+<tbody>
+<tr class="odd">
+<td><strong>No</strong></td>
+<td><strong>NPM</strong></td>
+<td><strong>Nama</strong></td>
+<td><strong>Kelas Lama</strong></td>
+<td><strong>Kelas Baru</strong></td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>60223026</td>
+<td>XXX XXX XXX</td>
+<td>1EC01</td>
+<td>2EC01</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>10123014</td>
+<td>XXX XXX XXX</td>
+<td>1KA01</td>
+<td>2KA10</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>10223027</td>
+<td>XXX XXX XXX</td>
+<td>1EA01</td>
+<td>2EA04</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="data-cleaning" class="level3">
+<h3 class="anchored" data-anchor-id="data-cleaning">Data Cleaning</h3>
+<p>The Freshmen and Sophomores’ data have slightly different columns, but not tidy enough for data analysis. Therefore, cleaning efforts were made to extrapolate information from existing columns such as <code>major</code>, <code>branch</code> , and <code>generation_year</code>. Complete report on data cleaning can be found <a href="clean_R.html">here</a></p>
+<p>Tools used: <code>R</code></p>
+</section>
+<section id="data-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="data-analysis">Data Analysis</h3>
+<p>The freshmen data has more data to analyze such as <code>branch</code>, and <code>shift</code>. However, for the purpose of this project, the analysis is focused on comparing enrollment rate from 2023 to 2024 by comparing the amount of students that enroll in each major.</p>
+<p>Tools used: <code>R</code>, <code>Tableau</code></p>
+<p>Link:</p>
+<ul>
+<li><p><a href="EDA_R.html">EDA with R</a></p></li>
+<li><p><a href="https://public.tableau.com/app/profile/navarchus/viz/Gunadarma2023-2024Enrollment/Major">EDA with Tableau</a></p></li>
+</ul>
+</section>
+</section>
+<section id="results" class="level2">
+<h2 class="anchored" data-anchor-id="results">Results</h2>
+<section id="top-three-majors-with-largest-increase" class="level3">
+<h3 class="anchored" data-anchor-id="top-three-majors-with-largest-increase">Top Three Majors with Largest Increase</h3>
+<p><img src="images/clipboard-771025618.png" class="img-fluid"></p>
+<p><img src="images/clipboard-2742344892.png" class="img-fluid"></p>
+<ol type="1">
+<li>Management major has the most improvement over other majors, having nearly 200 more students compared to other majors, with Communication and Accountant follow closely behind.</li>
+<li>Meanwhile, Computer Science has the most decrease over other majors, having over 100 less students.</li>
+</ol>
+</section>
+</section>
+<section id="recommendations" class="level2">
+<h2 class="anchored" data-anchor-id="recommendations">Recommendations</h2>
+<ol type="1">
+<li>Further research should be conducted to explore the factors affecting the rise of management major, and factors affecting the reduce in computer science.</li>
+<li>Students and Lecturers are great source of information. Including them in further research such as giving surveys and conducting interviews would be a great way to aid analysis.</li>
+</ol>
 
 
+</section>
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Project,Python,R,Tableau" data-listing-date-sort="1728374460000" data-listing-file-modified-sort="1728472500768" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="768">
-<div class="thumbnail">
-<p><a href="./posts/gunadarma-annual-enrollment/index.html" class="no-external"></a></p><a href="./posts/gunadarma-annual-enrollment/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/gunadarma-annual-enrollment/images/gunadarma_logo.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/gunadarma-annual-enrollment/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/gunadarma-annual-enrollment/index.html" class="no-external">Analyzing Gunadarma Annual Enrollment Rate</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/gunadarma-annual-enrollment/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Project'); return false;">
-Project
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
-Python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Tableau'); return false;">
-Tableau
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/gunadarma-annual-enrollment/index.html" class="no-external">Finding the difference between 2024 and 2023 total students</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/gunadarma-annual-enrollment/index.html" class="no-external">
-<div class="listing-date">
-Oct 8, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="Project,Python,R" data-listing-date-sort="1727776440000" data-listing-file-modified-sort="1728472500728" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="289">
-<div class="thumbnail">
-<p><a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external"></a></p><a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/analyzing-manggarai-train-station/images/manggarai-station.webp" class="thumbnail-image"></p>
-</a><p><a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external">Analyzing Indonesia’s Busiest Train Station: Manggarai</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Project'); return false;">
-Project
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
-Python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external">Finding the most optimal time for passengers to commute</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/analyzing-manggarai-train-station/index.html" class="no-external">
-<div class="listing-date">
-Oct 1, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="Project,SQL,R" data-listing-date-sort="1726429860000" data-listing-file-modified-sort="1728472500776" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="882">
-<div class="thumbnail">
-<p><a href="./posts/imdb-top-10000-movies/index.html" class="no-external"></a></p><a href="./posts/imdb-top-10000-movies/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/imdb-top-10000-movies/images/IMDB_Logo_2016.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/imdb-top-10000-movies/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/imdb-top-10000-movies/index.html" class="no-external">Analyzing Top 10.000 Most Popular Movies on IMDb</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/imdb-top-10000-movies/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Project'); return false;">
-Project
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('SQL'); return false;">
-SQL
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/imdb-top-10000-movies/index.html" class="no-external">Finding the common characteristics among Top 10.000 movies of all time</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/imdb-top-10000-movies/index.html" class="no-external">
-<div class="listing-date">
-Sep 15, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="Case Study,R,Tableau" data-listing-date-sort="1724689380000" data-listing-file-modified-sort="1728472500724" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="652">
-<div class="thumbnail">
-<p><a href="./posts/amazon-prime-titles-eda/index.html" class="no-external"></a></p><a href="./posts/amazon-prime-titles-eda/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/amazon-prime-titles-eda/images/primevideo-logo.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/amazon-prime-titles-eda/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/amazon-prime-titles-eda/index.html" class="no-external">EDA on Amazon Prime Movies and TV Shows</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/amazon-prime-titles-eda/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Case Study'); return false;">
-Case Study
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Tableau'); return false;">
-Tableau
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/amazon-prime-titles-eda/index.html" class="no-external">Exploratory Data Analysis on Amazon Prime Titles</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/amazon-prime-titles-eda/index.html" class="no-external">
-<div class="listing-date">
-Aug 26, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="EDA,R" data-listing-date-sort="1723615680000" data-listing-file-modified-sort="1728472500780" data-listing-date-modified-sort="1724153100000" data-listing-reading-time-sort="7" data-listing-word-count-sort="1204">
-<div class="thumbnail">
-<p><a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external"></a></p><a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/islam-growth-worldwide-eda/mosque.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external">EDA on islam religion growth worldwide</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('EDA'); return false;">
-EDA
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external">Exploring World Religion dataset to uncover the growth of Islam in various countries using R</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/islam-growth-worldwide-eda/index.html" class="no-external">
-<div class="listing-date">
-Aug 14, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="Case Study,R" data-listing-date-sort="1722416280000" data-listing-file-modified-sort="1728472500744" data-listing-date-modified-sort="1722860460000" data-listing-reading-time-sort="18" data-listing-word-count-sort="3567">
-<div class="thumbnail">
-<p><a href="./posts/drg-missions-dataset/index.html" class="no-external"></a></p><a href="./posts/drg-missions-dataset/index.html" class="no-external">
-<p><img loading="lazy" src="./posts/drg-missions-dataset/images/preview.png" class="thumbnail-image"></p>
-</a><p><a href="./posts/drg-missions-dataset/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/drg-missions-dataset/index.html" class="no-external">Case Study: Deep Rock Galactic Missions Data</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/drg-missions-dataset/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Case Study'); return false;">
-Case Study
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/drg-missions-dataset/index.html" class="no-external">Analyzing Deep Rock Galactic Daily Missions Data Over July 2024</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/drg-missions-dataset/index.html" class="no-external">
-<div class="listing-date">
-Jul 31, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-categories="Fictional Project,R" data-listing-date-sort="1721837100000" data-listing-file-modified-sort="1728472500780" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-word-count-sort="1527">
-<div class="thumbnail">
-<p><a href="./posts/revou-damc-sales/index.html" class="no-external"></a></p><a href="./posts/revou-damc-sales/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/revou-damc-sales/index_files/figure-html/unnamed-chunk-10-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/revou-damc-sales/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/revou-damc-sales/index.html" class="no-external">Case Study: RevoU DAMC Certification (July 22)</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/revou-damc-sales/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Fictional Project'); return false;">
-Fictional Project
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/revou-damc-sales/index.html" class="no-external">See how I tackle RevoU DAMC’s Certification Case Study using R</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/revou-damc-sales/index.html" class="no-external">
-<div class="listing-date">
-Jul 24, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="7" data-categories="Book Walkthrough,R" data-listing-date-sort="1721174400000" data-listing-file-modified-sort="1728472500764" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="880">
-<div class="thumbnail">
-<p><a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external"></a></p><a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/g4ds-getting-started-part-2/index_files/figure-html/unnamed-chunk-4-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external">Working through G4DS: Getting Started - Part 2</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Book Walkthrough'); return false;">
-Book Walkthrough
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external">Follow along while I go through this book for the first time</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/g4ds-getting-started-part-2/index.html" class="no-external">
-<div class="listing-date">
-Jul 17, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="8" data-listing-date-sort="1721001600000" data-listing-file-modified-sort="1728472500784" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="473">
-<div class="thumbnail">
-<p><a href="./posts/setting-up-web-analytics/index.html" class="no-external"></a></p><a href="./posts/setting-up-web-analytics/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/setting-up-web-analytics/images/Screenshot_20240715_162845.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/setting-up-web-analytics/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/setting-up-web-analytics/index.html" class="no-external">Setting Up Web Analytics</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/setting-up-web-analytics/index.html" class="no-external"></a>
-</div>
-<div class="listing-description">
-<a href="./posts/setting-up-web-analytics/index.html" class="no-external">Setting up Google Analytics and Statscounter on this site</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/setting-up-web-analytics/index.html" class="no-external">
-<div class="listing-date">
-Jul 15, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="9" data-categories="Book Walkthrough,R" data-listing-date-sort="1720483200000" data-listing-file-modified-sort="1728472500764" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="9" data-listing-word-count-sort="1673">
-<div class="thumbnail">
-<p><a href="./posts/g4ds-getting-started/index.html" class="no-external"></a></p><a href="./posts/g4ds-getting-started/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/g4ds-getting-started/images/1_screenshot_dataset.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/g4ds-getting-started/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/g4ds-getting-started/index.html" class="no-external">Working through G4DS: Getting Started - Part 1</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/g4ds-getting-started/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Book Walkthrough'); return false;">
-Book Walkthrough
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/g4ds-getting-started/index.html" class="no-external">This is the first post on this series. I will go over the book and give genuine commentary as I follow the tutorial.</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/g4ds-getting-started/index.html" class="no-external">
-<div class="listing-date">
-Jul 9, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="10" data-categories="Fictional Project,R" data-listing-date-sort="1720051200000" data-listing-file-modified-sort="1728472500784" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="502">
-<div class="thumbnail">
-<p><a href="./posts/smartpath-customer-data/index.html" class="no-external"></a></p><a href="./posts/smartpath-customer-data/index.html" class="no-external">
-<p class="card-img-top"><img src="posts/smartpath-customer-data/index_files/figure-html/unnamed-chunk-10-1.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./posts/smartpath-customer-data/index.html" class="no-external"></a></p>
-</div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/smartpath-customer-data/index.html" class="no-external">SmartPath - Customer Data</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./posts/smartpath-customer-data/index.html" class="no-external"></a>
-</div>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('Fictional Project'); return false;">
-Fictional Project
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('R'); return false;">
-R
-</div>
-</div>
-<div class="listing-description">
-<a href="./posts/smartpath-customer-data/index.html" class="no-external">Exploring the fictional dataset Customer Data, provided during SmartPath Data Analyst Bootcamp</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./posts/smartpath-customer-data/index.html" class="no-external">
-<div class="listing-date">
-Jul 4, 2024
-</div>
-<div class="listing-author">
-invictus
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div><a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -1217,6 +978,19 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<script src="https://giscus.app/client.js" data-repo="invictusnavarchus/blog" data-repo-id="R_kgDOMR7VJw" data-category="Blog Comments (Giscus)" data-category-id="DIC_kwDOMR7VJ84CgsU5" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="preferred_color_scheme" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="preferred_color_scheme">
+<input type="hidden" id="giscus-alt-theme" value="preferred_color_scheme">
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../../posts/gunadarma-annual-enrollment/clean_R.html" class="pagination-link" aria-label="Cleaning Data with R">
+        <span class="nav-page-text">Cleaning Data with R</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
