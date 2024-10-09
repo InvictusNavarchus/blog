@@ -1,0 +1,10 @@
+id: imdb-top-10000-movies
+contents:
+  - text: "Executive Summary"
+    href: posts/gunadarma-annual-enrollment/index.qmd
+  - section: 'Source Code'
+    contents:
+    - text: 'Cleaning Data with R'
+      href: posts/gunadarma-annual-enrollment/clean_R.qmd
+    - text: "Exploratory Data Analysis (EDA) with R"
+      href: posts/gunadarma-annual-enrollment/EDA_R.qmd

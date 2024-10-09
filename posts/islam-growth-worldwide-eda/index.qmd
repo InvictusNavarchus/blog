@@ -1,0 +1,505 @@
+---
+title: EDA on islam religion growth worldwide
+description: Exploring World Religion dataset to uncover the growth of Islam in various countries using R
+date: 2024-08-14:06:08:00
+date-modified: 2024-08-20:11:25:00
+categories: [EDA, R]
+image: mosque.png
+toc-expand: true
+---
+
+## Setup
+
+```{r}
+library(tidyverse)
+library(visdat)
+library(DataExplorer)
+library(naniar)
+library(janitor)
+library(validate)
+library(countrycode)
+```
+
+```{r}
+df <- read_csv('./ThrowbackDataThursday 201912 - Religion.csv')
+```
+
+## Inspect Dataset
+
+### Understand the data
+
+```{r}
+df
+```
+
+```{r}
+df |> names()
+```
+### Check Data Quality
+
+#### Missing Values
+
+```{r}
+df |> 
+  vis_miss()
+```
+
+
+```{r}
+df |> 
+  vis_expect(function(x) x != 0)
+```
+```{r}
+df |> 
+  replace_with_na_all(~ . == 0) |> 
+  vis_miss()
+```
+
+##### Total Population Columns
+
+```{r}
+df |> 
+  select(contains('Total') & contains('Population')) |> 
+  rename_with(function(x) str_remove(x, ' - Total \\(Population\\)')) |> 
+  replace_with_na_all(~ . == 0) |> 
+  vis_miss(sort_miss = TRUE)
+```
+
+##### Total Percent Columns
+
+```{r}
+df |> 
+  select(contains('Total') & contains('Percent')) |> 
+  rename_with(function(x) str_remove(x, ' - Total \\(Percent\\)')) |> 
+  replace_with_na_all(~ . == 0) |> 
+  vis_miss(sort_miss = TRUE)
+```
+
+##### Population but Non Total columns
+
+```{r}
+df |> 
+  select(-contains('Total') & contains('Population')) |>
+  rename_with(function(x) str_remove(x, ' \\(Population\\)')) |> 
+  replace_with_na_all(~ . == 0) |> 
+  vis_miss(sort_miss = TRUE)
+```
+
+
+## Clean Data
+
+### Pick relevant columns
+
+```{r}
+df_islam <- df |> 
+  select(Country = StateNme, Year, starts_with('Islam'))
+
+df_islam
+```
+
+### Check Data type
+
+```{r}
+df_islam |> 
+  str()
+```
+
+#### Fix Data Types
+
+```{r}
+df_islam_correct_type <- df_islam |> 
+  mutate(Country = as_factor(Country))
+```
+
+### Check Duplicate
+
+```{r}
+df_islam_correct_type |> names()
+```
+
+#### Check duplicate Year
+
+```{r}
+df_islam_correct_type |> 
+  get_dupes() |> 
+  relocate(dupe_count)
+```
+
+```{r}
+df_islam_correct_type |>
+  count(Year, Country) |> 
+  arrange(desc(n)) |> 
+  count(n)
+```
+
+#### Remove duplicate using distinct()
+
+```{r}
+df_islam |> 
+  nrow()
+```
+
+```{r}
+df_islam_correct_type |> 
+  distinct() |> 
+  nrow()
+```
+
+```{r}
+df_islam_removedduplicate <- df_islam_correct_type |> 
+  distinct()
+```
+
+### Normalize Dataframe
+
+#### Remove redundant 'Islam'
+
+```{r}
+df_islam_columns_renamed <- df_islam_removedduplicate |> 
+  rename_with(function(x) str_remove(x, 'Islam - '),
+              starts_with('Islam'))
+```
+
+### Check Missing Value
+
+```{r}
+df_islam_columns_renamed |> 
+  vis_miss()
+```
+
+```{r}
+df_islam_replacedna <- df_islam_columns_renamed |> 
+  mutate(across(everything(), function(x) replace_na(x, 0)))
+
+df_islam_replacedna |> 
+  vis_miss()
+```
+
+#### Check Zero Distribution (Possible Null Value)
+
+```{r}
+df_islam_replacedna |>
+  select(!Country) |> 
+  vis_expect(function(x) x != 0)
+```
+#### Replace zero with NA
+
+```{r}
+df_islam_replacedzero <- df_islam_replacedna |> 
+  mutate(across(everything(), function(x) if_else(x == 0, NA, x)))
+```
+
+### Check Missing Value (Second Stage)
+
+```{r}
+df_islam_replacedzero |> 
+  miss_var_summary()
+```
+
+
+```{r}
+df_islam_replacedzero |> 
+  gg_miss_var()
+```
+
+```{r}
+df_islam_replacedzero
+```
+
+
+```{r}
+df_islam_replacedzero |> 
+  gg_miss_upset()
+```
+
+### Check Data Constrains
+
+#### Check Country Names
+
+##### Exact Check
+
+```{r}
+valid_countries <- codelist$country.name.en
+df_country_only <- df_islam |> 
+  distinct(Country)
+
+validation_rules_country <- validator(
+  Country %in% valid_countries
+)
+
+cf_country <- confront(df_country_only, validation_rules_country)
+```
+
+```{r}
+summary(cf_country)
+```
+```{r}
+invalid_country <- violating(df_country_only, cf_country) |> 
+  arrange(Country) |> 
+  pull(Country)
+
+invalid_country
+```
+
+##### Automated Check by countrycode Package
+
+```{r}
+tibble(invalid_country_name = invalid_country,
+       converted_country_name = countryname(invalid_country))
+```
+
+##### Correct Country Names
+
+```{r}
+df_islam_correct_country <- df_islam_replacedzero |> 
+  mutate(Country = countryname(Country))
+```
+
+
+#### Check Integers
+
+```{r}
+validation_rules_integer <- validator(
+  `Sunni (Population)` %% 1 == 0,
+  `Shi'a (Population)` %% 1 == 0,
+  `Ibadhi (Population)` %% 1 == 0,
+  `Nation of Islam (Population)` %% 1 == 0,
+  `Alawite (Population)` %% 1 == 0,
+  `Ahmadiyya (Population)` %% 1 == 0,
+  `Others (Population)` %% 1 == 0,
+  `Total (Population)` %% 1 == 0
+)
+cf_integer <- confront(df_islam_correct_country, validation_rules_integer)
+summary(cf_integer)
+```
+#### Check Decimals
+
+```{r}
+validation_rules_decimal <- validator(
+  `Sunni (Percent)` %% 1 > 0,
+  `Shi'a (Percent)` %% 1 > 0,
+  `Ibadhi (Percent)` %% 1 > 0,
+  `Nation of Islam (Percent)` %% 1 > 0,
+  `Alawite (Percent)` %% 1 > 0,
+  `Ahmadiyya (Percent)` %% 1 > 0,
+  `Others (Percent)` %% 1 > 0,
+  `Total (Percent)` %% 1 > 0
+)
+
+cf_decimal <- confront(df_islam_correct_country,validation_rules_decimal)
+summary(cf_decimal)
+```
+```{r}
+violating(df_islam_correct_country |> 
+            select(Country, Year, contains('Percent')),
+          cf_decimal)
+```
+
+### Check Record Completeness
+
+#### By Year
+
+```{r}
+df_islam_replacedzero |> 
+  ggplot(aes(Year)) +
+  geom_line(stat = 'count') + 
+  geom_point(stat='count') +
+  scale_x_continuous(breaks = seq(1945, 2010, by=5))
+```
+
+#### By Country
+
+```{r}
+df_islam_replacedzero |> 
+  distinct(Country) |> 
+  nrow()
+```
+#### Country Per Year
+
+```{r}
+df_islam_year_data <- df_islam_replacedzero |> 
+  count(Country) |> 
+  count(n) |> 
+  arrange(desc(nn)) |> 
+  rename('Year Data Availibility' = n, 'Total Country' = nn)
+
+df_islam_year_data |> 
+  ggplot(aes(`Year Data Availibility`, `Total Country`)) +
+  geom_col() +
+  scale_x_continuous(breaks = seq(1:14))
+```
+
+```{r}
+validation_rules_year <- validator(
+  contains_at_least( 
+      keys = data.frame(Year = seq(1945, 2010, by=5)),
+      by=list(Country) )
+)
+
+cf_year <- confront(df_islam_replacedzero, validation_rules_year)
+summary(cf_year)
+```
+
+```{r}
+incomplete_country <- violating(df_islam_replacedzero, cf_year) |> 
+  select(Country, Year)
+```
+
+##### Check Year Gap
+
+```{r}
+incomplete_country |>
+  group_by(Country) |> 
+  mutate(lagged_Year = lag(Year, default = first(Year))) |> 
+  mutate(Year_Gap = Year -lagged_Year) |> 
+  ggplot(aes(Year_Gap)) +
+  geom_bar() +
+  scale_x_continuous(breaks = seq(0,100, by=5))
+```
+##### Average Starting Year
+
+```{r}
+df_islam_replacedzero |> 
+  select(Country, Year) |> 
+  group_by(Country) |> 
+  slice(1) |> 
+  ggplot(aes(Year)) +
+  geom_bar() +
+  scale_x_continuous(breaks = seq(1945, 2010, by=5))
+```
+##### Average Final Year
+
+```{r}
+df_islam_final_year_count <- df_islam_replacedzero |> 
+  select(Country, Year) |> 
+  group_by(Country) |> 
+  slice_tail() |> 
+  ungroup() |> 
+  count(Year)
+
+df_islam_final_year_count
+```
+```{r}
+df_islam_final_year_count |> 
+  ggplot(aes(Year, n)) +
+  geom_col()
+```
+
+### Normalize Dataframe
+
+#### Separate `Population` from `Percent` columns
+
+```{r}
+df_islam_population <- df_islam_correct_country |> 
+  select(Country, Year, contains('Population')) |> 
+  rename_with(function(x) str_remove(x, ' \\(Population\\)'),
+              contains('Population'))
+
+df_islam_population
+```
+
+```{r}
+df_islam_percent <- df_islam_correct_country |> 
+  select(Country, Year, contains('Percent')) |> 
+  rename_with(function(x) str_remove(x, ' \\(Percent\\)'),
+              contains('Percent'))
+
+df_islam_percent
+```
+
+### Check Sanity
+
+#### Check whether Total value equals to all the other columns combined
+
+##### Population
+
+```{r}
+df_islam_population_total_check <- df_islam_population |> 
+  mutate(Total_Recheck = rowSums(across(-c(Country, Year, Total)), na.rm = TRUE)) |> 
+  mutate(Total_Recheck = if_else(Total_Recheck == 0, NA, Total_Recheck)) |> 
+  relocate(Total, Total_Recheck, .after = Year)
+
+validation_rules_total_population <- validator(Total == Total_Recheck)
+cf_total_population <- confront(df_islam_population_total_check, validation_rules_total_population)
+summary(cf_total_population)
+```
+
+```{r}
+violating(df_islam_population_total_check, cf_total_population)
+```
+##### Percent
+
+```{r}
+df_islam_percent_total_check <- df_islam_percent |> 
+  mutate(Total_Recheck = rowSums(across(-c(Country, Year, Total)), na.rm = TRUE)) |> 
+  mutate(Total_Recheck = if_else(Total_Recheck == 0, NA, Total_Recheck)) |> 
+  relocate(Total, Total_Recheck, .after = Year)
+
+validation_rules_total_percent <- validator(Total == Total_Recheck)
+cf_total_percent <- confront(df_islam_percent_total_check, validation_rules_total_percent)
+summary(cf_total_percent)
+```
+
+```{r}
+violating(df_islam_percent_total_check, cf_total_percent)
+```
+
+### Check Distribution
+
+#### Population
+
+```{r}
+ df_islam_population |> 
+  plot_histogram(ncol = 1)
+```
+#### Percent
+
+```{r}
+df_islam_percent |> 
+  plot_histogram(ncol = 1)
+```
+
+### Cleaning Summary
+
+#### Verified Values
+
+1. All Population columns are integers
+2. All Percentage columns are decimals
+3. No missing year records in-between. For example: 1945, 1950, 1960 (missing 1955)
+4. `Total Population` column is equal to other `Population` columns combined
+5. `Total Percent` column is equal to other `Percent` columns combined
+
+#### Changes Applied
+
+1. Removed 58 irrelevant columns
+2. Corrected 1 column's data type
+3. Removed 303 duplicate rows
+4. Replaced all `0` values (71% of all data) with `NA`
+5. Corrected 16 countries' names
+6. Separate Population and Percent columns into two dataframes.
+7. Remove 'Islam - ' prefix and '(Population)'/'(Percent)' suffix
+
+#### Other findings
+
+1. Extremely high prevalence of missing values.
+2. The majority of countries (60) have complete records from 1945 to 2010. But the rest vary. Ranging from only having 1 to 14 records.
+3. Despite point 1, nearly all countries have record of 2010, 2005, 2000, and so on. So, the missing records started from the bottom.
+
+### Next Steps
+
+The plan was to analyze the growth of islam worldwide. However, the prevalenece of missing values are concerning. Most non-null values come from `Sunni` and `Others` category. So, it's better to just use the `Total` column.
+
+If you look at the data quality check at the beginning, Islam is actually the least variable with missing values. Other religions are even more dominated by missing values. This reduces the credibility of the data itself. Although, it wasn't clearly mentioned what's the data source anyway.
+
+I can continue analyzing with just focusing on the overall Islam growth, but I doubt the finding would be trustworthy. For now, let's convert the latest data frame into csv for later analysis. I'm thinking of uploading it to Tableau for easier exploration.
+
+#### Export to CSV for further analysis
+
+```{r}
+df_islam_population |> 
+  write_csv('dataset_islam_population.csv')
+
+df_islam_percent |> 
+  write_csv('dataset_islam_percent.csv')
+```
+

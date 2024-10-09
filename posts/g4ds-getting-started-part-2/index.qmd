@@ -1,11 +1,9 @@
 ---
 title: "Working through G4DS: Getting Started - Part 2"
 description: "Follow along while I go through this book for the first time"
-author: "invictus"
 date: "7/17/2024"
 draft: false
-toc: true
-toc-depth: 6
+categories: [Book Walkthrough, R]
 ---
 
 ## Introduction

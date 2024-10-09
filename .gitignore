@@ -9,3 +9,5 @@ _site/
 _freeze/
 **/index_files/
 **/index_cache/
+**/EDA_R_files/
+**/EDA_R_cache/

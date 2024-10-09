@@ -1,0 +1,297 @@
+# Clean Data
+
+## Setup
+
+### Library
+
+```{r}
+library(tidyverse)
+library(janitor)
+library(naniar)
+library(scales)
+library(summarytools)
+library(DataExplorer)
+library(corrr)
+```
+
+### Options
+
+```{r}
+options(scipen = 999)
+```
+
+## Student Gen 23
+
+```{r}
+df_student_gen_23 <- read_csv('student_list_generation_23.csv')
+```
+
+### Remove Duplicates
+
+```{r}
+df_student_gen_23 |> 
+  get_dupes(NPM, Nama)
+```
+
+```{r}
+df_student_gen_23_unique <- df_student_gen_23 |> 
+  distinct(NPM, Nama, .keep_all = TRUE)
+```
+
+```{r}
+df_student_gen_23_unique
+```
+
+### Remove Irrelevant Columns
+
+```{r}
+df_student_gen_23_relevant_columns <- df_student_gen_23_unique |> 
+  select(NPM, `Kelas Baru`)
+```
+
+```{r}
+df_student_gen_23_relevant_columns
+```
+
+### Rename Columns
+
+```{r}
+df_student_gen_23_renamed <- df_student_gen_23_relevant_columns |> 
+  rename(student_id = NPM, class_code = `Kelas Baru`)
+```
+
+### Split Class Code
+
+```{r}
+df_student_gen_23_split_classcode <- df_student_gen_23_renamed |> 
+  separate_wider_regex(class_code,
+                       patterns =  c(year_code = '\\d+', major_code = '[A-Z]+', class_number= '\\d+'),
+                       too_few = 'align_start',
+                       cols_remove = FALSE)
+```
+
+## Student Gen 24
+
+```{r}
+df_student_gen_24 <- read_csv('student_list_generation_24.csv')
+```
+```{r}
+df_student_gen_24
+```
+### Check Duplicates
+
+```{r}
+df_student_gen_24 |> 
+  get_dupes(NPM)
+```
+### Remove Irrelevant Columns
+
+```{r}
+df_student_gen_24_relevant_columns <- df_student_gen_24 |> 
+  select(NPM, Kelas, Keterangan)
+```
+
+### Rename Columns
+
+```{r}
+df_student_gen_24_renamed <- df_student_gen_24_relevant_columns |> 
+  rename(student_id = NPM, class_code = Kelas, additional_info = Keterangan)
+```
+
+```{r}
+df_student_gen_24_renamed
+```
+
+### Split Class Code
+
+```{r}
+df_student_gen_24_split_class <-  df_student_gen_24_renamed |> 
+  separate_wider_regex(class_code,
+                       patterns = c(year_code = '\\d+',
+                                    major_code = '[A-Z]+',
+                                    class_number = '\\d+'),
+                       too_few = 'align_start',
+                       cols_remove = FALSE)
+```
+
+#### Check Invalid Class Code
+
+```{r}
+df_student_gen_24_split_class |> 
+  select(year_code, class_code) |> 
+  filter(is.na(year_code))
+```
+
+### Split Additional Info
+
+```{r}
+df_student_gen_24_split_class |> 
+  select(additional_info) |> 
+  write_csv('additional_info.csv')
+```
+
+```{r}
+df_student_gen_24_split_info <-  df_student_gen_24_split_class |> 
+  separate_wider_regex(additional_info,
+      patterns = c(
+          degree = "(?:S1|D3|SarMag S1)",
+          "(?:\\s?-?\\s?)",
+          major = "(?:.+?)(?=\\s+(?:Pagi|Sore|Malam))",
+          "(?:\\s+)",
+          shift = "(?:Pagi|Sore|Malam)",
+          "(?:\\s+)",
+          branch = "(?:.+)"
+      ),
+      too_few = 'align_start',
+      cols_remove = FALSE
+  )
+```
+
+### Investigate SarMag
+
+```{r}
+df_student_gen_24_split_info
+```
+
+```{r}
+df_student_gen_24_sarmag <- df_student_gen_24_split_info |> 
+  filter(degree == 'SarMag S1')
+```
+
+```{r}
+df_student_gen_24_sarmag |> 
+  select(degree:additional_info) |> 
+  write_csv('sarmag.csv')
+```
+
+### Parse SarMag Special Info
+
+```{r}
+df_student_gen_24_parse_sarmag <- df_student_gen_24_split_info |> separate_wider_regex(
+    additional_info,
+    patterns = c(
+      "SarMag S1 ",
+      major_s1 = "[^-]+",
+      " - S2 ",
+      major_s2 = ".+"
+    ),
+    too_few = 'align_start',
+    cols_remove = FALSE
+  )
+```
+
+#### Merge major into major_s1
+
+```{r}
+df_student_gen_24_parse_sarmag <- df_student_gen_24_parse_sarmag |> 
+   mutate(major = if_else(is.na(major), major_s1, major))
+```
+
+#### Fix Typo
+
+```{r}
+df_student_gen_24_parse_sarmag_fixed_typo <- df_student_gen_24_parse_sarmag |> 
+  mutate(major = if_else(major == 'SistemInformasi', 'Sistem Informasi', major)) |> 
+  mutate(major = if_else(major == "Arsitektur", "Teknik Arsitektur", major))
+```
+
+#### add SarMag Branch
+
+```{r}
+df_student_gen_24_parse_sarmag_add_branch <- df_student_gen_24_parse_sarmag_fixed_typo |> 
+  mutate(branch = if_else(str_detect(degree, 'SarMag'), 'Jakarta', branch))
+```
+
+## Combine Dataset
+
+### Review Gen 23 Dataset
+
+```{r}
+df_student_gen_23_split_classcode
+```
+
+### Extract Major Codes from Gen 24 Dataset 
+
+```{r}
+df_major_code <- df_student_gen_24_parse_sarmag_add_branch |> 
+  distinct(major_code, major) |>
+  drop_na()
+```
+
+```{r}
+df_major_code
+```
+
+
+#### Check Duplicates
+
+```{r}
+df_major_code |> 
+  get_dupes(major_code)
+```
+
+### Integrate Major Code Dataset to Gen 24 Dataset
+
+```{r}
+df_student_gen_23_add_major <- df_student_gen_23_split_classcode |> 
+  left_join(df_major_code, by = 'major_code')
+```
+
+
+### Add generation_year column to both dataset
+
+```{r}
+df_student_gen_23_add_gen_year <- df_student_gen_23_add_major |> 
+  mutate(generation_year = 2023)
+```
+
+```{r}
+df_student_gen_24_parse_sarmag_add_gen_year <-  df_student_gen_24_parse_sarmag_add_branch |> 
+  mutate(generation_year = 2024)
+```
+
+### Bind Rows
+
+```{r}
+df_combined_dataset <- df_student_gen_23_add_gen_year |> 
+  bind_rows(df_student_gen_24_parse_sarmag_add_gen_year)
+```
+
+```{r}
+df_combined_dataset |> 
+  glimpse()
+```
+
+### Final Cleanup
+
+#### Remove unnecessary columns
+
+```{r}
+df_combined_dataset_removed_columns <- df_combined_dataset |> 
+  select(-(major_s1:additional_info))
+```
+
+#### Slight Degree Value Change
+
+```{r}
+df_combined_dataset_change_degree <- df_combined_dataset_removed_columns |> 
+  mutate(degree = if_else(degree == "SarMag S1", "SarMag", degree))
+```
+
+```{r}
+df_combined_dataset_fix_unknown_major <- df_combined_dataset_change_degree |>
+  mutate(major = case_when(
+    major_code == 'HD' ~ 'Profesi Kedokteran',
+    major_code == 'HE' ~ 'Profesi Bidan',
+    TRUE ~ major  # This will keep the original value for all other cases, including NA
+  ))
+```
+
+## Export Cleaned Data
+
+```{r}
+df_combined_dataset_fix_unknown_major |> 
+  write_csv('combined_cleaned_dataset.csv')
+```
+
+
